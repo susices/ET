@@ -41,7 +41,6 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <None Include="Assets\StreamingAssets\Version.txt" />
      <None Include="Assets\Resources\Config\GlobalProto.txt" />
      <None Include="Assets\link.xml" />
      <Reference Include="UnityEngine">

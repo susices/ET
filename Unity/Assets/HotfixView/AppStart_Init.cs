@@ -25,6 +25,7 @@ namespace ET
             Game.Scene.AddComponent<GlobalComponent>();
 
             Game.Scene.AddComponent<AIDispatcherComponent>();
+            
 
             ResourcesComponent.Instance.LoadBundle("unit.unity3d");
 

@@ -346,6 +346,37 @@ namespace ET
 
 	}
 
+	[ResponseType(typeof(R2C_Register))]
+	[Message(OuterOpcode.C2R_Register)]
+	[ProtoContract]
+	public partial class C2R_Register: Object, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public string Account { get; set; }
+
+		[ProtoMember(2)]
+		public string Password { get; set; }
+
+	}
+
+	[Message(OuterOpcode.R2C_Register)]
+	[ProtoContract]
+	public partial class R2C_Register: Object, IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
 	[ResponseType(typeof(G2C_LoginGate))]
 	[Message(OuterOpcode.C2G_LoginGate)]
 	[ProtoContract]

@@ -11,9 +11,12 @@ namespace ET
 		public override void Awake(UILoginComponent self)
 		{
 			ReferenceCollector rc = self.GetParent<UI>().GameObject.GetComponent<ReferenceCollector>();
-			self.loginBtn = rc.Get<GameObject>("LoginBtn");
-			self.loginBtn.GetComponent<Button>().onClick.AddListener(self.OnLogin);
-			self.account = rc.Get<GameObject>("Account");
+			self.accountIpt = rc.Get<GameObject>("Account").GetComponent<InputField>();
+			self.passwordIpt = rc.Get<GameObject>("Password").GetComponent<InputField>();
+			self.loginBtn = rc.Get<GameObject>("LoginBtn").GetComponent<Button>();
+			self.loginBtn.onClick.AddListener(self.OnLogin);
+			self.registerBtn = rc.Get<GameObject>("RegisterBtn").GetComponent<Button>();
+			self.registerBtn.onClick.AddListener(self.OnRegieter);
 		}
 	}
 	
@@ -21,7 +24,12 @@ namespace ET
 	{
 		public static void OnLogin(this UILoginComponent self)
 		{
-			LoginHelper.Login(self.DomainScene(), "127.0.0.1:10002", self.account.GetComponent<InputField>().text).Coroutine();
+			LoginHelper.Login(self.DomainScene(), "127.0.0.1:10002", self.accountIpt.text).Coroutine();
+		}
+
+		public static void OnRegieter(this UILoginComponent self)
+		{
+			LoginHelper.Register(self.DomainScene(), "127.0.0.1:10002", self.accountIpt.text, self.passwordIpt.text).Coroutine();
 		}
 	}
 }

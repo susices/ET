@@ -14,7 +14,6 @@ namespace ET
 		public List<string> Transfers = new List<string>();
 		
 		public const int TaskCount = 32;
-		
 		public MongoClient mongoClient;
 		public IMongoDatabase database;
 		

@@ -1,3 +1,2 @@
 
-mongdb://127.0.0.1ET1
-mongdb://127.0.0.1ET2
+&mongodb://localhost:27017/MMORPG

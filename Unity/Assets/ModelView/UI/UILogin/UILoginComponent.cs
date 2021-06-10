@@ -8,7 +8,24 @@ namespace ET
 {
 	public class UILoginComponent: Entity
 	{
-		public GameObject account;
-		public GameObject loginBtn;
+		/// <summary>
+		/// 用户名Ipt
+		/// </summary>
+		public InputField accountIpt;
+
+		/// <summary>
+		/// 密码Ipt
+		/// </summary>
+		public InputField passwordIpt;
+		
+		/// <summary>
+		/// 登录Btn
+		/// </summary>
+		public Button loginBtn;
+		
+		/// <summary>
+		/// 注册Btn
+		/// </summary>
+		public Button registerBtn;
 	}
 }

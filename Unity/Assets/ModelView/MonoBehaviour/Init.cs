@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -28,6 +29,8 @@ namespace ET
 					Game.EventSystem.Add(assembly);	
 				}
 				
+
+
 				ProtobufHelper.Init();
 				
 				Game.Options = new Options();
@@ -54,6 +57,7 @@ namespace ET
 		private void OnApplicationQuit()
 		{
 			Game.Close();
+			
 		}
 	}
 }

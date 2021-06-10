@@ -32,6 +32,24 @@ namespace ET
             {
                 Log.Error(e);
             }
-        } 
+        }
+        
+        public static async ETVoid Register(Scene zoneScene, string address,string account, string password)
+        {
+            // 创建一个ETModel层的Session
+            R2C_Register r2CRegister;
+            using (Session session = zoneScene.GetComponent<NetKcpComponent>().Create(NetworkHelper.ToIPEndPoint(address)))
+            {
+                r2CRegister = (R2C_Register) await session.Call(new C2R_Register() { Account = account, Password = password});
+            }
+            if (r2CRegister.Error == ErrorCode.ERR_Success)
+            {
+                Log.Debug("注册成功！");
+            }
+            else
+            {
+                Log.Error("注册失败！");
+            }
+        }
     }
 }
