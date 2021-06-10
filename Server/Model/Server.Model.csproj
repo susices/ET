@@ -62,6 +62,9 @@
     <Compile Include="..\..\Unity\Assets\Model\Module\CoroutineLock\CoroutineLockType.cs">
       <Link>Module\CoroutineLock\CoroutineLockType.cs</Link>
     </Compile>
+    <Compile Include="..\..\Unity\Assets\Model\Module\Message\DataUpdateMode.cs">
+      <Link>Module\Message\DataUpdateMode.cs</Link>
+    </Compile>
     <Compile Include="..\..\Unity\Assets\Model\Module\Message\MessageDispatcherComponent.cs">
       <Link>Module\Message\MessageDispatcherComponent.cs</Link>
     </Compile>

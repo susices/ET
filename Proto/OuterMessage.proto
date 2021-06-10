@@ -258,6 +258,8 @@ message M2C_BagInfo // IResponse
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
+	int32 UpdateMode = 1;
+	repeated BagItem BagItems =2;
 }
 
 
