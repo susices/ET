@@ -4,6 +4,5 @@
     {
         public string AccountName;
         public string Password;
-
     }
 }

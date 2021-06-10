@@ -241,6 +241,28 @@ message G2C_PlayerInfo // IResponse
     repeated int64 TestRepeatedInt64 = 5;
 }
 
+message BagItem //IMessage
+{
+	int32 itemId = 90;
+	int32 count = 91;
+}
+
+//ResponseType M2C_BagInfo
+message C2M_BagInfo // IRequest
+{
+	int32 RpcId = 90;
+}
+
+message M2C_BagInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+
+
 
 
 
