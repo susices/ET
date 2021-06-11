@@ -54,4 +54,19 @@
             set;
         }
     }
+
+    public interface IDataMessage : IMessage
+    {
+        public int DataId
+        {
+            get;
+            set;
+        }
+
+        public int DataValue
+        {
+            get;
+            set;
+        }
+    }
 }

@@ -503,4 +503,47 @@ namespace ET
 
 	}
 
+	[Message(OuterOpcode.BagItem)]
+	[ProtoContract]
+	public partial class BagItem: Object, IDataMessage
+	{
+		[ProtoMember(1)]
+		public int DataId { get; set; }
+
+		[ProtoMember(2)]
+		public int DataValue { get; set; }
+
+	}
+
+	[ResponseType(typeof(M2C_BagInfo))]
+	[Message(OuterOpcode.C2M_BagInfo)]
+	[ProtoContract]
+	public partial class C2M_BagInfo: Object, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_BagInfo)]
+	[ProtoContract]
+	public partial class M2C_BagInfo: Object, IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public int UpdateMode { get; set; }
+
+		[ProtoMember(2)]
+		public List<BagItem> BagItems = new List<BagItem>();
+
+	}
+
 }

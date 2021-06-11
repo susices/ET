@@ -227,7 +227,7 @@ message PlayerInfo // IMessage
 message C2G_PlayerInfo // IRequest
 {
 	int32 RpcId = 90;
-}
+}  
 
 message G2C_PlayerInfo // IResponse
 {
@@ -241,10 +241,10 @@ message G2C_PlayerInfo // IResponse
     repeated int64 TestRepeatedInt64 = 5;
 }
 
-message BagItem //IMessage
+message BagItem // IDataMessage
 {
-	int32 itemId = 90;
-	int32 count = 91;
+	int32 DataId = 1;
+	int32 DataValue = 2;
 }
 
 //ResponseType M2C_BagInfo
@@ -259,7 +259,7 @@ message M2C_BagInfo // IResponse
 	int32 Error = 91;
 	string Message = 92;
 	int32 UpdateMode = 1;
-	repeated BagItem BagItems =2;
+	repeated BagItem BagItems = 2;
 }
 
 

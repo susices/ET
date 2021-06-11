@@ -1,4 +1,7 @@
-﻿namespace ET
+﻿using System;
+using System.Collections.Generic;
+
+namespace ET
 {
     /// <summary>
     /// 数据更新模式
@@ -14,5 +17,6 @@
         /// 差异更新 只对指定数据项列表进行覆盖 
         /// </summary>
         public const int Difference = 2;
+        
     }
 }

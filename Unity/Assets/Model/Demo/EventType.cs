@@ -1,4 +1,7 @@
-﻿namespace ET
+﻿using System;
+using System.Collections.Generic;
+
+namespace ET
 {
     namespace EventType
     {
@@ -70,6 +73,16 @@
         public struct MoveStop
         {
             public Unit Unit;
+        }
+
+        /// <summary>
+        /// 数据更新
+        /// </summary>
+        public struct DataUpdate
+        {
+            public Type LogicComponentType;
+            public int DataUpdateMode;
+            public Dictionary<int, IDataMessage> DataMessageDic;
         }
     }
 }
