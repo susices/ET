@@ -12,16 +12,8 @@ namespace ET
         /// </summary>
         public static void OverwriteUpdate<T>(DataSetComponent dataSetComponent, List<T> dataList) where T: class,IDataMessage
         {
-            var type = typeof (T);
             var dataSet = dataSetComponent.DataSet;
-            if (dataSet.ContainsKey(type))
-            {
-                dataSet[type].Clear();
-            }
-            else
-            {
-                dataSet.Add(type,new Dictionary<int, IDataMessage>());
-            }
+            dataSet.Clear();
 
             if (dataList==null || dataList.Count==0)
             {
@@ -30,7 +22,7 @@ namespace ET
 
             foreach (var data in dataList)
             {
-                dataSet[type].Add(data.DataId, data);
+                dataSet.Add(data.DataId, data);
             }
         }
 
@@ -43,33 +35,24 @@ namespace ET
             {
                 return;
             }
-            var type = typeof (T);
-            var dataSet = dataSetComponent.DataSet;
-
-            if (!dataSet.ContainsKey(type))
-            {
-                Log.Error(string.Format("不存在 {1} 数据集", nameof(T)));
-                return;
-            }
-
-            var dataDic = dataSet[type];
             
-            foreach (var data in dataList)
+            var dataSet = dataSetComponent.DataSet;
+            foreach (var diffData in dataList)
             {
-                IDataMessage dataMessage;
-                if(!dataDic.TryGetValue(data.DataId, out dataMessage))
+                IDataMessage oldData;
+                if (dataSet.TryGetValue(diffData.DataId, out oldData))
                 {
-                    if(data.DataValue>0)
-                        dataDic[data.DataId] = dataMessage = data;
+                    oldData.DataValue += diffData.DataValue;
                 }
                 else
                 {
-                    dataMessage.DataValue += data.DataValue;
+                    oldData = diffData;
+                    dataSet.Add(oldData.DataId,oldData);
                 }
-                
-                if (dataMessage.DataValue <= 0)
+
+                if (oldData.DataValue<=0)
                 {
-                    dataDic.Remove(data.DataId);
+                    dataSet.Remove(oldData.DataId);
                 }
             }
         }

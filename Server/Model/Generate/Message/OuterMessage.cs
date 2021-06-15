@@ -510,7 +510,7 @@ namespace ET
 		[ProtoMember(1)]
 		public int DataId { get; set; }
 
-		[ProtoMember(2)]
+		[ProtoMember(2)]  
 		public int DataValue { get; set; }
 
 	}

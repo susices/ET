@@ -4,5 +4,6 @@
     {
         public string AccountName;
         public string Password;
+        public long PlayerId;
     }
 }

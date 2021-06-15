@@ -248,9 +248,10 @@ message BagItem // IDataMessage
 }
 
 //ResponseType M2C_BagInfo
-message C2M_BagInfo // IRequest
+message C2M_AllBagInfo // IRequest
 {
 	int32 RpcId = 90;
+	int64 PlayerId = 91;
 }
 
 message M2C_BagInfo // IResponse

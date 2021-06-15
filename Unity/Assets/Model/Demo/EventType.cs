@@ -80,9 +80,8 @@ namespace ET
         /// </summary>
         public struct DataUpdate
         {
-            public Type LogicComponentType;
-            public int DataUpdateMode;
-            public Dictionary<int, IDataMessage> DataMessageDic;
+            public long ComponentId;
+            public DataUpdateType DataUpdateType;
         }
     }
 }

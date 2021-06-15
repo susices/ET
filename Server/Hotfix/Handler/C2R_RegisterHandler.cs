@@ -31,6 +31,7 @@ namespace ET
                 
                 accountInfo.AccountName = account;
                 accountInfo.Password = password;
+                accountInfo.PlayerId = IdGenerater.Instance.GenerateId();
                 await Game.Scene.GetComponent<DBComponent>().Save(accountInfo);
 
             }

@@ -33,7 +33,7 @@ namespace ET
 
 		public void Awake()
 		{
-			this.Load();
+			this.Load();   
 		}
 
 		public void Load()
