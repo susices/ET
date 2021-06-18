@@ -80,8 +80,9 @@ namespace ET
         /// </summary>
         public struct DataUpdate
         {
-            public long ComponentId;
-            public DataUpdateType DataUpdateType;
+            public long DataSetComponentId;
+            public DataType DataType;
+            public int DataUpdateMode;
         }
     }
 }

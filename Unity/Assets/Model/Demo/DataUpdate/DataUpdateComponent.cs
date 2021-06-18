@@ -15,22 +15,22 @@ namespace ET
 
     public class DataUpdateComponent: Entity
     {
-        private Dictionary<DataUpdateType, List<Func<long,ETTask>>> dataUpdateEvents;
+        private Dictionary<DataType, List<Func<long,int,ETTask>>> dataUpdateEvents;
         public static DataUpdateComponent Instance { get; set; }
 
         public void Awake()
         {
-            dataUpdateEvents = new Dictionary<DataUpdateType, List<Func<long,ETTask>>>();
+            dataUpdateEvents = new Dictionary<DataType, List<Func<long,int,ETTask>>>();
         }
 
         /// <summary>
         /// 添加数据更新事件监听
         /// </summary>
-        public void AddListener(DataUpdateType type, Func<long,ETTask> task)
+        public void AddListener(DataType type, Func<long,int,ETTask> task)
         {
             if (!dataUpdateEvents.ContainsKey(type))
             {
-                dataUpdateEvents.Add(type, new List<Func<long,ETTask>>());
+                dataUpdateEvents.Add(type, new List<Func<long,int,ETTask>>());
             }
 
             if (dataUpdateEvents[type].Contains(task))
@@ -44,7 +44,7 @@ namespace ET
         /// <summary>
         /// 移除数据更新事件监听
         /// </summary>
-        public void RemoveListener(DataUpdateType type, Func<long,ETTask> task)
+        public void RemoveListener(DataType type, Func<long,int,ETTask> task)
         {
             if (dataUpdateEvents.ContainsKey(type))
             {
@@ -52,15 +52,21 @@ namespace ET
             }
         }
 
-        public async ETTask Run(DataUpdateType dataUpdateType, long instanceId)
+        /// <summary>
+        /// 指定数据类型的更新事件广播
+        /// </summary>
+        /// <param name="dataType">数据类型</param>
+        /// <param name="instanceId">数据更新组件Id</param>
+        /// <param name="dataUpdateMode">数据更新模式</param>
+        public async ETTask BroadCast(DataType dataType, long instanceId, int dataUpdateMode)
         {
             using (ListComponent<ETTask> ETTaskListComponent = ListComponent<ETTask>.Create())
             {
                 var tcsList = ETTaskListComponent.List;
-                var eventList = this.dataUpdateEvents[dataUpdateType];
-                for (int i = eventList.Count; i >=0 ; i--)
+                var eventList = this.dataUpdateEvents[dataType];
+                for (int i = eventList.Count-1; i >=0 ; i--)
                 {
-                    tcsList.Add(eventList[i].Invoke(instanceId)); ;
+                    tcsList.Add(eventList[i].Invoke(instanceId,dataUpdateMode)); ;
                 }
                 await ETTaskHelper.WaitAll(tcsList);
             }

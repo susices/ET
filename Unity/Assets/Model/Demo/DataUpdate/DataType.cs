@@ -1,9 +1,9 @@
 ﻿namespace ET
 {
     /// <summary>
-    /// 数据更新枚举
+    /// 数据类型枚举
     /// </summary>
-    public enum DataUpdateType
+    public enum DataType
     {
         /// <summary>
         /// 背包物品

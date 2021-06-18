@@ -5,14 +5,16 @@ using ET.EventType;
 namespace ET
 {
     [ObjectSystem]
-    public class DataSetComponentAwakeSystem : AwakeSystem<DataSetComponent,DataUpdateType>
+    public class DataSetComponentAwakeSystem : AwakeSystem<DataSetComponent,DataType>
     {
-        public override void Awake(DataSetComponent self, DataUpdateType dataUpdateType)
+        public override void Awake(DataSetComponent self, DataType dataType)
         {
             self.DataSet = new Dictionary<int,IDataMessage>();
-            self.DataUpdateType = dataUpdateType;
+            self.DataType = dataType;
+            self.DifferenceUpdateIndexList = new List<int>();
         }
     }
+    
     
     public static class DataSetComponentSystem
     {
@@ -23,16 +25,18 @@ namespace ET
                 DataSetHelper.OverwriteUpdate(self, dataList);
                 EventSystem.Instance.Publish(new DataUpdate()
                 {
-                    ComponentId = self.InstanceId,
-                    DataUpdateType = self.DataUpdateType
+                    DataSetComponentId = self.InstanceId,
+                    DataType = self.DataType,  
+                    DataUpdateMode = DataUpdateMode.Overwrite
                 }).Coroutine();
             }else if (updateMode == DataUpdateMode.Difference)
             {
                 DataSetHelper.DifferenceUpdate(self,dataList);
                 EventSystem.Instance.Publish(new DataUpdate()
                 {
-                    ComponentId = self.InstanceId,
-                    DataUpdateType = self.DataUpdateType
+                    DataSetComponentId = self.InstanceId,
+                    DataType = self.DataType,
+                    DataUpdateMode = DataUpdateMode.Difference
                 }).Coroutine();
             }
             else
@@ -55,8 +59,12 @@ namespace ET
         public Dictionary<int,IDataMessage> DataSet;
 
         /// <summary>
+        /// 差异更新索引列表
+        /// </summary>
+        public List<int> DifferenceUpdateIndexList;
+        /// <summary>
         /// 数据更新事件类型
         /// </summary>
-        public DataUpdateType DataUpdateType;
+        public DataType DataType;
     }
 }
