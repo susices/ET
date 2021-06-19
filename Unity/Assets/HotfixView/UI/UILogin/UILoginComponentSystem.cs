@@ -24,7 +24,7 @@ namespace ET
 	{
 		public static void OnLogin(this UILoginComponent self)
 		{
-			LoginHelper.Login(self.DomainScene(), "127.0.0.1:10002", self.accountIpt.text).Coroutine();
+			LoginHelper.Login(self.DomainScene(), "127.0.0.1:10002", self.accountIpt.text,self.passwordIpt.text).Coroutine();
 		}
 
 		public static void OnRegieter(this UILoginComponent self)

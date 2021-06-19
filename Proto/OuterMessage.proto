@@ -164,6 +164,7 @@ message R2C_Login // IResponse
 	string Address = 1;
 	int64 Key	    = 2;
 	int64 GateId = 3;
+	int64 PlayerId = 4;
 }
 
 //ResponseType R2C_Register
@@ -187,6 +188,7 @@ message C2G_LoginGate // IRequest
 	int32 RpcId = 90;
 	int64 Key = 1;	// 帐号
 	int64 GateId = 2;
+	int64 PlayerId = 3;
 }
 
 message G2C_LoginGate // IResponse
@@ -247,14 +249,14 @@ message BagItem // IDataMessage
 	int32 DataValue = 2;
 }
 
-//ResponseType M2C_BagInfo
+//ResponseType M2C_AllBagInfo
 message C2M_AllBagInfo // IRequest
 {
 	int32 RpcId = 90;
 	int64 PlayerId = 91;
 }
 
-message M2C_BagInfo // IResponse
+message M2C_AllBagInfo // IResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;

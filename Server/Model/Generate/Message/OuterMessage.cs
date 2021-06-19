@@ -344,6 +344,9 @@ namespace ET
 		[ProtoMember(3)]
 		public long GateId { get; set; }
 
+		[ProtoMember(4)]
+		public long PlayerId { get; set; }
+
 	}
 
 	[ResponseType(typeof(R2C_Register))]
@@ -390,6 +393,9 @@ namespace ET
 
 		[ProtoMember(2)]
 		public long GateId { get; set; }
+
+		[ProtoMember(3)]
+		public long PlayerId { get; set; }
 
 	}
 
@@ -510,24 +516,27 @@ namespace ET
 		[ProtoMember(1)]
 		public int DataId { get; set; }
 
-		[ProtoMember(2)]  
+		[ProtoMember(2)]
 		public int DataValue { get; set; }
 
 	}
 
-	[ResponseType(typeof(M2C_BagInfo))]
-	[Message(OuterOpcode.C2M_BagInfo)]
+	[ResponseType(typeof(M2C_AllBagInfo))]
+	[Message(OuterOpcode.C2M_AllBagInfo)]
 	[ProtoContract]
-	public partial class C2M_BagInfo: Object, IRequest
+	public partial class C2M_AllBagInfo: Object, IRequest
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(91)]
+		public long PlayerId { get; set; }
+
 	}
 
-	[Message(OuterOpcode.M2C_BagInfo)]
+	[Message(OuterOpcode.M2C_AllBagInfo)]
 	[ProtoContract]
-	public partial class M2C_BagInfo: Object, IResponse
+	public partial class M2C_AllBagInfo: Object, IResponse
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }

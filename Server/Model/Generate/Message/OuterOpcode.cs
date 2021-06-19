@@ -32,7 +32,7 @@ namespace ET
 		 public const ushort C2G_PlayerInfo = 20028;
 		 public const ushort G2C_PlayerInfo = 20029;
 		 public const ushort BagItem = 20030;
-		 public const ushort C2M_BagInfo = 20031;
-		 public const ushort M2C_BagInfo = 20032;
+		 public const ushort C2M_AllBagInfo = 20031;
+		 public const ushort M2C_AllBagInfo = 20032;
 	}
 }

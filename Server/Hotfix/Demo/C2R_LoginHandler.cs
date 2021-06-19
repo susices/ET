@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Net;
 
 
@@ -9,6 +10,13 @@ namespace ET
 	{
 		protected override async ETTask Run(Session session, C2R_Login request, R2C_Login response, Action reply)
 		{
+			var accountInfos = await Game.Scene.GetComponent<DBComponent>().Query<AccountInfo>(d=>d.AccountName==request.Account && d.Password==request.Password);
+			if (accountInfos.Count!=1)
+			{
+				response.Error = ErrorCode.ERR_AccountPassWordError;
+				reply();
+				return;
+			}
 			// 随机分配一个Gate
 			StartSceneConfig config = RealmGateAddressHelper.GetGate(session.DomainZone());
 			//Log.Debug($"gate address: {MongoHelper.ToJson(config)}");
@@ -20,6 +28,7 @@ namespace ET
 			response.Address = config.OuterIPPort.ToString();
 			response.Key = g2RGetLoginKey.Key;
 			response.GateId = g2RGetLoginKey.GateId;
+			response.PlayerId = accountInfos[0].PlayerId;
 			reply();
 		}
 	}

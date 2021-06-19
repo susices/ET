@@ -1,5 +1,8 @@
 ﻿namespace ET
 {
+    /// <summary>
+    /// 账号信息
+    /// </summary>
     public class AccountInfo : Entity
     {
         public string AccountName;
