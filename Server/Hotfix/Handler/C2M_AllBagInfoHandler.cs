@@ -9,9 +9,16 @@ namespace ET
     {
         protected override async ETTask Run(Session session, C2M_AllBagInfo request, M2C_AllBagInfo response, Action reply)
         {
-            using var list = ListComponent<BagItem>.Create();
-
-            
+            var baginfos = await Game.Scene.GetComponent<DBComponent>().Query<BagInfo>(d => d.PlayerId == session.GetComponent<SessionPlayerComponent>().Player.Id);
+            if (baginfos.Count!=1)
+            {
+                response.Error = ErrorCode.ERR_BagInfoError;
+                reply();
+                return;
+            }
+            response.BagItems = baginfos[0].BagItems;
+            response.Error = ErrorCode.ERR_Success;
+            reply();
             await ETTask.CompletedTask;
         }
     }

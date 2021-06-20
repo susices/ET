@@ -34,5 +34,7 @@ namespace ET
 		 public const ushort BagItem = 20030;
 		 public const ushort C2M_AllBagInfo = 20031;
 		 public const ushort M2C_AllBagInfo = 20032;
+		 public const ushort C2M_UseBagItem = 20033;
+		 public const ushort M2C_UseBagItem = 20034;
 	}
 }

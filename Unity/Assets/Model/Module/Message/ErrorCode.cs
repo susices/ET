@@ -58,6 +58,8 @@ namespace ET
 
         public const int ERR_AccountPassWordError = 200002;
 
+        public const int ERR_BagInfoError = 200003;
+
         public static bool IsRpcNeedThrowException(int error)
         {
             if (error == 0)

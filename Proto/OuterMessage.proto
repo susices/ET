@@ -261,8 +261,24 @@ message M2C_AllBagInfo // IResponse
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
-	int32 UpdateMode = 1;
-	repeated BagItem BagItems = 2;
+	repeated BagItem BagItems = 1;
+}
+
+//ResponseType M2C_UseBagItem
+message C2M_UseBagItem // IRequest
+{
+	int32 RpcId = 90;
+	int64 PlayerId = 91;
+	int32 BagItemId = 1;
+	int32 BagItemCount = 2;
+}
+
+message M2C_UseBagItem // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
 }
 
 

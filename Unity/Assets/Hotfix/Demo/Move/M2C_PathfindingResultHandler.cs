@@ -20,5 +20,9 @@ namespace ET
 
 			await unit.GetComponent<MoveComponent>().MoveToAsync(list.List, speed);
 		}
+
+		
 	}
+	
+	
 }

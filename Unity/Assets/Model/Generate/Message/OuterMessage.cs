@@ -50,7 +50,6 @@ namespace ET
 
 		[ProtoMember(1)]
 		public int MapIndex { get; set; }
-
 	}
 
 	[Message(OuterOpcode.Actor_TransferResponse)]
@@ -548,10 +547,41 @@ namespace ET
 		public string Message { get; set; }
 
 		[ProtoMember(1)]
-		public int UpdateMode { get; set; }
+		public List<BagItem> BagItems = new List<BagItem>();
+
+	}
+
+	[ResponseType(typeof(M2C_UseBagItem))]
+	[Message(OuterOpcode.C2M_UseBagItem)]
+	[ProtoContract]
+	public partial class C2M_UseBagItem: Object, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public long PlayerId { get; set; }
+
+		[ProtoMember(1)]
+		public int BagItemId { get; set; }
 
 		[ProtoMember(2)]
-		public List<BagItem> BagItems = new List<BagItem>();
+		public int BagItemCount { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_UseBagItem)]
+	[ProtoContract]
+	public partial class M2C_UseBagItem: Object, IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
 
 	}
 

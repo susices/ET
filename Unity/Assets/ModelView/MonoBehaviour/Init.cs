@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace ET
@@ -59,5 +60,6 @@ namespace ET
 			Game.Close();
 			
 		}
+		
 	}
 }
