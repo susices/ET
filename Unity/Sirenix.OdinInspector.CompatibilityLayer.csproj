@@ -281,14 +281,8 @@
      <Reference Include="UnityEditor.WindowsStandalone.Extensions">
      <HintPath>D:/Unity/Editor/2021.1.7f1c1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
      </Reference>
-     <Reference Include="CommandLine">
-     <HintPath>D:/Unity/Project/SJProject/Unity/Assets/Plugins/CommandLine.dll</HintPath>
-     </Reference>
-     <Reference Include="ICSharpCode.SharpZipLib">
-     <HintPath>D:/Unity/Project/SJProject/Unity/Assets/Plugins/ICSharpCode.SharpZipLib.dll</HintPath>
-     </Reference>
-     <Reference Include="MongoDB.Bson">
-     <HintPath>D:/Unity/Project/SJProject/Unity/Assets/Plugins/MongoDB.Bson.dll</HintPath>
+     <Reference Include="Sirenix.Utilities.Editor">
+     <HintPath>D:/Unity/Project/SJProject/Unity/Assets/Plugins/Sirenix/Assemblies/Sirenix.Utilities.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Sirenix.OdinInspector.Editor">
      <HintPath>D:/Unity/Project/SJProject/Unity/Assets/Plugins/Sirenix/Assemblies/Sirenix.OdinInspector.Editor.dll</HintPath>
@@ -296,17 +290,23 @@
      <Reference Include="Sirenix.OdinInspector.Attributes">
      <HintPath>D:/Unity/Project/SJProject/Unity/Assets/Plugins/Sirenix/Assemblies/Sirenix.OdinInspector.Attributes.dll</HintPath>
      </Reference>
+     <Reference Include="CommandLine">
+     <HintPath>D:/Unity/Project/SJProject/Unity/Assets/Plugins/CommandLine.dll</HintPath>
+     </Reference>
      <Reference Include="Sirenix.Serialization.Config">
      <HintPath>D:/Unity/Project/SJProject/Unity/Assets/Plugins/Sirenix/Assemblies/Sirenix.Serialization.Config.dll</HintPath>
      </Reference>
      <Reference Include="Sirenix.Utilities">
      <HintPath>D:/Unity/Project/SJProject/Unity/Assets/Plugins/Sirenix/Assemblies/Sirenix.Utilities.dll</HintPath>
      </Reference>
+     <Reference Include="ICSharpCode.SharpZipLib">
+     <HintPath>D:/Unity/Project/SJProject/Unity/Assets/Plugins/ICSharpCode.SharpZipLib.dll</HintPath>
+     </Reference>
      <Reference Include="Sirenix.Serialization">
      <HintPath>D:/Unity/Project/SJProject/Unity/Assets/Plugins/Sirenix/Assemblies/Sirenix.Serialization.dll</HintPath>
      </Reference>
-     <Reference Include="Sirenix.Utilities.Editor">
-     <HintPath>D:/Unity/Project/SJProject/Unity/Assets/Plugins/Sirenix/Assemblies/Sirenix.Utilities.Editor.dll</HintPath>
+     <Reference Include="MongoDB.Bson">
+     <HintPath>D:/Unity/Project/SJProject/Unity/Assets/Plugins/MongoDB.Bson.dll</HintPath>
      </Reference>
      <Reference Include="mscorlib">
      <HintPath>D:/Unity/Editor/2021.1.7f1c1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

@@ -27,6 +27,8 @@ namespace ET
                 Log.Info("登陆gate成功!");
                 Log.Info(g2CLoginGate.PlayerId.ToString());
 
+                var bagComponent =  zoneScene.AddComponent<BagComponent>();
+                await bagComponent.GetAllBagItem();
                 await Game.EventSystem.Publish(new EventType.LoginFinish() {ZoneScene = zoneScene});
             }
             catch (Exception e)

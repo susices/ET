@@ -50,6 +50,7 @@ namespace ET
 
 		[ProtoMember(1)]
 		public int MapIndex { get; set; }
+
 	}
 
 	[Message(OuterOpcode.Actor_TransferResponse)]
@@ -527,9 +528,6 @@ namespace ET
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
-
-		[ProtoMember(91)]
-		public long PlayerId { get; set; }
 
 	}
 

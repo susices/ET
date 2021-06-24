@@ -529,9 +529,6 @@ namespace ET
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
-		[ProtoMember(91)]
-		public long PlayerId { get; set; }
-
 	}
 
 	[Message(OuterOpcode.M2C_AllBagInfo)]

@@ -60,6 +60,10 @@ namespace ET
         /// <param name="dataUpdateMode">数据更新模式</param>
         public async ETTask BroadCast(DataType dataType, long instanceId, int dataUpdateMode)
         {
+            if (!this.dataUpdateEvents.ContainsKey(dataType))
+            {
+                return;
+            }
             using (ListComponent<ETTask> ETTaskListComponent = ListComponent<ETTask>.Create())
             {
                 var tcsList = ETTaskListComponent.List;
@@ -72,4 +76,6 @@ namespace ET
             }
         }
     }
+    
+    
 }

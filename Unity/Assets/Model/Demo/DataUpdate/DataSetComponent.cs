@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using ET.EventType;
 
 namespace ET
@@ -29,6 +30,7 @@ namespace ET
                     DataType = self.DataType,  
                     DataUpdateMode = DataUpdateMode.Overwrite
                 }).Coroutine();
+                
             }else if (updateMode == DataUpdateMode.Difference)
             {
                 DataSetHelper.DifferenceUpdate(self,dataList);
@@ -43,6 +45,11 @@ namespace ET
             {
                 Log.Error(string.Format("UpdateMode错误：{0}",updateMode.ToString()));
                 return;
+            }
+            
+            foreach (var data in self.DataSet.Values)
+            {
+                Log.Debug($"Type:{typeof(T)} id:{data.DataId.ToString()},value:{data.DataValue.ToString()}");
             }
         }
     }
