@@ -3,34 +3,6 @@ using System.Linq;
 
 namespace ET
 {
-    /// <summary>
-    /// Buff管理器组件系统
-    /// </summary>
-    public static class BuffManagerComponentSystem
-    {
-        /// <summary>
-        /// 添加Buff实体
-        /// </summary>
-        public static bool AddBuffEntity(this BuffManaerComponent self, BuffEntity buffEntity)
-        {
-            //wenchao 添加Buff实体
-            
-            return true;
-        }
-
-        /// <summary>
-        /// 移除Buff实体
-        /// </summary>
-        public static bool RemoveBuffEntity(this BuffManaerComponent self, BuffEntity buffEntity)
-        {
-            //wenchao 移除Buff实体
-            
-            return true;
-        }
-    }
-
-
-
     [ObjectSystem]
     public class BuffManagerAwakeSystem: AwakeSystem<BuffManaerComponent>
     {
@@ -61,6 +33,33 @@ namespace ET
             }
             
             self.idBuffEntities.Clear();
+        }
+    }
+    
+    
+    /// <summary>
+    /// Buff管理器组件系统
+    /// </summary>
+    public static class BuffManagerComponentSystem
+    {
+        /// <summary>
+        /// 添加Buff实体
+        /// </summary>
+        public static bool AddBuffEntity(this BuffManaerComponent self, BuffEntity buffEntity)
+        {
+            //wenchao 添加Buff实体
+            
+            return true;
+        }
+
+        /// <summary>
+        /// 移除Buff实体
+        /// </summary>
+        public static bool RemoveBuffEntity(this BuffManaerComponent self, BuffEntity buffEntity)
+        {
+            //wenchao 移除Buff实体
+            
+            return true;
         }
     }
 }
