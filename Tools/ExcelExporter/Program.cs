@@ -75,7 +75,7 @@ namespace ET
             {
                 template = File.ReadAllText("Template.txt");
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                foreach (string path in Directory.GetFiles(excelDir, "*.xlsx"))
+                foreach (string path in Directory.GetFiles(excelDir, "*.xlsx",SearchOption.AllDirectories))
                 {
                     using Stream stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                     using ExcelPackage p = new ExcelPackage(stream);
@@ -335,6 +335,17 @@ namespace ET
                 using FileStream file = File.Create(path);
                 Serializer.Serialize(file, deserialize);
             }
+        }
+
+        /// <summary>
+        /// 生成前删除旧的配置文件
+        /// </summary>
+        private static void DeleteOldFiles()
+        {
+            Directory.Delete(GetProtoDir(ConfigType.Server), true);
+            Directory.Delete(GetProtoDir(ConfigType.Client),true);
+            Directory.Delete(GetClassDir(ConfigType.Server),true);
+            Directory.Delete(GetClassDir(ConfigType.Client),true);
         }
     }
 }
