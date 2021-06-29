@@ -73,6 +73,7 @@ namespace ET
         {
             try
             {
+                DeleteOldFiles();
                 template = File.ReadAllText("Template.txt");
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
                 foreach (string path in Directory.GetFiles(excelDir, "*.xlsx",SearchOption.AllDirectories))
@@ -342,7 +343,12 @@ namespace ET
         /// </summary>
         private static void DeleteOldFiles()
         {
-            Directory.Delete(GetProtoDir(ConfigType.Server), true);
+            var files =  Directory.GetFiles(GetProtoDir(ConfigType.Server), "*.bytes", SearchOption.TopDirectoryOnly);
+            foreach (var file in files)
+            {
+                File.Delete(file);
+            }
+            
             Directory.Delete(GetProtoDir(ConfigType.Client),true);
             Directory.Delete(GetClassDir(ConfigType.Server),true);
             Directory.Delete(GetClassDir(ConfigType.Client),true);
