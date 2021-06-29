@@ -40,6 +40,7 @@ namespace ET
             {
                 await SceneFactory.Create(Game.Scene, startConfig.SceneId, startConfig.Zone, startConfig.Name, startConfig.Type, startConfig);
             }
+            
         }
     }
 }
