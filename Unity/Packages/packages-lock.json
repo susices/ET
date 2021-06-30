@@ -12,8 +12,27 @@
       "source": "builtin",
       "dependencies": {}
     },
+    "com.unity.addressables": {
+      "version": "1.16.19",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.scriptablebuildpipeline": "1.15.2",
+        "com.unity.modules.assetbundle": "1.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.modules.unitywebrequestassetbundle": "1.0.0"
+      },
+      "url": "https://packages.unity.cn"
+    },
     "com.unity.assetbundlebrowser": {
       "version": "1.7.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.cn"
+    },
+    "com.unity.cinemachine": {
+      "version": "2.7.4",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -49,6 +68,13 @@
       "dependencies": {
         "com.unity.test-framework": "1.1.9"
       },
+      "url": "https://packages.unity.cn"
+    },
+    "com.unity.scriptablebuildpipeline": {
+      "version": "1.15.2",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
       "url": "https://packages.unity.cn"
     },
     "com.unity.test-framework": {

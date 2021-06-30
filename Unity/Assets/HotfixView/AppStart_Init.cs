@@ -32,6 +32,8 @@ namespace ET
 
             ResourcesComponent.Instance.LoadBundle("unit.unity3d");
 
+            //var data = LocalizationTextCategory.Instance.GetAll();
+
             Scene zoneScene = await SceneFactory.CreateZoneScene(1, "Process");
 
             await Game.EventSystem.Publish(new EventType.AppStartInitFinish() { ZoneScene = zoneScene });
