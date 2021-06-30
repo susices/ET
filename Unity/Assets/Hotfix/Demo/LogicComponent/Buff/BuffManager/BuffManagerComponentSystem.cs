@@ -45,9 +45,9 @@ namespace ET
         /// <summary>
         /// 添加Buff到BuffManager
         /// </summary>
-        public static void AddBuff(this BuffManaerComponent self, int buffConfigId)
+        public static void AddBuff(this BuffManaerComponent self, int buffConfigId, Entity sourceEntity)
         {
-            
+            var buffEntity = BuffFactory.Create(self.Domain, sourceEntity, self, buffConfigId);
         }
 
         /// <summary>

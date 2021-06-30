@@ -5,11 +5,10 @@
     /// </summary>
     public static class BuffFactory
     {
-        public static BuffEntity Create(Entity domain)
+        public static BuffEntity Create(Entity domain, Entity sourceEntity, BuffManaerComponent buffManaerComponent, int buffConfigId)
         {
-            // wenchao buff构造方法
-            //var buffEntity = EntityFactory.Create<BuffEntity>()
-            return null;
+            var buffEntity = EntityFactory.Create<BuffEntity, Entity, BuffManaerComponent, int>(domain, sourceEntity, buffManaerComponent, buffConfigId);
+            return buffEntity;
         }
     }
 }

@@ -35,6 +35,11 @@
     {
         public override void Destroy(BuffEntity self)
         {
+            if (self.BuffTickTimerId!=null)
+            {
+                TimerComponent.Instance.Remove(self.BuffTickTimerId.Value);
+            }
+            
             if (TimeHelper.ServerNow()>= self.BuffEndTime)
             {
                 BuffActionComponent.Instance.RunBuffTimeOutAction(self);
@@ -43,7 +48,6 @@
             {
                 BuffActionComponent.Instance.RunBuffRemoveAction(self);
             }
-            TimerComponent.Instance.Remove(self.BuffTickTimerId);
         }
     }
 
@@ -51,6 +55,12 @@
     {
         public static void RunTickAction(this BuffEntity self, int timeSpan)
         {
+            if (timeSpan==0)
+            {
+                self.BuffTickTimerId = null;
+                return;
+            }
+            
             BuffActionComponent.Instance.GetBuffTickActions(self, out var buffActionList, out var argsList);
             self.BuffTickTimerId = TimerComponent.Instance.NewRepeatedTimer(timeSpan, () =>
             {

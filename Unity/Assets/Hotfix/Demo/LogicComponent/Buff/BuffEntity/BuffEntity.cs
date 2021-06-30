@@ -33,6 +33,6 @@
         /// <summary>
         /// Buff轮询计时器Id
         /// </summary>
-        public long BuffTickTimerId;
+        public long? BuffTickTimerId;
     }
 }
