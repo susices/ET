@@ -9,6 +9,7 @@ namespace ET
     {
         /// <summary>
         /// 当前持有的buff
+        /// key: EntityId
         /// </summary>
         public Dictionary<long, BuffEntity> idBuffEntities;
 

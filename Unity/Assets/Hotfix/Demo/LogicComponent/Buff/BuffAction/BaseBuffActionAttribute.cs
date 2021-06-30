@@ -1,5 +1,8 @@
-﻿namespace ET
+﻿using System;
+
+namespace ET
 {
+    
     public class BaseBuffActionAttribute: BaseAttribute
     {
         public int Id;

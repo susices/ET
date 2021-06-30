@@ -73,25 +73,27 @@ namespace ET
 		[ProtoMember(1, IsRequired  = true)]
 		public int Id { get; set; }
 		[ProtoMember(2, IsRequired  = true)]
-		public int Des { get; set; }
+		public int Description { get; set; }
 		[ProtoMember(3, IsRequired  = true)]
-		public int MaxLayer { get; set; }
+		public int MaxLayerCount { get; set; }
 		[ProtoMember(4, IsRequired  = true)]
 		public int IsEnableRefresh { get; set; }
 		[ProtoMember(5, IsRequired  = true)]
-		public int MaxSourceUnit { get; set; }
+		public int MaxSourceCount { get; set; }
 		[ProtoMember(6, IsRequired  = true)]
 		public int DurationMillsecond { get; set; }
 		[ProtoMember(7, IsRequired  = true)]
-		public int[] BuffAddAction { get; set; }
+		public int[] BuffAddActions { get; set; }
 		[ProtoMember(8, IsRequired  = true)]
-		public int[] BuffRemoveAction { get; set; }
+		public int[] BuffRemoveActions { get; set; }
 		[ProtoMember(9, IsRequired  = true)]
-		public int[] BuffRefreshAction { get; set; }
+		public int[] BuffRefreshActions { get; set; }
 		[ProtoMember(10, IsRequired  = true)]
-		public int[] BuffTickAction { get; set; }
+		public int[] BuffTickActions { get; set; }
 		[ProtoMember(11, IsRequired  = true)]
-		public int[] OnBuffTimeOut { get; set; }
+		public int BuffTickTimeSpan { get; set; }
+		[ProtoMember(12, IsRequired  = true)]
+		public int[] BuffTimeOutActions { get; set; }
 
 
 		[ProtoAfterDeserialization]

@@ -27,7 +27,9 @@ namespace ET
             Game.Scene.AddComponent<AIDispatcherComponent>();
 
             Game.Scene.AddComponent<DataUpdateComponent>();
-            
+
+            Game.Scene.AddComponent<BuffActionComponent>();
+
             ResourcesComponent.Instance.LoadBundle("unit.unity3d");
 
             Scene zoneScene = await SceneFactory.CreateZoneScene(1, "Process");

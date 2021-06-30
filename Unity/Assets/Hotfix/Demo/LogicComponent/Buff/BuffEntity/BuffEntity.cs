@@ -21,9 +21,18 @@
         public Entity SourceEntity;
 
         /// <summary>
-        /// 剩余持续时间秒数
+        /// 被添加到的BuffManager
         /// </summary>
-        public float LeftDurationSeconds;
-        
+        public BuffManaerComponent BuffManager;
+
+        /// <summary>
+        /// Buff结束时间 单位毫秒
+        /// </summary>
+        public long BuffEndTime;
+
+        /// <summary>
+        /// Buff轮询计时器Id
+        /// </summary>
+        public long BuffTickTimerId;
     }
 }

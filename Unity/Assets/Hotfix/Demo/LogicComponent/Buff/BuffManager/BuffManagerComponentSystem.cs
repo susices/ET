@@ -43,23 +43,19 @@ namespace ET
     public static class BuffManagerComponentSystem
     {
         /// <summary>
-        /// 添加Buff实体
+        /// 添加Buff到BuffManager
         /// </summary>
-        public static bool AddBuffEntity(this BuffManaerComponent self, BuffEntity buffEntity)
+        public static void AddBuff(this BuffManaerComponent self, int buffConfigId)
         {
-            //wenchao 添加Buff实体
             
-            return true;
         }
 
         /// <summary>
-        /// 移除Buff实体
+        /// 从BuffManager移除Buff
         /// </summary>
-        public static bool RemoveBuffEntity(this BuffManaerComponent self, BuffEntity buffEntity)
+        public static void RemoveBuff(this BuffManaerComponent self, long buffEntityId)
         {
-            //wenchao 移除Buff实体
             
-            return true;
         }
     }
 }
