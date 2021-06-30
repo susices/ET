@@ -299,6 +299,9 @@
      <Reference Include="Sirenix.Utilities">
      <HintPath>D:/Unity/Project/SJProject/Unity/Assets/Plugins/Sirenix/Assemblies/Sirenix.Utilities.dll</HintPath>
      </Reference>
+     <Reference Include="clipper_library">
+     <HintPath>D:/Unity/Project/SJProject/Unity/Library/PackageCache/com.unity.cinemachine@2.7.4/Runtime/ThirdParty/clipper_library.dll</HintPath>
+     </Reference>
      <Reference Include="ICSharpCode.SharpZipLib">
      <HintPath>D:/Unity/Project/SJProject/Unity/Assets/Plugins/ICSharpCode.SharpZipLib.dll</HintPath>
      </Reference>
@@ -307,9 +310,6 @@
      </Reference>
      <Reference Include="MongoDB.Bson">
      <HintPath>D:/Unity/Project/SJProject/Unity/Assets/Plugins/MongoDB.Bson.dll</HintPath>
-     </Reference>
-     <Reference Include="clipper_library">
-     <HintPath>D:/Unity/Project/SJProject/Unity/Library/PackageCache/com.unity.cinemachine@2.7.4/Runtime/ThirdParty/clipper_library.dll</HintPath>
      </Reference>
      <Reference Include="mscorlib">
      <HintPath>D:/Unity/Editor/2021.1.7f1c1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

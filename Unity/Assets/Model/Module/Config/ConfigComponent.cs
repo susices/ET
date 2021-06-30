@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace ET
 {
@@ -13,5 +14,6 @@ namespace ET
         public static ConfigComponent Instance;
 		
         public Dictionary<Type, object> AllConfig = new Dictionary<Type, object>();
+        
     }
 }

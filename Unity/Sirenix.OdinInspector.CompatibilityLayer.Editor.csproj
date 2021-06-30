@@ -306,6 +306,9 @@
      <Reference Include="Sirenix.Utilities">
      <HintPath>D:/Unity/Project/SJProject/Unity/Assets/Plugins/Sirenix/Assemblies/Sirenix.Utilities.dll</HintPath>
      </Reference>
+     <Reference Include="clipper_library">
+     <HintPath>D:/Unity/Project/SJProject/Unity/Library/PackageCache/com.unity.cinemachine@2.7.4/Runtime/ThirdParty/clipper_library.dll</HintPath>
+     </Reference>
      <Reference Include="ICSharpCode.SharpZipLib">
      <HintPath>D:/Unity/Project/SJProject/Unity/Assets/Plugins/ICSharpCode.SharpZipLib.dll</HintPath>
      </Reference>
@@ -314,9 +317,6 @@
      </Reference>
      <Reference Include="MongoDB.Bson">
      <HintPath>D:/Unity/Project/SJProject/Unity/Assets/Plugins/MongoDB.Bson.dll</HintPath>
-     </Reference>
-     <Reference Include="clipper_library">
-     <HintPath>D:/Unity/Project/SJProject/Unity/Library/PackageCache/com.unity.cinemachine@2.7.4/Runtime/ThirdParty/clipper_library.dll</HintPath>
      </Reference>
      <Reference Include="nunit.framework">
      <HintPath>D:/Unity/Project/SJProject/Unity/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>

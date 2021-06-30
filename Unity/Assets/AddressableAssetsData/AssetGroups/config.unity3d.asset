@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: config.unity3d
+  m_EditorClassIdentifier: 
+  m_GroupName: config.unity3d
+  m_Data:
+    m_SerializedData: []
+  m_GUID: d40858af04cd57340ba2d42a72723814
+  m_SerializeEntries:
+  - m_GUID: 277d58db3067742a7b32f9994984b3bc
+    m_Address: Assets/Bundles/Config/AIConfigCategory.bytes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 70473eb84c7f66a489a15db531768cf8
+    m_Address: Assets/Bundles/Config/BuffActionConfigCategory.bytes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 707c87d3e6a7adf4888b88d7fe5d1053
+    m_Address: Assets/Bundles/Config/BuffBaseActionConfigCategory.bytes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: cefc01d934e40644789b67d9db6c4957
+    m_Address: Assets/Bundles/Config/BuffConfigCategory.bytes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 40aebe92b34144ab187964caf41b2104
+    m_Address: Assets/Bundles/Config/StartMachineConfigCategory.bytes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: f62068aa635af4f189781cb7900fa538
+    m_Address: Assets/Bundles/Config/StartProcessConfigCategory.bytes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: f5aaffc264fbd427f907e6180178fa65
+    m_Address: Assets/Bundles/Config/StartSceneConfigCategory.bytes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 2f76d9d7f3caf49b89a8292eb2ee302c
+    m_Address: Assets/Bundles/Config/StartZoneConfigCategory.bytes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 3f452063ceb5f4150bbbfe795c0aca90
+    m_Address: Assets/Bundles/Config/UnitConfigCategory.bytes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: b53657e62333220469489e69f372f57b, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: f74a831685f211e4c8b7c71da0bba4db, type: 2}
+    - {fileID: 11400000, guid: 54977170919c5414284dcb1341399a82, type: 2}

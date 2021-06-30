@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 #if UNITY_EDITOR
 using UnityEditor;
 
@@ -134,6 +135,11 @@ namespace ET
     public class ResourcesComponent: Entity
     {
         public static ResourcesComponent Instance { get; set; }
+
+        public async ETTask<GameObject> Load()
+        {
+            return await Addressables.LoadAssetAsync<GameObject>("").Task;
+        }
 
         private AssetBundleManifest AssetBundleManifestObject { get; set; }
 

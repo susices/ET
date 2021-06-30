@@ -6,6 +6,7 @@ using System.Threading;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
+
 namespace ET
 {
 	public class Init : MonoBehaviour
@@ -29,6 +30,7 @@ namespace ET
 					}
 					Game.EventSystem.Add(assembly);	
 				}
+				
 				
 
 
