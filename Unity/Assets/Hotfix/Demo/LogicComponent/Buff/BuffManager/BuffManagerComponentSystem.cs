@@ -8,7 +8,7 @@ namespace ET
     {
         public override void Awake(BuffManaerComponent self)
         {
-            self.parentEntity = self.Parent;
+            
             self.idBuffEntities = new Dictionary<long, BuffEntity>();
         }
     }

@@ -2,9 +2,9 @@
 
 namespace ET
 {
-    public class BuffActionComponent : Entity
+    public class BuffActionDispatcher : Entity
     {
-        public static BuffActionComponent Instance;
+        public static BuffActionDispatcher Instance;
 
         public Dictionary<int, ABuffAction> idBuffActions = new Dictionary<int, ABuffAction>();
     }

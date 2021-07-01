@@ -28,11 +28,9 @@ namespace ET
 
             Game.Scene.AddComponent<DataUpdateComponent>();
 
-            Game.Scene.AddComponent<BuffActionComponent>();
+            Game.Scene.AddComponent<BuffActionDispatcher>();
 
             ResourcesComponent.Instance.LoadBundle("unit.unity3d");
-
-            //var data = LocalizationTextCategory.Instance.GetAll();
 
             Scene zoneScene = await SceneFactory.CreateZoneScene(1, "Process");
 

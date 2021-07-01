@@ -12,10 +12,5 @@ namespace ET
         /// key: EntityId
         /// </summary>
         public Dictionary<long, BuffEntity> idBuffEntities;
-
-        /// <summary>
-        ///  buff管理器影响的实体 
-        /// </summary>
-        public Entity parentEntity;
     }
 }

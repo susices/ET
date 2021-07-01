@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -228747253, guid: a4865f1ab4504ed8a368670db22f409c, type: 3}
-  m_Name: OdinModuleConfig
+  m_Script: {fileID: 1726182683, guid: a4865f1ab4504ed8a368670db22f409c, type: 3}
+  m_Name: AOTGenerationConfig
   m_EditorClassIdentifier: 
-  configurations:
-  - ID: Unity.Mathematics
-    ActivationSettings: 0
-  - ID: Unity.Entities
-    ActivationSettings: 0
-  ModuleTogglingSettings: 0
-  ModuleUpdateSettings: 0
+  automateBeforeBuilds: 0
+  deleteDllAfterBuilds: 1
+  AutomateForAllAOTPlatforms: 1
+  automateForPlatforms: 0900000014000000
+  lastScan: 0
+  supportSerializedTypes: []

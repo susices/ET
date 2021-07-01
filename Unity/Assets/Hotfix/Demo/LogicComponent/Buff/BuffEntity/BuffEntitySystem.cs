@@ -15,7 +15,7 @@
     {
         public override void Start(BuffEntity self)
         {
-            BuffActionComponent.Instance.RunBuffAddAction(self);
+            BuffActionDispatcher.Instance.RunBuffAddAction(self);
             self.RunTickAction(BuffConfigCategory.Instance.Get(self.BuffConfigId).BuffTickTimeSpan);
         }
     }
@@ -42,11 +42,11 @@
             
             if (TimeHelper.ServerNow()>= self.BuffEndTime)
             {
-                BuffActionComponent.Instance.RunBuffTimeOutAction(self);
+                BuffActionDispatcher.Instance.RunBuffTimeOutAction(self);
             }
             else
             {
-                BuffActionComponent.Instance.RunBuffRemoveAction(self);
+                BuffActionDispatcher.Instance.RunBuffRemoveAction(self);
             }
         }
     }
@@ -61,7 +61,7 @@
                 return;
             }
             
-            BuffActionComponent.Instance.GetBuffTickActions(self, out var buffActionList, out var argsList);
+            BuffActionDispatcher.Instance.GetBuffTickActions(self, out var buffActionList, out var argsList);
             self.BuffTickTimerId = TimerComponent.Instance.NewRepeatedTimer(timeSpan, () =>
             {
                 for (int i = 0; i < buffActionList.Count; i++)
