@@ -1,11 +1,11 @@
 ﻿namespace ET
 {
-    public class BuffEntityAwakeSystem : AwakeSystem<BuffEntity, Entity, BuffManaerComponent,int>
+    public class BuffEntityAwakeSystem : AwakeSystem<BuffEntity, Entity,int>
     {
-        public override void Awake(BuffEntity self, Entity sourceEntity, BuffManaerComponent buffManaerComponent, int buffConfigId)
+        public override void Awake(BuffEntity self, Entity sourceEntity, int buffConfigId)
         {
             self.SourceEntity = sourceEntity;
-            self.BuffManager = buffManaerComponent;
+            self.ParentBuffManager = self.Parent as BuffManaerComponent;
             self.BuffConfigId = buffConfigId;
             self.BuffEndTime = TimeHelper.ServerNow() + BuffConfigCategory.Instance.Get(self.BuffConfigId).DurationMillsecond;
         }
@@ -26,7 +26,7 @@
         {
             if (TimeHelper.ServerNow()>= self.BuffEndTime)
             {
-                self.BuffManager.RemoveBuff(self.Id);
+                self.Dispose();
             }
         }
     }

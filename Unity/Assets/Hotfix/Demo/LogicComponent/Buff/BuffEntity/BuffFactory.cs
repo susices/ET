@@ -5,9 +5,9 @@
     /// </summary>
     public static class BuffFactory
     {
-        public static BuffEntity Create(Entity domain, Entity sourceEntity, BuffManaerComponent buffManaerComponent, int buffConfigId)
+        public static BuffEntity Create(BuffManaerComponent buffManaerComponent,Entity sourceEntity, int buffConfigId)
         {
-            var buffEntity = EntityFactory.Create<BuffEntity, Entity, BuffManaerComponent, int>(domain, sourceEntity, buffManaerComponent, buffConfigId);
+            var buffEntity = EntityFactory.CreateWithParent<BuffEntity, Entity, int>(buffManaerComponent, sourceEntity, buffConfigId);
             return buffEntity;
         }
     }

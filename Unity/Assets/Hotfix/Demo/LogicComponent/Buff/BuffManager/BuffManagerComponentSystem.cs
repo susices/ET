@@ -47,7 +47,7 @@ namespace ET
         /// </summary>
         public static void AddBuff(this BuffManaerComponent self, int buffConfigId, Entity sourceEntity)
         {
-            var buffEntity = BuffFactory.Create(self.Domain, sourceEntity, self, buffConfigId);
+            BuffFactory.Create(self, sourceEntity,buffConfigId);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace ET
         /// </summary>
         public static void RemoveBuff(this BuffManaerComponent self, long buffEntityId)
         {
-            
+            self.GetChild<BuffEntity>(buffEntityId).Dispose();
         }
     }
 }
