@@ -16,7 +16,20 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: f07c423cd7498584181393df716bffda
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: cfaf4529ce2243c4c85126e9d008897b
+    m_Address: Assets/Bundles/Unit/Unit.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    <BundleFileId>k__BackingField: 
+    <IsInResources>k__BackingField: 0
+    <IsInSceneList>k__BackingField: 0
+    <IsSubAsset>k__BackingField: 0
+    m_CheckedIsScene: 0
+    m_IsScene: 0
+    m_cachedAssetPath: Assets/Bundles/Unit/Unit.prefab
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: b53657e62333220469489e69f372f57b, type: 2}
   m_SchemaSet:

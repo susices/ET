@@ -8,6 +8,7 @@
             self.ParentBuffManager = self.Parent as BuffManaerComponent;
             self.BuffConfigId = buffConfigId;
             self.BuffEndTime = TimeHelper.ServerNow() + BuffConfigCategory.Instance.Get(self.BuffConfigId).DurationMillsecond;
+            self.CurrentLayer++;
         }
     }
     
@@ -48,6 +49,7 @@
             {
                 BuffActionDispatcher.Instance.RunBuffRemoveAction(self);
             }
+            self.Clear();
         }
     }
 
@@ -69,6 +71,16 @@
                     buffActionList[i].Run(self, argsList[i]);
                 }
             });
+        }
+
+        public static void Clear(this BuffEntity self)
+        {
+            self.CurrentLayer = 0;
+            self.SourceEntity = null;
+            self.BuffConfigId = 0;
+            self.BuffEndTime = 0;
+            self.ParentBuffManager = null;
+            self.BuffTickTimerId = null;
         }
     }
 }
