@@ -75,24 +75,26 @@ namespace ET
 		[ProtoMember(2, IsRequired  = true)]
 		public int Description { get; set; }
 		[ProtoMember(3, IsRequired  = true)]
-		public int MaxLayerCount { get; set; }
+		public int State { get; set; }
 		[ProtoMember(4, IsRequired  = true)]
-		public int IsEnableRefresh { get; set; }
+		public int MaxLayerCount { get; set; }
 		[ProtoMember(5, IsRequired  = true)]
-		public int MaxSourceCount { get; set; }
+		public bool IsEnableRefresh { get; set; }
 		[ProtoMember(6, IsRequired  = true)]
-		public int DurationMillsecond { get; set; }
+		public int MaxSourceCount { get; set; }
 		[ProtoMember(7, IsRequired  = true)]
-		public int[] BuffAddActions { get; set; }
+		public int DurationMillsecond { get; set; }
 		[ProtoMember(8, IsRequired  = true)]
-		public int[] BuffRemoveActions { get; set; }
+		public int[] BuffAddActions { get; set; }
 		[ProtoMember(9, IsRequired  = true)]
-		public int[] BuffRefreshActions { get; set; }
+		public int[] BuffRemoveActions { get; set; }
 		[ProtoMember(10, IsRequired  = true)]
-		public int[] BuffTickActions { get; set; }
+		public int[] BuffRefreshActions { get; set; }
 		[ProtoMember(11, IsRequired  = true)]
-		public int BuffTickTimeSpan { get; set; }
+		public int[] BuffTickActions { get; set; }
 		[ProtoMember(12, IsRequired  = true)]
+		public int BuffTickTimeSpan { get; set; }
+		[ProtoMember(13, IsRequired  = true)]
 		public int[] BuffTimeOutActions { get; set; }
 
 

@@ -4,11 +4,13 @@
     {
         public override void Awake(BuffEntity self, Entity sourceEntity, int buffConfigId)
         {
+            var buffConfig = BuffConfigCategory.Instance.Get(self.BuffConfigId);
             self.SourceEntity = sourceEntity;
             self.ParentBuffManager = self.Parent as BuffContainerComponent;
             self.BuffConfigId = buffConfigId;
-            self.BuffEndTime = TimeHelper.ServerNow() + BuffConfigCategory.Instance.Get(self.BuffConfigId).DurationMillsecond;
+            self.BuffEndTime = TimeHelper.ServerNow() + buffConfig.DurationMillsecond;
             self.CurrentLayer++;
+            self.State = (BuffState) buffConfig.State;
         }
     }
     
@@ -49,12 +51,27 @@
             {
                 BuffActionDispatcher.Instance.RunBuffRemoveAction(self);
             }
+            
             self.Clear();
         }
     }
 
     public static class BuffEntitySystem
     {
+        /// <summary>
+        /// 执行Buff刷新
+        /// </summary>
+        /// <param name="self"></param>
+        public static void RunRefreshAction(this BuffEntity self)
+        {
+            BuffActionDispatcher.Instance.RunBuffRefreshAction(self);
+        }
+        
+        /// <summary>
+        /// 执行Buff 定时Tick
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="timeSpan"></param>
         public static void RunTickAction(this BuffEntity self, int timeSpan)
         {
             if (timeSpan==0)
@@ -81,6 +98,7 @@
             self.BuffEndTime = 0;
             self.ParentBuffManager = null;
             self.BuffTickTimerId = null;
+            self.State = BuffState.None;
         }
     }
 }

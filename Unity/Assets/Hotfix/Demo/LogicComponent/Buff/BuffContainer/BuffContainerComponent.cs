@@ -12,5 +12,10 @@ namespace ET
         /// key: EntityId
         /// </summary>
         public Dictionary<long, BuffEntity> idBuffEntities;
+
+        /// <summary>
+        /// Buff状态
+        /// </summary>
+        public BuffState BuffState;
     }
 }

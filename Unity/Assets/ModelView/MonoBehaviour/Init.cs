@@ -17,18 +17,7 @@ namespace ET
 				DontDestroyOnLoad(gameObject);
 
 				string[] assemblyNames = { "Unity.Model.dll", "Unity.Hotfix.dll", "Unity.ModelView.dll", "Unity.HotfixView.dll" };
-				
-				// foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
-				// {
-				// 	string assemblyName = assembly.ManifestModule.Name;
-				// 	
-				// 	if (!assemblyNames.Contains(assemblyName))
-				// 	{
-				// 		continue;
-				// 	}
-				// 	Game.EventSystem.Add(assembly);	
-				// }
-				
+
 				foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
 				{
 					string assemblyName = $"{assembly.GetName().Name}.dll";

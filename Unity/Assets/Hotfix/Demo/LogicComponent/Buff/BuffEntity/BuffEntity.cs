@@ -11,6 +11,11 @@
         public int BuffConfigId;
 
         /// <summary>
+        /// Buff状态
+        /// </summary>
+        public BuffState State;
+
+        /// <summary>
         /// 当前Buff层数
         /// </summary>
         public int CurrentLayer;
@@ -34,5 +39,7 @@
         /// Buff轮询计时器Id
         /// </summary>
         public long? BuffTickTimerId;
+        
+        
     }
 }
