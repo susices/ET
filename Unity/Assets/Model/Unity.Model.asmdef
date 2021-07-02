@@ -2,9 +2,7 @@
     "name": "Unity.Model",
     "rootNamespace": "",
     "references": [
-        "Unity.ThirdParty",
-        "Unity.Addressables",
-        "Unity.ResourceManager"
+        "Unity.ThirdParty"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

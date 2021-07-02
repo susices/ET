@@ -23,7 +23,7 @@
         /// <summary>
         /// 被添加到的BuffManager
         /// </summary>
-        public BuffManaerComponent ParentBuffManager;
+        public BuffContainerComponent ParentBuffManager;
 
         /// <summary>
         /// Buff结束时间 单位毫秒

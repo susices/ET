@@ -5,7 +5,7 @@
     /// </summary>
     public static class BuffFactory
     {
-        public static BuffEntity Create(BuffManaerComponent buffManagerComponent,Entity sourceEntity, int buffConfigId)
+        public static BuffEntity Create(BuffContainerComponent buffManagerComponent,Entity sourceEntity, int buffConfigId)
         {
             var buffEntity = EntityFactory.CreateWithParent<BuffEntity, Entity, int>(buffManagerComponent, sourceEntity, buffConfigId, true);
             return buffEntity;

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using UnityEngine;
-
+using Assembly = System.Reflection.Assembly;
 
 namespace ET
 {
@@ -20,9 +18,21 @@ namespace ET
 
 				string[] assemblyNames = { "Unity.Model.dll", "Unity.Hotfix.dll", "Unity.ModelView.dll", "Unity.HotfixView.dll" };
 				
+				// foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+				// {
+				// 	string assemblyName = assembly.ManifestModule.Name;
+				// 	
+				// 	if (!assemblyNames.Contains(assemblyName))
+				// 	{
+				// 		continue;
+				// 	}
+				// 	Game.EventSystem.Add(assembly);	
+				// }
+				
 				foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
 				{
-					string assemblyName = assembly.ManifestModule.Name;
+					string assemblyName = $"{assembly.GetName().Name}.dll";
+					
 					if (!assemblyNames.Contains(assemblyName))
 					{
 						continue;
@@ -30,9 +40,6 @@ namespace ET
 					Game.EventSystem.Add(assembly);	
 				}
 				
-				
-
-
 				ProtobufHelper.Init();
 				
 				Game.Options = new Options();

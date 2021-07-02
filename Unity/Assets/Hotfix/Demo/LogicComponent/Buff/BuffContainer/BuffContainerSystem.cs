@@ -4,28 +4,27 @@ using System.Linq;
 namespace ET
 {
     [ObjectSystem]
-    public class BuffManagerAwakeSystem: AwakeSystem<BuffManaerComponent>
+    public class BuffContainerAwakeSystem: AwakeSystem<BuffContainerComponent>
     {
-        public override void Awake(BuffManaerComponent self)
+        public override void Awake(BuffContainerComponent self)
         {
-            
             self.idBuffEntities = new Dictionary<long, BuffEntity>();
         }
     }
 
     [ObjectSystem]
-    public class BuffManagerUpdateSystem : UpdateSystem<BuffManaerComponent>
+    public class BuffContainerUpdateSystem : UpdateSystem<BuffContainerComponent>
     {
-        public override void Update(BuffManaerComponent self)
+        public override void Update(BuffContainerComponent self)
         {
             
         }
     }
 
     [ObjectSystem]
-    public class BuffManagerDestroySystem: DestroySystem<BuffManaerComponent>
+    public class BuffContainerDestroySystem: DestroySystem<BuffContainerComponent>
     {
-        public override void Destroy(BuffManaerComponent self)
+        public override void Destroy(BuffContainerComponent self)
         {
             foreach (var buffEntity in self.idBuffEntities.Values)
             {
@@ -38,14 +37,14 @@ namespace ET
     
     
     /// <summary>
-    /// Buff管理器组件系统
+    /// Buff容器组件系统
     /// </summary>
-    public static class BuffManagerComponentSystem
+    public static class BuffContainerSystem
     {
         /// <summary>
-        /// 添加Buff到BuffManager
+        /// 添加Buff到Buff容器
         /// </summary>
-        public static void AddBuff(this BuffManaerComponent self, int buffConfigId, Entity sourceEntity)
+        public static void AddBuff(this BuffContainerComponent self, int buffConfigId, Entity sourceEntity)
         {
             BuffFactory.Create(self, sourceEntity,buffConfigId);
         }
@@ -53,7 +52,7 @@ namespace ET
         /// <summary>
         /// 从BuffManager移除Buff
         /// </summary>
-        public static void RemoveBuff(this BuffManaerComponent self, long buffEntityId)
+        public static void RemoveBuff(this BuffContainerComponent self, long buffEntityId)
         {
             self.GetChild<BuffEntity>(buffEntityId).Dispose();
         }

@@ -5,7 +5,7 @@
         public override void Awake(BuffEntity self, Entity sourceEntity, int buffConfigId)
         {
             self.SourceEntity = sourceEntity;
-            self.ParentBuffManager = self.Parent as BuffManaerComponent;
+            self.ParentBuffManager = self.Parent as BuffContainerComponent;
             self.BuffConfigId = buffConfigId;
             self.BuffEndTime = TimeHelper.ServerNow() + BuffConfigCategory.Instance.Get(self.BuffConfigId).DurationMillsecond;
             self.CurrentLayer++;
