@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Pool;
 #if UNITY_EDITOR
 using UnityEditor;
 
@@ -11,117 +12,7 @@ using UnityEditor;
 
 namespace ET
 {
-    [ObjectSystem]
-    public class ABInfoAwakeSystem: AwakeSystem<ABInfo, string, AssetBundle>
-    {
-        public override void Awake(ABInfo self, string abName, AssetBundle a)
-        {
-            self.AssetBundle = a;
-            self.Name = abName;
-            self.RefCount = 1;
-            self.AlreadyLoadAssets = false;
-        }
-    }
-
-    [ObjectSystem]
-    public class ABInfoDestroySystem: DestroySystem<ABInfo>
-    {
-        public override void Destroy(ABInfo self)
-        {
-            //Log.Debug($"desdroy assetbundle: {this.Name}");
-
-            self.RefCount = 0;
-            self.Name = "";
-            self.AlreadyLoadAssets = false;
-            self.AssetBundle = null;
-        }
-    }
-
-    public class ABInfo: Entity
-    {
-        public string Name { get; set; }
-
-        public int RefCount { get; set; }
-
-        public AssetBundle AssetBundle;
-
-        public bool AlreadyLoadAssets;
-
-        public void Destroy(bool unload = true)
-        {
-            if (this.AssetBundle != null)
-            {
-                this.AssetBundle.Unload(unload);
-            }
-
-            this.Dispose();
-        }
-    }
-
-    // 用于字符串转换，减少GC
-    public static class AssetBundleHelper
-    {
-        public static async ETTask<AssetBundle> UnityLoadBundleAsync(string path)
-        {
-            var tcs = ETTask<AssetBundle>.Create(true);
-            AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(path);
-            request.completed += operation => { tcs.SetResult(request.assetBundle); };
-            return await tcs;
-        }
-
-        public static async ETTask<UnityEngine.Object[]> UnityLoadAssetAsync(AssetBundle assetBundle)
-        {
-            var tcs = ETTask<UnityEngine.Object[]>.Create(true);
-            AssetBundleRequest request = assetBundle.LoadAllAssetsAsync();
-            request.completed += operation => { tcs.SetResult(request.allAssets); };
-            return await tcs;
-        }
-
-        public static string IntToString(this int value)
-        {
-            string result;
-            if (ResourcesComponent.Instance.IntToStringDict.TryGetValue(value, out result))
-            {
-                return result;
-            }
-
-            result = value.ToString();
-            ResourcesComponent.Instance.IntToStringDict[value] = result;
-            return result;
-        }
-
-        public static string StringToAB(this string value)
-        {
-            string result;
-            if (ResourcesComponent.Instance.StringToABDict.TryGetValue(value, out result))
-            {
-                return result;
-            }
-
-            result = value + ".unity3d";
-            ResourcesComponent.Instance.StringToABDict[value] = result;
-            return result;
-        }
-
-        public static string IntToAB(this int value)
-        {
-            return value.IntToString().StringToAB();
-        }
-
-        public static string BundleNameToLower(this string value)
-        {
-            string result;
-            if (ResourcesComponent.Instance.BundleNameToLowerDict.TryGetValue(value, out result))
-            {
-                return result;
-            }
-
-            result = value.ToLower();
-            ResourcesComponent.Instance.BundleNameToLowerDict[value] = result;
-            return result;
-        }
-    }
-
+    
     [ObjectSystem]
     public class ResourcesComponentAwakeSystem: AwakeSystem<ResourcesComponent>
     {
@@ -147,6 +38,10 @@ namespace ET
                 new Dictionary<string, Dictionary<string, UnityEngine.Object>>();
 
         private readonly Dictionary<string, ABInfo> bundles = new Dictionary<string, ABInfo>();
+
+        private Pool<Dictionary<string, int>> DicPool = new Pool<Dictionary<string, int>>();
+
+        private Dictionary<string, string[]> SortedDepCache = new Dictionary<string, string[]>();
 
         public void Awake()
         {
@@ -184,7 +79,7 @@ namespace ET
 
         private string[] GetDependencies(string assetBundleName)
         {
-            string[] dependencies = new string[0];
+            string[] dependencies = null;
             if (DependenciesCache.TryGetValue(assetBundleName, out dependencies))
             {
                 return dependencies;
@@ -207,12 +102,22 @@ namespace ET
 
         private string[] GetSortedDependencies(string assetBundleName)
         {
-            var info = new Dictionary<string, int>();
-            var parents = new List<string>();
-            CollectDependencies(parents, assetBundleName, info);
+            if (this.SortedDepCache.TryGetValue(assetBundleName, out var SorteDeps))
+            {
+                return SorteDeps;
+            }
+            var info = this.DicPool.Fetch();
+            using var list = ListComponent<string>.Create();
+            this.CollectDependencies(list.List, assetBundleName, info);
+            // wenchao 替换linq写法
             string[] ss = info.OrderBy(x => x.Value).Select(x => x.Key).ToArray();
+            info.Clear();
+            this.DicPool.Recycle(info);
+            this.SortedDepCache[assetBundleName] = ss;
             return ss;
         }
+        
+        
 
         private void CollectDependencies(List<string> parents, string assetBundleName, Dictionary<string, int> info)
         {
@@ -262,6 +167,7 @@ namespace ET
 
         public UnityEngine.Object GetAsset(string bundleName, string prefab)
         {
+            Log.Debug($"加载AB prefab:{prefab}  bundle: {bundleName}");
             Dictionary<string, UnityEngine.Object> dict;
             if (!this.resourceCache.TryGetValue(bundleName.BundleNameToLower(), out dict))
             {

@@ -57,6 +57,5 @@ namespace ET
 			Game.Close();
 			
 		}
-		
 	}
 }
