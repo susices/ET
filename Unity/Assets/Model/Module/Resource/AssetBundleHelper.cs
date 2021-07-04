@@ -64,5 +64,21 @@ namespace ET
             ResourcesComponent.Instance.BundleNameToLowerDict[value] = result;
             return result;
         }
+
+
+        /// <summary>
+        /// 根据资源路径获取bundle名和prefab名
+        /// </summary>
+        /// <param name="assetPath"></param>
+        /// <param name="bundleName"></param>
+        /// <param name="prefabName"></param>
+        /// <returns></returns>
+        public static bool GetBundlePrefabNameByPath(string assetPath, out string bundleName, out string prefabName)
+        {
+            // wenchao 待做根据资源路径获取bundle名和prefab名
+            bundleName = null;
+            prefabName = null;
+            return true;
+        }
     }
 }

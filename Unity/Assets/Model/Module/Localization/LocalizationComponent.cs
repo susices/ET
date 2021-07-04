@@ -8,7 +8,8 @@ namespace ET
     public class LocalizationComponent : Entity
     {
         public static LocalizationComponent Instance;
-        public SystemLanguage Language;
+        public SystemLanguage LanguageTextArt;
+        public SystemLanguage LanguageAudio;
     }
     
 }

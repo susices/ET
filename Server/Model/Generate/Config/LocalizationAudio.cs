@@ -7,19 +7,19 @@ namespace ET
 {
     [ProtoContract]
     [Config]
-    public partial class LocalizationTextCategory : ProtoObject
+    public partial class LocalizationAudioCategory : ProtoObject
     {
-        public static LocalizationTextCategory Instance;
+        public static LocalizationAudioCategory Instance;
 		
         [ProtoIgnore]
         [BsonIgnore]
-        private Dictionary<int, LocalizationText> dict = new Dictionary<int, LocalizationText>();
+        private Dictionary<int, LocalizationAudio> dict = new Dictionary<int, LocalizationAudio>();
 		
         [BsonElement]
         [ProtoMember(1)]
-        private List<LocalizationText> list = new List<LocalizationText>();
+        private List<LocalizationAudio> list = new List<LocalizationAudio>();
 		
-        public LocalizationTextCategory()
+        public LocalizationAudioCategory()
         {
             Instance = this;
         }
@@ -27,7 +27,7 @@ namespace ET
 		[ProtoAfterDeserialization]
         public void AfterDeserialization()
         {
-            foreach (LocalizationText config in list)
+            foreach (LocalizationAudio config in list)
             {
                 this.dict.Add(config.Id, config);
             }
@@ -35,13 +35,13 @@ namespace ET
             this.EndInit();
         }
 		
-        public LocalizationText Get(int id)
+        public LocalizationAudio Get(int id)
         {
-            this.dict.TryGetValue(id, out LocalizationText item);
+            this.dict.TryGetValue(id, out LocalizationAudio item);
 
             if (item == null)
             {
-                throw new Exception($"配置找不到，配置表名: {nameof (LocalizationText)}，配置id: {id}");
+                throw new Exception($"配置找不到，配置表名: {nameof (LocalizationAudio)}，配置id: {id}");
             }
 
             return item;
@@ -52,12 +52,12 @@ namespace ET
             return this.dict.ContainsKey(id);
         }
 
-        public Dictionary<int, LocalizationText> GetAll()
+        public Dictionary<int, LocalizationAudio> GetAll()
         {
             return this.dict;
         }
 
-        public LocalizationText GetOne()
+        public LocalizationAudio GetOne()
         {
             if (this.dict == null || this.dict.Count <= 0)
             {
@@ -68,7 +68,7 @@ namespace ET
     }
 
     [ProtoContract]
-	public partial class LocalizationText: ProtoObject, IConfig
+	public partial class LocalizationAudio: ProtoObject, IConfig
 	{
 		[ProtoMember(1, IsRequired  = true)]
 		public int Id { get; set; }

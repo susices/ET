@@ -69,12 +69,13 @@ namespace ET
             {
                 abInfo.Value.Destroy();
             }
-
             this.bundles.Clear();
             this.resourceCache.Clear();
             this.IntToStringDict.Clear();
             this.StringToABDict.Clear();
             this.BundleNameToLowerDict.Clear();
+            this.DicPool.Clear();
+            this.SortedDepCache.Clear();
         }
 
         private string[] GetDependencies(string assetBundleName)
@@ -496,13 +497,14 @@ namespace ET
                 abInfo.AlreadyLoadAssets = true;
             }
         }
+        
 
         public string DebugString()
         {
             StringBuilder sb = new StringBuilder();
             foreach (ABInfo abInfo in this.bundles.Values)
             {
-                sb.Append($"{abInfo.Name}:{abInfo.RefCount}\n");
+                sb.Append($"{abInfo.Name}:{abInfo.RefCount.ToString()}\n");
             }
 
             return sb.ToString();

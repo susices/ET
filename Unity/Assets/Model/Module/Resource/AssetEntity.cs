@@ -7,36 +7,33 @@ namespace ET
     /// </summary>
     public class AssetEntity : Entity
     {
-        public GameObject GameObject;
+        /// <summary>
+        /// 实例化gameObject
+        /// </summary>
+        public GameObject GameObject { private set; get; }
 
-        public AssetEntityPool AssetEntityPool;
+        private AssetEntityPool AssetEntityPool;
 
-    }
-    
-    /// <summary>
-    /// 资源实体系统
-    /// </summary>
-    public class AssetEntitySystem
-    {
-        
+        public override void Dispose()
+        {
+            AssetEntityPool.RecycleGameObject(GameObject);
+            GameObject = null;
+            AssetEntityPool = null;
+            base.Dispose();
+        }
+
+        public void Awake(AssetEntityPool assetEntityPool)
+        {
+            AssetEntityPool = assetEntityPool;
+            GameObject = assetEntityPool.FetchGameObject();
+        }
     }
     
     public class AssetEntityAwakeSystem : AwakeSystem<AssetEntity,AssetEntityPool>
     {
         public override void Awake(AssetEntity self, AssetEntityPool assetEntityPool)
         {
-            self.AssetEntityPool = assetEntityPool;
-            self.GameObject = assetEntityPool.FetchGameObject();
-        }
-    }
-
-    public class AssetEntityDestroySystem : DestroySystem<AssetEntity>
-    {
-        public override void Destroy(AssetEntity self)
-        {
-            self.AssetEntityPool.RecycleGameObject(self.GameObject);
-            self.GameObject = null;
-            self.AssetEntityPool = null;
+            self.Awake(assetEntityPool);
         }
     }
 }

@@ -73,8 +73,10 @@ namespace ET
 		[ProtoMember(1, IsRequired  = true)]
 		public int Id { get; set; }
 		[ProtoMember(3, IsRequired  = true)]
-		public string CN { get; set; }
+		public string Default { get; set; }
 		[ProtoMember(4, IsRequired  = true)]
+		public string CN { get; set; }
+		[ProtoMember(5, IsRequired  = true)]
 		public string EN { get; set; }
 
 
