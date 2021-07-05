@@ -1,0 +1,37 @@
+
+_
+0Assets/Bundles/AssetManifest/AssetManifest.bytesAssetManifestassets/bundles/assetmanifest
+W
+,Assets/Bundles/Config/AIConfigCategory.bytesAIConfigCategoryassets/bundles/config
+g
+4Assets/Bundles/Config/BuffActionConfigCategory.bytesBuffActionConfigCategoryassets/bundles/config
+o
+8Assets/Bundles/Config/BuffBaseActionConfigCategory.bytesBuffBaseActionConfigCategoryassets/bundles/config
+[
+.Assets/Bundles/Config/BuffConfigCategory.bytesBuffConfigCategoryassets/bundles/config
+e
+3Assets/Bundles/Config/BuffStateConfigCategory.bytesBuffStateConfigCategoryassets/bundles/config
+o
+8Assets/Bundles/Config/LocalizationArtAssetCategory.bytesLocalizationArtAssetCategoryassets/bundles/config
+i
+5Assets/Bundles/Config/LocalizationAudioCategory.bytesLocalizationAudioCategoryassets/bundles/config
+g
+4Assets/Bundles/Config/LocalizationTextCategory.bytesLocalizationTextCategoryassets/bundles/config
+k
+6Assets/Bundles/Config/StartMachineConfigCategory.bytesStartMachineConfigCategoryassets/bundles/config
+k
+6Assets/Bundles/Config/StartProcessConfigCategory.bytesStartProcessConfigCategoryassets/bundles/config
+g
+4Assets/Bundles/Config/StartSceneConfigCategory.bytesStartSceneConfigCategoryassets/bundles/config
+e
+3Assets/Bundles/Config/StartZoneConfigCategory.bytesStartZoneConfigCategoryassets/bundles/config
+[
+.Assets/Bundles/Config/UnitConfigCategory.bytesUnitConfigCategoryassets/bundles/config
+>
+ Assets/Bundles/UI/UILobby.prefabUILobbyassets/bundles/ui
+>
+ Assets/Bundles/UI/UILogin.prefabUILoginassets/bundles/ui
+<
+Assets/Bundles/Unit/Unit.prefabUnitassets/bundles/unit
+7
+Assets/Scenes/Map.unityMapassets/scenes/map.unity

@@ -1,35 +1,0 @@
-
-P
-,Assets/Bundles/Config/AIConfigCategory.bytesAIConfigCategoryconfig.unity3d
-`
-4Assets/Bundles/Config/BuffActionConfigCategory.bytesBuffActionConfigCategoryconfig.unity3d
-h
-8Assets/Bundles/Config/BuffBaseActionConfigCategory.bytesBuffBaseActionConfigCategoryconfig.unity3d
-T
-.Assets/Bundles/Config/BuffConfigCategory.bytesBuffConfigCategoryconfig.unity3d
-^
-3Assets/Bundles/Config/BuffStateConfigCategory.bytesBuffStateConfigCategoryconfig.unity3d
-h
-8Assets/Bundles/Config/LocalizationArtAssetCategory.bytesLocalizationArtAssetCategoryconfig.unity3d
-b
-5Assets/Bundles/Config/LocalizationAudioCategory.bytesLocalizationAudioCategoryconfig.unity3d
-`
-4Assets/Bundles/Config/LocalizationTextCategory.bytesLocalizationTextCategoryconfig.unity3d
-d
-6Assets/Bundles/Config/StartMachineConfigCategory.bytesStartMachineConfigCategoryconfig.unity3d
-d
-6Assets/Bundles/Config/StartProcessConfigCategory.bytesStartProcessConfigCategoryconfig.unity3d
-`
-4Assets/Bundles/Config/StartSceneConfigCategory.bytesStartSceneConfigCategoryconfig.unity3d
-^
-3Assets/Bundles/Config/StartZoneConfigCategory.bytesStartZoneConfigCategoryconfig.unity3d
-T
-.Assets/Bundles/Config/UnitConfigCategory.bytesUnitConfigCategoryconfig.unity3d
-+
-Assets/Scenes/Map.unityMapmap.unity3d
-<
- Assets/Bundles/UI/UILobby.prefabUILobbyuilobby.unity3d
-<
- Assets/Bundles/UI/UILogin.prefabUILoginuilogin.unity3d
-5
-Assets/Bundles/Unit/Unit.prefabUnitunit.unity3d

@@ -113,19 +113,14 @@ namespace ET
             
             GUILayout.Space(5);
 
-            if (GUILayout.Button("自动标记AssetBundle", GUILayout.ExpandHeight(true)))
+            if (GUILayout.Button("自动标记AB 生成AssetManifest", GUILayout.ExpandHeight(true)))
             {
                 BuildHelper.SetAssetBundleForAllAssets();
-            }
-
-            GUILayout.Space(5);
-
-            if (GUILayout.Button("生成AssetManifest", GUILayout.ExpandHeight(true)))
-            {
                 BuildHelper.CreateAssetManifest();
             }
-            // GUILayout.Space(5);
             
+            // GUILayout.Space(5);
+            //
             // if (GUILayout.Button("解析AssetManifest", GUILayout.ExpandHeight(true)))
             // {
             //     var bytes =  File.ReadAllBytes(Path.Combine("Assets/Bundles/AssetManifest/", $"AssetManifest.bytes"));

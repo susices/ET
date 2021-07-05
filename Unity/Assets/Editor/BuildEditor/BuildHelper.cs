@@ -99,10 +99,10 @@ namespace ET
                     });
                 }  
             }
-            string path = Path.Combine("Assets/Bundles/AssetManifest/", $"AssetManifest.bytes");
+            string path = Path.Combine("Assets/Bundles/AssetManifestDir/", $"AssetManifest.bytes");
             using FileStream file = File.Create(path);
             Serializer.Serialize(file, assetManifest);
-            AssetImporter.GetAtPath(path).assetBundleName = "assetmanifest.unity3d";
+            //AssetImporter.GetAtPath(path).SaveAndReimport();
             AssetDatabase.SaveAssets();
             Debug.Log("AssetManifest 生成成功！");
         }
@@ -117,13 +117,23 @@ namespace ET
             {
                 AssetDatabase.RemoveAssetBundleName(bundleName, true);
             }
-
+            string AssetManifestDirPath = "Assets/Bundles/AssetManifestDir";
+            
+            AssetImporter.GetAtPath(AssetManifestDirPath).assetBundleName = AssetManifestDirPath;
             var assetPaths =  Directory.GetFiles("Assets/Bundles/", "*.*", SearchOption.AllDirectories).Where(name => !name.EndsWith(".meta")&& !name.EndsWith(".cs") ).ToList();
+            var ScenePaths = Directory.GetFiles("Assets/Scenes/", "*.unity", SearchOption.AllDirectories).Where(name => !name.EndsWith("Init.unity")).ToList();
+            
             foreach (var assetPath in assetPaths)
             {
                 AssetImporter.GetAtPath(assetPath).assetBundleName = Path.GetDirectoryName(assetPath);
             }
-
+            
+            foreach (var scenePath in ScenePaths)
+            {
+                AssetImporter.GetAtPath(scenePath).assetBundleName = scenePath;
+            }
+            //AssetDatabase.SaveAssets();
+            Debug.Log("AssetBundle 标记成功！");
         }
     }
 }
