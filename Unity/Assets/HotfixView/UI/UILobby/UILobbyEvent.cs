@@ -8,11 +8,13 @@ namespace ET
     {
         public override async ETTask<UI> OnCreate(UIComponent uiComponent)
         {
-            await ETTask.CompletedTask;
-            ResourcesComponent.Instance.LoadBundle(UIType.UILobby.StringToAB());
-            GameObject bundleGameObject = (GameObject) ResourcesComponent.Instance.GetAsset(UIType.UILobby.StringToAB(), UIType.UILobby);
-            GameObject gameObject = UnityEngine.Object.Instantiate(bundleGameObject);
-            UI ui = EntityFactory.CreateWithParent<UI, string, GameObject>(uiComponent, UIType.UILobby, gameObject);
+            // await ETTask.CompletedTask;
+            // ResourcesComponent.Instance.LoadBundle("assets/bundles/ui");
+            // GameObject bundleGameObject = (GameObject) ResourcesComponent.Instance.GetAsset("assets", UIType.UILobby);
+            //
+            // GameObject gameObject = UnityEngine.Object.Instantiate(bundleGameObject);
+            var assetEntity = await PoolingAssetComponent.Instance.GetAssetEntityAsync("Assets/Bundles/UI/UILobby.prefab");
+            UI ui = EntityFactory.CreateWithParent<UI, string, AssetEntity>(uiComponent, UIType.UILobby, assetEntity);
 
             ui.AddComponent<UILobbyComponent>();
             return ui;
@@ -20,7 +22,7 @@ namespace ET
 
         public override void OnRemove(UIComponent uiComponent)
         {
-            ResourcesComponent.Instance.UnloadBundle(UIType.UILobby.StringToAB());
+            ResourcesComponent.Instance.UnloadBundle("assets/bundles/ui");
         }
     }
 }

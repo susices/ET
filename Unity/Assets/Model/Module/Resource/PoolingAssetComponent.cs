@@ -8,7 +8,9 @@ namespace ET
     /// </summary>
     public class PoolingAssetComponent: Entity
     {
+        public static PoolingAssetComponent Instance;
         public Dictionary<string, AssetEntityPool> PathAssetEntityPools = new Dictionary<string, AssetEntityPool>();
+        public Transform AssetPoolTransform;
     }
 
     public static class PoolingAssetComponentSystem
@@ -16,11 +18,11 @@ namespace ET
         /// <summary>
         /// 同步获取资源实体
         /// </summary>
-        public static AssetEntity GetAssetEntity(this PoolingAssetComponent self, string path)
+        public static AssetEntity GetAssetEntity(this PoolingAssetComponent self, string path, Transform parent = null)
         {
             if (self.PathAssetEntityPools.TryGetValue(path, out AssetEntityPool assetEntityPool))
             {
-                return assetEntityPool.GetAssetEntity();
+                return assetEntityPool.GetAssetEntity(parent);
             }
 
             if (!AssetBundleHelper.GetBundlePrefabNameByPath(path, out string bundleName, out string prefabName))
@@ -33,17 +35,17 @@ namespace ET
             GameObject obj = (GameObject) ResourcesComponent.Instance.GetAsset(bundleName, prefabName);
             AssetEntityPool newPool = EntityFactory.CreateWithParent<AssetEntityPool, GameObject, string, string>(self, obj, bundleName,prefabName);
             self.PathAssetEntityPools.Add(path, newPool);
-            return newPool.GetAssetEntity();
+            return newPool.GetAssetEntity(parent);
         }
 
         /// <summary>
         /// 异步获取资源实体
         /// </summary>
-        public static async ETTask<AssetEntity> GetAssetEntityAsync(this PoolingAssetComponent self, string path)
+        public static async ETTask<AssetEntity> GetAssetEntityAsync(this PoolingAssetComponent self, string path, Transform parent = null)
         {
             if (self.PathAssetEntityPools.TryGetValue(path, out AssetEntityPool assetEntityPool))
             {
-                return assetEntityPool.GetAssetEntity();
+                return assetEntityPool.GetAssetEntity(parent);
             }
 
             if (!AssetBundleHelper.GetBundlePrefabNameByPath(path, out string bundleName, out string prefabName))
@@ -56,7 +58,20 @@ namespace ET
             GameObject obj = (GameObject) ResourcesComponent.Instance.GetAsset(bundleName, prefabName);
             AssetEntityPool newPool = EntityFactory.CreateWithParent<AssetEntityPool, GameObject, string, string>(self, obj, bundleName, prefabName);
             self.PathAssetEntityPools.Add(path, newPool);
-            return newPool.GetAssetEntity();
+            return newPool.GetAssetEntity(parent);
+        }
+    }
+    
+    public class PoolingAssetComponentAwakeSystem: AwakeSystem<PoolingAssetComponent>
+    {
+        public override void Awake(PoolingAssetComponent self)
+        {
+            PoolingAssetComponent.Instance = self;
+            var obj = new GameObject();
+            obj.name = "AssetPool";
+            obj.transform.parent = GameObject.Find("/Global").transform;
+            self.AssetPoolTransform = obj.transform;
+
         }
     }
 }

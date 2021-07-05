@@ -15,7 +15,7 @@ namespace ET
 				GameObject go = UnityEngine.Object.Instantiate(bundleGameObject);
 				go.layer = LayerMask.NameToLayer(LayerNames.UI);
 				UI ui = EntityFactory.CreateWithParent<UI, string, GameObject>(uiComponent, UIType.UILoading, go);
-
+				
 				ui.AddComponent<UILoadingComponent>();
 				return ui;
 	        }

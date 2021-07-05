@@ -52,6 +52,7 @@ namespace ET
                 LoadOneBundle("StreamingAssets");
                 AssetBundleManifestObject = (AssetBundleManifest) GetAsset("StreamingAssets", "AssetBundleManifest");
             }
+            AssetBundleHelper.LoadAssetManifestConfig();
         }
 
         public override void Dispose()

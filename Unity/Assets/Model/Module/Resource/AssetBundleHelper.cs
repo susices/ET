@@ -69,16 +69,39 @@ namespace ET
         /// <summary>
         /// 根据资源路径获取bundle名和prefab名
         /// </summary>
-        /// <param name="assetPath"></param>
-        /// <param name="bundleName"></param>
-        /// <param name="prefabName"></param>
-        /// <returns></returns>
         public static bool GetBundlePrefabNameByPath(string assetPath, out string bundleName, out string prefabName)
         {
-            // wenchao 待做根据资源路径获取bundle名和prefab名
+            var assetInfo = AssetManifest.Instance.Get(assetPath);
+            if (assetInfo!=null)
+            {
+                bundleName = assetInfo.BundleName;
+                prefabName = assetInfo.PrefabName;
+                return true;
+            }
             bundleName = null;
             prefabName = null;
-            return true;
+            return false;
         }
+
+        public static void LoadAssetManifestConfig()
+        {
+            ResourcesComponent.Instance.LoadBundle(AssetManifestDirPath);
+            var assetManifestTextAsset = ResourcesComponent.Instance.GetAsset(AssetManifestDirPath, AssetManifestName);
+            if (assetManifestTextAsset is TextAsset textAsset)
+            {
+                AssetManifest assetManifest =  ProtobufHelper.FromBytes(typeof (AssetManifest), textAsset.bytes, 0, textAsset.bytes.Length) as AssetManifest;
+                Log.Info("AssetManifest 读取成功！");
+            }
+            else
+            {
+                Log.Error("AssetManifest 读取失败！");
+            }
+            ResourcesComponent.Instance.UnloadBundle(AssetManifestDirPath);
+        }
+
+
+        public const string AssetManifestDirPath = "Assets/Bundles/AssetManifestDir";
+        public const string AssetManifestName = "AssetManifest";
+        public const string ConfigDirPath = "Assets/Bundles/Config";
     }
 }

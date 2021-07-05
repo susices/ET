@@ -5,30 +5,30 @@ using UnityEngine;
 namespace ET
 {
 	
-	public class UIAwakeSystem : AwakeSystem<UI, string, GameObject>
+	public class UIAwakeSystem : AwakeSystem<UI, string, AssetEntity>
 	{
-		public override void Awake(UI self, string name, GameObject gameObject)
+		public override void Awake(UI self, string name, AssetEntity UIAssetEntity)
 		{
 
-			self.Awake(name, gameObject);
+			self.Awake(name, UIAssetEntity);
 		}
 	}
 	
 	public sealed class UI: Entity
 	{
-		public GameObject GameObject;
+		public AssetEntity UIAssetEntity;
 		
 		public string Name { get; private set; }
 
 		public Dictionary<string, UI> nameChildren = new Dictionary<string, UI>();
 		
-		public void Awake(string name, GameObject gameObject)
+		public void Awake(string name, AssetEntity uiAssetEntity)
 		{
 			this.nameChildren.Clear();
-			gameObject.AddComponent<ComponentView>().Component = this;
-			gameObject.layer = LayerMask.NameToLayer(LayerNames.UI);
+			UIAssetEntity = uiAssetEntity;
+			UIAssetEntity.GameObject.AddComponent<ComponentView>().Component = this;
+			UIAssetEntity.GameObject.layer = LayerMask.NameToLayer(LayerNames.UI);
 			this.Name = name;
-			this.GameObject = gameObject;
 		}
 
 		public override void Dispose()
@@ -45,13 +45,13 @@ namespace ET
 				ui.Dispose();
 			}
 			
-			UnityEngine.Object.Destroy(this.GameObject);
+			this.UIAssetEntity.Dispose();
 			this.nameChildren.Clear();
 		}
 
 		public void SetAsFirstSibling()
 		{
-			this.GameObject.transform.SetAsFirstSibling();
+			this.UIAssetEntity.GameObject.transform.SetAsFirstSibling();
 		}
 
 		public void Add(UI ui)
@@ -78,7 +78,7 @@ namespace ET
 			{
 				return child;
 			}
-			GameObject childGameObject = this.GameObject.transform.Find(name)?.gameObject;
+			GameObject childGameObject = this.UIAssetEntity.GameObject.transform.Find(name)?.gameObject;
 			if (childGameObject == null)
 			{
 				return null;

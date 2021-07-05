@@ -44,8 +44,8 @@ namespace ET
 			try
 			{
 				UI ui = await self.UIEvents[uiType].OnCreate(uiComponent);
-				UILayer uiLayer = ui.GameObject.GetComponent<UILayerScript>().UILayer;
-				ui.GameObject.transform.SetParent(self.UILayers[(int)uiLayer]);
+				UILayer uiLayer = ui.UIAssetEntity.GameObject.GetComponent<UILayerScript>().UILayer;
+				ui.UIAssetEntity.GameObject.transform.SetParent(self.UILayers[(int)uiLayer]);
 				return ui;
 			}
 			catch (Exception e)

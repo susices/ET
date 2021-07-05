@@ -22,18 +22,18 @@ namespace ET
             base.Dispose();
         }
 
-        public void Awake(AssetEntityPool assetEntityPool)
+        public void Awake(AssetEntityPool assetEntityPool, Transform parent = null)
         {
             AssetEntityPool = assetEntityPool;
-            GameObject = assetEntityPool.FetchGameObject();
+            GameObject = assetEntityPool.FetchGameObject(parent);
         }
     }
     
-    public class AssetEntityAwakeSystem : AwakeSystem<AssetEntity,AssetEntityPool>
+    public class AssetEntityAwakeSystem : AwakeSystem<AssetEntity,AssetEntityPool, Transform>
     {
-        public override void Awake(AssetEntity self, AssetEntityPool assetEntityPool)
+        public override void Awake(AssetEntity self, AssetEntityPool assetEntityPool, Transform parent)
         {
-            self.Awake(assetEntityPool);
+            self.Awake(assetEntityPool, parent);
         }
     }
 }

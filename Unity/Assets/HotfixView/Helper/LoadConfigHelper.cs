@@ -8,7 +8,7 @@ namespace ET
     {
         public static void LoadAllConfigBytes(Dictionary<string, byte[]> output)
         {
-            Dictionary<string, UnityEngine.Object> keys = ResourcesComponent.Instance.GetBundleAll("config.unity3d");
+            Dictionary<string, UnityEngine.Object> keys = ResourcesComponent.Instance.GetBundleAll(AssetBundleHelper.ConfigDirPath);
 
             foreach (var kv in keys)
             {
