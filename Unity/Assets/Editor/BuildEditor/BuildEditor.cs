@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using ProtoBuf;
 using UnityEditor;
 using UnityEngine;
 
@@ -109,9 +110,32 @@ namespace ET
                     this.buildOptions = BuildOptions.None;
                     break;
             }
+            
+            GUILayout.Space(5);
+
+            if (GUILayout.Button("自动标记AssetBundle", GUILayout.ExpandHeight(true)))
+            {
+                BuildHelper.SetAssetBundleForAllAssets();
+            }
 
             GUILayout.Space(5);
 
+            if (GUILayout.Button("生成AssetManifest", GUILayout.ExpandHeight(true)))
+            {
+                BuildHelper.CreateAssetManifest();
+            }
+            // GUILayout.Space(5);
+            
+            // if (GUILayout.Button("解析AssetManifest", GUILayout.ExpandHeight(true)))
+            // {
+            //     var bytes =  File.ReadAllBytes(Path.Combine("Assets/Bundles/AssetManifest/", $"AssetManifest.bytes"));
+            //
+            //     AssetManifest assetManifest =  ProtobufHelper.FromBytes(typeof (AssetManifest), bytes, 0, bytes.Length) as AssetManifest;
+            // }
+
+
+            GUILayout.Space(5);
+            
             if (GUILayout.Button("开始打包", GUILayout.ExpandHeight(true)))
             {
                 if (this.platformType == PlatformType.None)
