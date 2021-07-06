@@ -6,7 +6,7 @@ namespace ET
 	{
 		protected override async ETTask Run(EventType.LoginFinish args)
 		{
-			await UIHelper.Remove(args.ZoneScene, UIType.UILogin);
+			await UIHelper.Remove(args.ZoneScene, UiType.UILogin);
 		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using UnityEngine;
 
 namespace ET
 {
@@ -14,30 +14,52 @@ namespace ET
 	/// </summary>
 	public static class UIComponentSystem
 	{
-		public static async ETTask<UI> Create(this UIComponent self, string uiType)
+		public static async ETTask<UI> Show(this UIComponent self, int uiType)
 		{
+			var existUI = self.Get(uiType);
+			if (existUI!=null)
+			{
+				return await self.ReShow(existUI);
+			}
 			UI ui = await UIEventComponent.Instance.OnCreate(self, uiType);
 			self.UIs.Add(uiType, ui);
 			return ui;
 		}
 
-		public static void Remove(this UIComponent self, string uiType)
+		private static async ETTask<UI> ReShow(this UIComponent self, UI existUI)
+		{
+			existUI.UIAssetEntity.GameObject.GetComponent<Canvas>().enabled = true;
+			await ETTask.CompletedTask;
+			return null;
+		}
+		
+		public static void Hide(this UIComponent self, int uiType)
+		{
+			var existUI = self.Get(uiType);
+			if (existUI!=null)
+			{
+				existUI.UIAssetEntity.GameObject.GetComponent<Canvas>().enabled = false;
+			}
+		}
+		
+		
+
+		public static void Remove(this UIComponent self, int uiType)
 		{
 			if (!self.UIs.TryGetValue(uiType, out UI ui))
 			{
 				return;
 			}
-			
-			UIEventComponent.Instance.OnRemove(self, uiType);
-			
 			self.UIs.Remove(uiType);
 			ui.Dispose();
 		}
 
-		public static UI Get(this UIComponent self, string name)
+		
+
+		public static UI Get(this UIComponent self, int uiUype)
 		{
 			UI ui = null;
-			self.UIs.TryGetValue(name, out ui);
+			self.UIs.TryGetValue(uiUype, out ui);
 			return ui;
 		}
 	}

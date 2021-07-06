@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 namespace ET
 {
+	[UIType(UiType.UILogin)]
 	public class UILoginComponent: Entity
 	{
 		/// <summary>

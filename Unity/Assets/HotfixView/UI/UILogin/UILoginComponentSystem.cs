@@ -32,4 +32,6 @@ namespace ET
 			LoginHelper.Register(self.DomainScene(), "127.0.0.1:10002", self.accountIpt.text, self.passwordIpt.text).Coroutine();
 		}
 	}
+	
+	
 }

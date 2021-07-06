@@ -19,6 +19,7 @@ namespace ET
         public override void Awake(ResourcesComponent self)
         {
             self.Awake();
+            self.AddComponent<PoolingAssetComponent>();
         }
     }
 

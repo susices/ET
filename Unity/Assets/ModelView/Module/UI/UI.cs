@@ -1,34 +1,37 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using UnityEngine;
 
 namespace ET
 {
 	
-	public class UIAwakeSystem : AwakeSystem<UI, string, AssetEntity>
+	public class UIAwakeSystem : AwakeSystem<UI, int, AssetEntity,Type>
 	{
-		public override void Awake(UI self, string name, AssetEntity UIAssetEntity)
+		public override void Awake(UI self, int UIType, AssetEntity UIAssetEntity, Type UIComponentType)
 		{
-
-			self.Awake(name, UIAssetEntity);
+			self.Awake(UIType, UIAssetEntity,UIComponentType);
 		}
 	}
 	
 	public sealed class UI: Entity
 	{
 		public AssetEntity UIAssetEntity;
-		
-		public string Name { get; private set; }
 
-		public Dictionary<string, UI> nameChildren = new Dictionary<string, UI>();
+		public int UIType;
+
+		public Type UIComponentType;
+
+		public Dictionary<int, UI> uiTypeChildren = new Dictionary<int, UI>();
 		
-		public void Awake(string name, AssetEntity uiAssetEntity)
+		public void Awake(int uiType, AssetEntity uiAssetEntity,Type uiComponentType )
 		{
-			this.nameChildren.Clear();
+			this.uiTypeChildren.Clear();
 			UIAssetEntity = uiAssetEntity;
 			UIAssetEntity.GameObject.AddComponent<ComponentView>().Component = this;
 			UIAssetEntity.GameObject.layer = LayerMask.NameToLayer(LayerNames.UI);
-			this.Name = name;
+			this.UIType = uiType;
+			this.UIComponentType = uiComponentType;
 		}
 
 		public override void Dispose()
@@ -40,13 +43,17 @@ namespace ET
 			
 			base.Dispose();
 
-			foreach (UI ui in this.nameChildren.Values)
+			foreach (UI ui in this.uiTypeChildren.Values)
 			{
 				ui.Dispose();
 			}
 			
 			this.UIAssetEntity.Dispose();
-			this.nameChildren.Clear();
+			this.UIAssetEntity = null;
+			this.uiTypeChildren.Clear();
+			this.UIType = 0;
+			this.UIComponentType = null;
+
 		}
 
 		public void SetAsFirstSibling()
@@ -56,34 +63,35 @@ namespace ET
 
 		public void Add(UI ui)
 		{
-			this.nameChildren.Add(ui.Name, ui);
+			this.uiTypeChildren.Add(ui.UIType, ui);
 			ui.Parent = this;
 		}
 
-		public void Remove(string name)
+		public void Remove(int UIType)
 		{
 			UI ui;
-			if (!this.nameChildren.TryGetValue(name, out ui))
+			if (!this.uiTypeChildren.TryGetValue(UIType, out ui))
 			{
 				return;
 			}
-			this.nameChildren.Remove(name);
+			this.uiTypeChildren.Remove(UIType);
 			ui.Dispose();
 		}
 
-		public UI Get(string name)
+		public UI Get(int UIType)
 		{
+			// wenchao 修改UI Get
 			UI child;
-			if (this.nameChildren.TryGetValue(name, out child))
+			if (this.uiTypeChildren.TryGetValue(UIType, out child))
 			{
 				return child;
 			}
-			GameObject childGameObject = this.UIAssetEntity.GameObject.transform.Find(name)?.gameObject;
+			GameObject childGameObject = this.UIAssetEntity.GameObject.transform.Find(UIType.ToString())?.gameObject;
 			if (childGameObject == null)
 			{
 				return null;
 			}
-			child = EntityFactory.Create<UI, string, GameObject>(this.Domain, name, childGameObject);
+			child = EntityFactory.Create<UI, string, GameObject>(this.Domain, UIType.ToString(), childGameObject);
 			this.Add(child);
 			return child;
 		}

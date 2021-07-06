@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using Microsoft.CodeAnalysis;
@@ -73,7 +74,7 @@ namespace ET
         {
             try
             {
-                DeleteOldFiles();
+                //DeleteOldFiles();
                 template = File.ReadAllText("Template.txt");
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
                 foreach (string path in Directory.GetFiles(excelDir, "*.xlsx",SearchOption.AllDirectories))
@@ -346,8 +347,13 @@ namespace ET
         /// </summary>
         private static void DeleteOldFiles()
         {
-            var files =  Directory.GetFiles(GetProtoDir(ConfigType.Server), "*.bytes", SearchOption.TopDirectoryOnly);
-            foreach (var file in files)
+            var Serverfiles =  Directory.GetFiles(GetProtoDir(ConfigType.Server), "*.bytes", SearchOption.TopDirectoryOnly);
+            foreach (var file in Serverfiles)
+            {
+                File.Delete(file);
+            }
+            var Clientfiles =  Directory.GetFiles(GetProtoDir(ConfigType.Client), "*.bytes", SearchOption.TopDirectoryOnly);
+            foreach (var file in Clientfiles)
             {
                 File.Delete(file);
             }
