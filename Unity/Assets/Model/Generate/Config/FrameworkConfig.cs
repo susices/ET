@@ -7,19 +7,19 @@ namespace ET
 {
     [ProtoContract]
     [Config]
-    public partial class LocalizationArtAssetCategory : ProtoObject
+    public partial class FrameworkConfigCategory : ProtoObject
     {
-        public static LocalizationArtAssetCategory Instance;
+        public static FrameworkConfigCategory Instance;
 		
         [ProtoIgnore]
         [BsonIgnore]
-        private Dictionary<int, LocalizationArtAsset> dict = new Dictionary<int, LocalizationArtAsset>();
+        private Dictionary<int, FrameworkConfig> dict = new Dictionary<int, FrameworkConfig>();
 		
         [BsonElement]
         [ProtoMember(1)]
-        private List<LocalizationArtAsset> list = new List<LocalizationArtAsset>();
+        private List<FrameworkConfig> list = new List<FrameworkConfig>();
 		
-        public LocalizationArtAssetCategory()
+        public FrameworkConfigCategory()
         {
             Instance = this;
         }
@@ -27,7 +27,7 @@ namespace ET
 		[ProtoAfterDeserialization]
         public void AfterDeserialization()
         {
-            foreach (LocalizationArtAsset config in list)
+            foreach (FrameworkConfig config in list)
             {
                 this.dict.Add(config.Id, config);
             }
@@ -35,13 +35,13 @@ namespace ET
             this.EndInit();
         }
 		
-        public LocalizationArtAsset Get(int id)
+        public FrameworkConfig Get(int id)
         {
-            this.dict.TryGetValue(id, out LocalizationArtAsset item);
+            this.dict.TryGetValue(id, out FrameworkConfig item);
 
             if (item == null)
             {
-                throw new Exception($"配置找不到，配置表名: {nameof (LocalizationArtAsset)}，配置id: {id}");
+                throw new Exception($"配置找不到，配置表名: {nameof (FrameworkConfig)}，配置id: {id}");
             }
 
             return item;
@@ -52,12 +52,12 @@ namespace ET
             return this.dict.ContainsKey(id);
         }
 
-        public Dictionary<int, LocalizationArtAsset> GetAll()
+        public Dictionary<int, FrameworkConfig> GetAll()
         {
             return this.dict;
         }
 
-        public LocalizationArtAsset GetOne()
+        public FrameworkConfig GetOne()
         {
             if (this.dict == null || this.dict.Count <= 0)
             {
@@ -68,18 +68,14 @@ namespace ET
     }
 
     [ProtoContract]
-	public partial class LocalizationArtAsset: ProtoObject, IConfig
+	public partial class FrameworkConfig: ProtoObject, IConfig
 	{
 		[ProtoMember(1, IsRequired  = true)]
 		public int Id { get; set; }
+		[ProtoMember(2, IsRequired  = true)]
+		public int IntVar { get; set; }
 		[ProtoMember(3, IsRequired  = true)]
-		public string Default { get; set; }
-		[ProtoMember(4, IsRequired  = true)]
-		public string CN { get; set; }
-		[ProtoMember(5, IsRequired  = true)]
-		public string EN { get; set; }
-		[ProtoMember(6, IsRequired  = true)]
-		public int CachePoolSeconds { get; set; }
+		public string StringVar { get; set; }
 
 
 		[ProtoAfterDeserialization]

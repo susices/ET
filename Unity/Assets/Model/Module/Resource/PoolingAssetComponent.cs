@@ -33,7 +33,7 @@ namespace ET
 
             ResourcesComponent.Instance.LoadBundle(bundleName);
             GameObject obj = (GameObject) ResourcesComponent.Instance.GetAsset(bundleName, prefabName);
-            AssetEntityPool newPool = EntityFactory.CreateWithParent<AssetEntityPool, GameObject, string, string>(self, obj, bundleName,prefabName);
+            AssetEntityPool newPool = EntityFactory.CreateWithParent<AssetEntityPool, GameObject, string, string>(self, obj, bundleName,path);
             self.PathAssetEntityPools.Add(path, newPool);
             return newPool.GetAssetEntity(parent);
         }
@@ -56,7 +56,7 @@ namespace ET
 
             await ResourcesComponent.Instance.LoadBundleAsync(bundleName);
             GameObject obj = (GameObject) ResourcesComponent.Instance.GetAsset(bundleName, prefabName);
-            AssetEntityPool newPool = EntityFactory.CreateWithParent<AssetEntityPool, GameObject, string, string>(self, obj, bundleName, prefabName);
+            AssetEntityPool newPool = EntityFactory.CreateWithParent<AssetEntityPool, GameObject, string, string>(self, obj, bundleName, path);
             self.PathAssetEntityPools.Add(path, newPool);
             return newPool.GetAssetEntity(parent);
         }

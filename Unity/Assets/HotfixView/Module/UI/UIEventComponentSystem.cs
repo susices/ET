@@ -12,7 +12,6 @@ namespace ET
 			
 			GameObject uiRoot = GameObject.Find("/Global/UI");
 			ReferenceCollector referenceCollector = uiRoot.GetComponent<ReferenceCollector>();
-			
 			self.UILayers.Add((int)UILayer.Hidden, referenceCollector.Get<GameObject>(UILayer.Hidden.ToString()).transform);
 			self.UILayers.Add((int)UILayer.Low, referenceCollector.Get<GameObject>(UILayer.Low.ToString()).transform);
 			self.UILayers.Add((int)UILayer.Mid, referenceCollector.Get<GameObject>(UILayer.Mid.ToString()).transform);
@@ -58,9 +57,9 @@ namespace ET
 			try
 			{
 				var uiconfig = UIConfigCategory.Instance.Get(uiType);
-				var UIAssetPath = uiconfig.AssetPath;
+				var UIAssetPathIndex = uiconfig.AssetPath;
 				var uiLayer = uiconfig.UILayer;
-				var assetEntity = await PoolingAssetComponent.Instance.GetAssetEntityAsync(UIAssetPath);
+				var assetEntity = await PoolingAssetComponent.Instance.GetAssetEntityAsync(UIAssetPathIndex.LocalizedAssetPath());
 				if (!self.UITypes.TryGetValue(uiType, out var UIComponentType))
 				{
 					Log.Error($"UIType:{uiType.ToString()} 对应的component未找到！");

@@ -12,7 +12,7 @@ namespace ET
 
         public GameObject GameObjectRes;
         
-        public string PrefabName;
+        public string AssetPath;
 
         public string BundleName;
 
@@ -69,7 +69,7 @@ namespace ET
             if (self.RefCount==0)
             {
                 // wenchao 待修改延迟销毁池的时间
-                self.DisposeTime = TimeHelper.ClientNow() + 5000;
+                self.DisposeTime = TimeHelper.ClientNow() + 10000;
             }
         }
     }
@@ -77,11 +77,11 @@ namespace ET
     
     public class AssetEntityPoolAwakeSystem : AwakeSystem<AssetEntityPool, GameObject, string, string>
     {
-        public override void Awake(AssetEntityPool self, GameObject gameObjectRes, string bundleName, string prefabName)
+        public override void Awake(AssetEntityPool self, GameObject gameObjectRes, string bundleName, string assetPath)
         {
             self.GameObjectRes = gameObjectRes;
             self.BundleName = bundleName;
-            self.PrefabName = prefabName;
+            self.AssetPath = assetPath;
         }
     }
     
@@ -114,7 +114,8 @@ namespace ET
             ResourcesComponent.Instance.UnloadBundle(self.BundleName);
             if (self.Parent is PoolingAssetComponent poolingAssetComponent)
             {
-                poolingAssetComponent.PathAssetEntityPools.Remove(self.PrefabName);
+                var value =  poolingAssetComponent.PathAssetEntityPools.Remove(self.AssetPath);
+                Log.Debug($"{self.AssetPath} 卸载结果 {value.ToString()}");
             }
             else
             {

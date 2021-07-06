@@ -73,7 +73,7 @@ namespace ET
 		[ProtoMember(1, IsRequired  = true)]
 		public int Id { get; set; }
 		[ProtoMember(3, IsRequired  = true)]
-		public string AssetPath { get; set; }
+		public int AssetPath { get; set; }
 		[ProtoMember(4, IsRequired  = true)]
 		public int UILayer { get; set; }
 

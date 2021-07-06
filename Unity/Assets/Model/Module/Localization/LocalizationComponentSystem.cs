@@ -58,7 +58,7 @@ namespace ET
                     break;
             }
 
-            if (text == null)
+            if (string.IsNullOrEmpty(text))
             {
                 text = config.Default;
             }
@@ -97,7 +97,7 @@ namespace ET
                     break;
             }
 
-            if (path == null)
+            if (string.IsNullOrEmpty(path))
             {
                 path = config.Default;
             }
@@ -126,12 +126,23 @@ namespace ET
                     break;
             }
 
-            if (path == null)
+            if (string.IsNullOrEmpty(path))
             {
                 path = config.Default;
             }
 
             return path;
         }
+        
+        /// <summary>
+        /// 获取本地化资源路径扩展方法
+        /// </summary>
+        /// <param name="localizationAssetId"></param>
+        /// <returns></returns>
+        public static string LocalizedAssetPath(this int localizationAssetId)
+        {
+            return LocalizationComponent.Instance.GetArtAssetPath(localizationAssetId);
+        }
+        
     }
 }

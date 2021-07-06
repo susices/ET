@@ -20,6 +20,7 @@ namespace ET
         {
             self.Awake();
             self.AddComponent<PoolingAssetComponent>();
+            self.AddComponent<LocalizationComponent>();
         }
     }
 

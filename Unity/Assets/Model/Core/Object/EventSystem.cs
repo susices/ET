@@ -41,6 +41,12 @@ namespace ET
 		private readonly UnOrderMultiMap<Type, IChangeSystem> changeSystems = new UnOrderMultiMap<Type, IChangeSystem>();
 		
 		private readonly UnOrderMultiMap<Type, IDeserializeSystem> deserializeSystems = new UnOrderMultiMap<Type, IDeserializeSystem>();
+
+		private readonly UnOrderMultiMap<Type, IEnableSystem> enableSystems = new UnOrderMultiMap<Type, IEnableSystem>();
+
+		private readonly UnOrderMultiMap<Type, IDisableSystem> disableSystems = new UnOrderMultiMap<Type, IDisableSystem>();
+		
+		
 		
 		private Queue<long> updates = new Queue<long>();
 		private Queue<long> updates2 = new Queue<long>();
@@ -92,6 +98,8 @@ namespace ET
 			this.changeSystems.Clear();
 			this.destroySystems.Clear();
 			this.deserializeSystems.Clear();
+			this.enableSystems.Clear();
+			this.disableSystems.Clear();
 			
 			foreach (Type type in this.GetTypes(typeof(ObjectSystemAttribute)))
 			{
@@ -121,6 +129,12 @@ namespace ET
 						break;
 					case IDeserializeSystem deserializeSystem:
 						this.deserializeSystems.Add(deserializeSystem.Type(), deserializeSystem);
+						break;
+					case IEnableSystem enableSystem:
+						this.enableSystems.Add(enableSystem.Type(), enableSystem);
+						break;
+					case IDisableSystem disableSystem:
+						this.disableSystems.Add(disableSystem.Type(),disableSystem);
 						break;
 				}
 			}
@@ -604,6 +618,58 @@ namespace ET
 			}
 
 			ObjectHelper.Swap(ref this.lateUpdates, ref this.lateUpdates2);
+		}
+
+		public void Enable(Entity component)
+		{
+			List<IEnableSystem> iEnableSystems = this.enableSystems[component.GetType()];
+			if (iEnableSystems == null)
+			{
+				return;
+			}
+
+			foreach (IEnableSystem iEnableSystem in iEnableSystems)
+			{
+				if (iEnableSystem==null)
+				{
+					continue;
+				}
+
+				try
+				{
+					iEnableSystem.Run(component);
+				}
+				catch (Exception e)
+				{
+					Log.Error(e);
+				}
+			}
+		}
+		
+		public void Disable(Entity component)
+		{
+			List<IDisableSystem> iDisableSystems = this.disableSystems[component.GetType()];
+			if (iDisableSystems == null)
+			{
+				return;
+			}
+
+			foreach (IDisableSystem disableSystem in iDisableSystems)
+			{
+				if (disableSystem==null)
+				{
+					continue;
+				}
+
+				try
+				{
+					disableSystem.Run(component);
+				}
+				catch (Exception e)
+				{
+					Log.Error(e);
+				}
+			}
 		}
 		
 		public async ETTask Publish<T>(T a) where T: struct
