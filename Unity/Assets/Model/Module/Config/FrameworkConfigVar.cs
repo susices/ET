@@ -1,10 +1,22 @@
 ﻿namespace ET
 {
-    public static class FrameworkConfigVar
+    public enum FrameworkConfigVar
     {
-        /// <summary>
-        /// 资源对象池默认回收毫秒数
-        /// </summary>
-        public const int AssetPoolRecycleMillseconds = 1;
+        AssetPoolRecycleMillSeconds =1,
+        
+        DefaultFrameRate =2,
+    }
+
+    public static class FrameworkConfigVarExtension
+    {
+        public static int IntVar(this FrameworkConfigVar self)
+        {
+            return FrameworkConfigCategory.Instance.Get((int) self).IntVar;
+        }
+
+        public static string StringVar(this FrameworkConfigVar self)
+        {
+            return FrameworkConfigCategory.Instance.Get((int) self).StringVar;
+        }
     }
 }

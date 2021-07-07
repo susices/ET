@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace ET
 {
     public class AppStart_Init: AEvent<EventType.AppStart>
@@ -30,6 +32,7 @@ namespace ET
             Game.Scene.AddComponent<DataUpdateComponent>();
 
             Game.Scene.AddComponent<BuffActionDispatcher>();
+            
 
             // wenchao 修改load unit
             ResourcesComponent.Instance.LoadBundle("assets/bundles/unit");
@@ -37,6 +40,8 @@ namespace ET
             Scene zoneScene = await SceneFactory.CreateZoneScene(1, "Process");
 
             await Game.EventSystem.Publish(new EventType.AppStartInitFinish() { ZoneScene = zoneScene });
+
+            Application.targetFrameRate = FrameworkConfigVar.DefaultFrameRate.IntVar();
         }
     }
 }

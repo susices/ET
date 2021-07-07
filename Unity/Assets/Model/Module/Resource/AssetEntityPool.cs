@@ -71,7 +71,7 @@ namespace ET
                 int assetPoolRecycleMillsoconds = LocalizationArtAssetCategory.Instance.Get(self.AssetPathIndex).CachePoolMillSeconds;
                 if (assetPoolRecycleMillsoconds<=0)
                 {
-                    assetPoolRecycleMillsoconds = FrameworkConfigCategory.Instance.Get(FrameworkConfigVar.AssetPoolRecycleMillseconds).IntVar;
+                    assetPoolRecycleMillsoconds = FrameworkConfigVar.AssetPoolRecycleMillSeconds.IntVar();
                 }
                 self.DisposeTime = TimeHelper.ClientNow() + assetPoolRecycleMillsoconds;
             }

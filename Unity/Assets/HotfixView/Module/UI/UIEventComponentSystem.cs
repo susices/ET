@@ -102,6 +102,7 @@ namespace ET
 			await EventSystem.Instance.DisableAsync(existUI.GetComponent(existUI.UIComponentType));
 			existUI.UIAssetEntity.GameObject.GetComponent<Canvas>().enabled = false;
 		}
-		
+
 	}
+	
 }
