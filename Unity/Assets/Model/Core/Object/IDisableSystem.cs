@@ -5,15 +5,15 @@ namespace ET
     public interface IDisableSystem
     {
         Type Type();
-        void Run(object o);
+        ETTask Run(object o);
     }
     
     [ObjectSystem]
     public abstract class DisableSystem<T> : IDisableSystem
     {
-        public void Run(object o)
+        public async ETTask Run(object o)
         {
-            this.Disable((T)o);
+            await this.Disable((T)o);
         }
 
         public Type Type()
@@ -21,6 +21,6 @@ namespace ET
             return typeof(T);
         }
 
-        public abstract void Disable(T self);
+        public abstract ETTask Disable(T self);
     }
 }

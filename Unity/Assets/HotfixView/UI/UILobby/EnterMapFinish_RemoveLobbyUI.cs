@@ -6,14 +6,14 @@
 		{
 			//wenchao 修改加载场景
 			// 加载场景资源
-			await ResourcesComponent.Instance.LoadBundleAsync("map.unity3d");
+			await ResourcesComponent.Instance.LoadBundleAsync(SceneConfigCategory.Instance.Get(1).AssetPath.LocalizedAssetPath());
 			// 切换到map场景
 			using (SceneChangeComponent sceneChangeComponent = Game.Scene.AddComponent<SceneChangeComponent>())
 			{
 				await sceneChangeComponent.ChangeSceneAsync("Map");
 			}
             args.ZoneScene.AddComponent<OperaComponent>();
-            await UIHelper.Remove(args.ZoneScene, UiType.UILobby);
+            await UIHelper.RemoveUI(args.ZoneScene, UiType.UILobby);
 		}
 	}
 }

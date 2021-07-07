@@ -303,7 +303,7 @@ namespace ET
             }
         }
 
-		[IgnoreDataMember]
+        [IgnoreDataMember]
         [BsonElement("Children")]
         [BsonIgnoreIfNull]
         private HashSet<Entity> childrenDB;

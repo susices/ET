@@ -7,19 +7,19 @@ namespace ET
 {
     [ProtoContract]
     [Config]
-    public partial class LocalizationArtAssetCategory : ProtoObject
+    public partial class SceneConfigCategory : ProtoObject
     {
-        public static LocalizationArtAssetCategory Instance;
+        public static SceneConfigCategory Instance;
 		
         [ProtoIgnore]
         [BsonIgnore]
-        private Dictionary<int, LocalizationArtAsset> dict = new Dictionary<int, LocalizationArtAsset>();
+        private Dictionary<int, SceneConfig> dict = new Dictionary<int, SceneConfig>();
 		
         [BsonElement]
         [ProtoMember(1)]
-        private List<LocalizationArtAsset> list = new List<LocalizationArtAsset>();
+        private List<SceneConfig> list = new List<SceneConfig>();
 		
-        public LocalizationArtAssetCategory()
+        public SceneConfigCategory()
         {
             Instance = this;
         }
@@ -27,7 +27,7 @@ namespace ET
 		[ProtoAfterDeserialization]
         public void AfterDeserialization()
         {
-            foreach (LocalizationArtAsset config in list)
+            foreach (SceneConfig config in list)
             {
                 this.dict.Add(config.Id, config);
             }
@@ -35,13 +35,13 @@ namespace ET
             this.EndInit();
         }
 		
-        public LocalizationArtAsset Get(int id)
+        public SceneConfig Get(int id)
         {
-            this.dict.TryGetValue(id, out LocalizationArtAsset item);
+            this.dict.TryGetValue(id, out SceneConfig item);
 
             if (item == null)
             {
-                throw new Exception($"配置找不到，配置表名: {nameof (LocalizationArtAsset)}，配置id: {id}");
+                throw new Exception($"配置找不到，配置表名: {nameof (SceneConfig)}，配置id: {id}");
             }
 
             return item;
@@ -52,12 +52,12 @@ namespace ET
             return this.dict.ContainsKey(id);
         }
 
-        public Dictionary<int, LocalizationArtAsset> GetAll()
+        public Dictionary<int, SceneConfig> GetAll()
         {
             return this.dict;
         }
 
-        public LocalizationArtAsset GetOne()
+        public SceneConfig GetOne()
         {
             if (this.dict == null || this.dict.Count <= 0)
             {
@@ -68,18 +68,12 @@ namespace ET
     }
 
     [ProtoContract]
-	public partial class LocalizationArtAsset: ProtoObject, IConfig
+	public partial class SceneConfig: ProtoObject, IConfig
 	{
 		[ProtoMember(1, IsRequired  = true)]
 		public int Id { get; set; }
 		[ProtoMember(3, IsRequired  = true)]
-		public string Default { get; set; }
-		[ProtoMember(4, IsRequired  = true)]
-		public string CN { get; set; }
-		[ProtoMember(5, IsRequired  = true)]
-		public string EN { get; set; }
-		[ProtoMember(6, IsRequired  = true)]
-		public int CachePoolMillSeconds { get; set; }
+		public int AssetPath { get; set; }
 
 
 		[ProtoAfterDeserialization]

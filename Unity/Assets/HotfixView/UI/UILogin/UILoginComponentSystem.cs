@@ -33,5 +33,21 @@ namespace ET
 		}
 	}
 	
+	public class UILoginComponentEnableSystem : EnableSystem<UILoginComponent>
+	{
+		public override async ETTask Enable(UILoginComponent self)
+		{
+			Log.Debug("Login Enable!");
+			await ETTask.CompletedTask;
+		}
+	}
 	
+	public class UILoginComponentDisableSystem : DisableSystem<UILoginComponent>
+	{
+		public override async ETTask Disable(UILoginComponent self)
+		{
+			Log.Debug("Login Disable!");
+			await ETTask.CompletedTask;
+		}
+	}
 }

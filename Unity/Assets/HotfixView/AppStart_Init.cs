@@ -31,6 +31,7 @@ namespace ET
 
             Game.Scene.AddComponent<BuffActionDispatcher>();
 
+            // wenchao 修改load unit
             ResourcesComponent.Instance.LoadBundle("assets/bundles/unit");
 
             Scene zoneScene = await SceneFactory.CreateZoneScene(1, "Process");

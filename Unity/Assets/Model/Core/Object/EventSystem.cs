@@ -557,6 +557,8 @@ namespace ET
 					continue;
 				}
 				
+				
+				
 				List<IUpdateSystem> iUpdateSystems = this.updateSystems[component.GetType()];
 				if (iUpdateSystems == null)
 				{
@@ -620,7 +622,7 @@ namespace ET
 			ObjectHelper.Swap(ref this.lateUpdates, ref this.lateUpdates2);
 		}
 
-		public void Enable(Entity component)
+		public async ETTask EnableAsync(Entity component)
 		{
 			List<IEnableSystem> iEnableSystems = this.enableSystems[component.GetType()];
 			if (iEnableSystems == null)
@@ -628,6 +630,7 @@ namespace ET
 				return;
 			}
 
+			using var list = ListComponent<ETTask>.Create();
 			foreach (IEnableSystem iEnableSystem in iEnableSystems)
 			{
 				if (iEnableSystem==null)
@@ -637,23 +640,24 @@ namespace ET
 
 				try
 				{
-					iEnableSystem.Run(component);
+					list.List.Add(iEnableSystem.Run(component));
 				}
 				catch (Exception e)
 				{
 					Log.Error(e);
 				}
 			}
+			await ETTaskHelper.WaitAll(list.List);
 		}
 		
-		public void Disable(Entity component)
+		public async ETTask DisableAsync(Entity component)
 		{
 			List<IDisableSystem> iDisableSystems = this.disableSystems[component.GetType()];
 			if (iDisableSystems == null)
 			{
 				return;
 			}
-
+			using var list = ListComponent<ETTask>.Create();
 			foreach (IDisableSystem disableSystem in iDisableSystems)
 			{
 				if (disableSystem==null)
@@ -663,13 +667,14 @@ namespace ET
 
 				try
 				{
-					disableSystem.Run(component);
+					list.List.Add(disableSystem.Run(component));
 				}
 				catch (Exception e)
 				{
 					Log.Error(e);
 				}
 			}
+			await ETTaskHelper.WaitAll(list.List);
 		}
 		
 		public async ETTask Publish<T>(T a) where T: struct

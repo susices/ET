@@ -4,7 +4,7 @@
     {
         protected override async ETTask Run(EventType.LoadingFinish args)
         {
-            await UIHelper.Remove(args.Scene, UiType.UILodding);
+            await UIHelper.RemoveUI(args.Scene, UiType.UILodding);
         }
     }
 }

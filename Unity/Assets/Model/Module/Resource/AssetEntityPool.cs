@@ -11,9 +11,9 @@ namespace ET
         public Queue<GameObject> Pool = new Queue<GameObject>();
 
         public GameObject GameObjectRes;
-        
-        public string AssetPath;
 
+        public int AssetPathIndex;
+        
         public string BundleName;
 
         public int RefCount { get; set; }
@@ -68,20 +68,24 @@ namespace ET
             self.Pool.Enqueue(gameObject);
             if (self.RefCount==0)
             {
-                // wenchao 待修改延迟销毁池的时间
-                self.DisposeTime = TimeHelper.ClientNow() + 10000;
+                int assetPoolRecycleMillsoconds = LocalizationArtAssetCategory.Instance.Get(self.AssetPathIndex).CachePoolMillSeconds;
+                if (assetPoolRecycleMillsoconds<=0)
+                {
+                    assetPoolRecycleMillsoconds = FrameworkConfigCategory.Instance.Get(FrameworkConfigVar.AssetPoolRecycleMillseconds).IntVar;
+                }
+                self.DisposeTime = TimeHelper.ClientNow() + assetPoolRecycleMillsoconds;
             }
         }
     }
     
     
-    public class AssetEntityPoolAwakeSystem : AwakeSystem<AssetEntityPool, GameObject, string, string>
+    public class AssetEntityPoolAwakeSystem : AwakeSystem<AssetEntityPool, GameObject, string, int>
     {
-        public override void Awake(AssetEntityPool self, GameObject gameObjectRes, string bundleName, string assetPath)
+        public override void Awake(AssetEntityPool self, GameObject gameObjectRes, string bundleName, int assetPathIndex)
         {
             self.GameObjectRes = gameObjectRes;
             self.BundleName = bundleName;
-            self.AssetPath = assetPath;
+            self.AssetPathIndex = assetPathIndex;
         }
     }
     
@@ -114,13 +118,14 @@ namespace ET
             ResourcesComponent.Instance.UnloadBundle(self.BundleName);
             if (self.Parent is PoolingAssetComponent poolingAssetComponent)
             {
-                var value =  poolingAssetComponent.PathAssetEntityPools.Remove(self.AssetPath);
-                Log.Debug($"{self.AssetPath} 卸载结果 {value.ToString()}");
+                var value =  poolingAssetComponent.PathAssetEntityPools.Remove(self.AssetPathIndex.LocalizedAssetPath());
+                Log.Debug($"{self.AssetPathIndex.LocalizedAssetPath()} 卸载结果 {value.ToString()}");
             }
             else
             {
                 Log.Error($"AssetEntityPool的父节点不是PoolingAssetComponent！");
             }
+            self.AssetPathIndex = 0;
         }
     }
 }

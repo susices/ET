@@ -79,7 +79,7 @@ namespace ET
 		[ProtoMember(5, IsRequired  = true)]
 		public string EN { get; set; }
 		[ProtoMember(6, IsRequired  = true)]
-		public int CachePoolSeconds { get; set; }
+		public int CachePoolMillSeconds { get; set; }
 
 
 		[ProtoAfterDeserialization]

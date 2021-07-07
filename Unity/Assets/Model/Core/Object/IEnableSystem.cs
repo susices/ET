@@ -5,15 +5,15 @@ namespace ET
     public interface IEnableSystem
     {
         Type Type();
-        void Run(object o);
+        ETTask Run(object o);
     }
     
     [ObjectSystem]
     public abstract class EnableSystem<T> : IEnableSystem
     {
-        public void Run(object o)
+        public async ETTask Run(object o)
         {
-            this.Enable((T)o);
+            await this.Enable((T)o);
         }
 
         public Type Type()
@@ -21,6 +21,6 @@ namespace ET
             return typeof(T);
         }
 
-        public abstract void Enable(T self);
+        public abstract ETTask Enable(T self);
     }
 }
