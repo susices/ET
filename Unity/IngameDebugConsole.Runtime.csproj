@@ -41,23 +41,24 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\CircularBuffer.cs" />
-     <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\DebugLogEntry.cs" />
-     <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\ConsoleMethodAttribute.cs" />
-     <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\Commands\TimeCommands.cs" />
-     <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\DebugLogIndexList.cs" />
-     <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\Commands\PlayerPrefsCommands.cs" />
-     <Compile Include="Assets\Plugins\IngameDebugConsole\Android\DebugLogLogcatListener.cs" />
-     <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\Commands\SceneCommands.cs" />
-     <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\DebugsOnScrollListener.cs" />
-     <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\DebugLogManager.cs" />
-     <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\DebugLogItem.cs" />
-     <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\DebugLogPopup.cs" />
-     <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\DebugLogResizeListener.cs" />
-     <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\DebugLogConsole.cs" />
-     <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\DebugLogRecycledListView.cs" />
-     <None Include="Assets\Plugins\IngameDebugConsole\IngameDebugConsole.Runtime.asmdef" />
-     <None Include="Assets\Plugins\IngameDebugConsole\README.txt" />
+     <Compile Include="Assets\ThirdParty\IngameDebugConsole\Scripts\CircularBuffer.cs" />
+     <Compile Include="Assets\ThirdParty\IngameDebugConsole\Scripts\DebugLogEntry.cs" />
+     <Compile Include="Assets\ThirdParty\IngameDebugConsole\Scripts\ConsoleMethodAttribute.cs" />
+     <Compile Include="Assets\ThirdParty\IngameDebugConsole\Scripts\Commands\TimeCommands.cs" />
+     <Compile Include="Assets\ThirdParty\IngameDebugConsole\Scripts\DebugLogIndexList.cs" />
+     <Compile Include="Assets\ThirdParty\IngameDebugConsole\Scripts\Commands\PlayerPrefsCommands.cs" />
+     <Compile Include="Assets\ThirdParty\IngameDebugConsole\Android\DebugLogLogcatListener.cs" />
+     <Compile Include="Assets\ThirdParty\IngameDebugConsole\Editor\DebugLogManagerEditor.cs" />
+     <Compile Include="Assets\ThirdParty\IngameDebugConsole\Scripts\Commands\SceneCommands.cs" />
+     <Compile Include="Assets\ThirdParty\IngameDebugConsole\Scripts\DebugsOnScrollListener.cs" />
+     <Compile Include="Assets\ThirdParty\IngameDebugConsole\Scripts\DebugLogManager.cs" />
+     <Compile Include="Assets\ThirdParty\IngameDebugConsole\Scripts\DebugLogItem.cs" />
+     <Compile Include="Assets\ThirdParty\IngameDebugConsole\Scripts\DebugLogPopup.cs" />
+     <Compile Include="Assets\ThirdParty\IngameDebugConsole\Scripts\DebugLogResizeListener.cs" />
+     <Compile Include="Assets\ThirdParty\IngameDebugConsole\Scripts\DebugLogConsole.cs" />
+     <Compile Include="Assets\ThirdParty\IngameDebugConsole\Scripts\DebugLogRecycledListView.cs" />
+     <None Include="Assets\ThirdParty\IngameDebugConsole\IngameDebugConsole.Runtime.asmdef" />
+     <None Include="Assets\ThirdParty\IngameDebugConsole\README.txt" />
      <Reference Include="UnityEngine">
      <HintPath>D:/Unity/Editor/2021.1.7f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
      </Reference>

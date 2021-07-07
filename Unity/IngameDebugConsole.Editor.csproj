@@ -41,8 +41,8 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Plugins\IngameDebugConsole\Editor\DebugLogManagerEditor.cs" />
-     <None Include="Assets\Plugins\IngameDebugConsole\Editor\IngameDebugConsole.Editor.asmdef" />
+     <Compile Include="Assets\ThirdParty\IngameDebugConsole\Editor\DebugLogManagerEditor.cs" />
+     <None Include="Assets\ThirdParty\IngameDebugConsole\Editor\IngameDebugConsole.Editor.asmdef" />
      <Reference Include="UnityEngine">
      <HintPath>D:/Unity/Editor/2021.1.7f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
      </Reference>

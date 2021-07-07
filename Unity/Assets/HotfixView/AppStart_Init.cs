@@ -42,6 +42,7 @@ namespace ET
             await Game.EventSystem.Publish(new EventType.AppStartInitFinish() { ZoneScene = zoneScene });
 
             Application.targetFrameRate = FrameworkConfigVar.DefaultFrameRate.IntVar();
+            
         }
     }
 }
