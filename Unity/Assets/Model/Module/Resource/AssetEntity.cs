@@ -10,14 +10,15 @@ namespace ET
         /// <summary>
         /// 实例化gameObject
         /// </summary>
-        public GameObject GameObject { private set; get; }
+        public GameObject Object { private set; get; }
 
         private AssetEntityPool AssetEntityPool;
 
         public override void Dispose()
         {
-            AssetEntityPool.RecycleGameObject(GameObject);
-            GameObject = null;
+            
+            AssetEntityPool.RecycleGameObject(this.Object);
+            this.Object = null;
             AssetEntityPool = null;
             base.Dispose();
         }
@@ -25,7 +26,7 @@ namespace ET
         public void Awake(AssetEntityPool assetEntityPool, Transform parent = null)
         {
             AssetEntityPool = assetEntityPool;
-            GameObject = assetEntityPool.FetchGameObject(parent);
+            this.Object = assetEntityPool.FetchGameObject(parent);
         }
     }
     
@@ -36,4 +37,5 @@ namespace ET
             self.Awake(assetEntityPool, parent);
         }
     }
+    
 }

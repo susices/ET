@@ -1,4 +1,6 @@
-﻿namespace ET
+﻿using UnityEngine;
+
+namespace ET
 {
 	public class EnterMapFinish_RemoveLobbyUI: AEvent<EventType.EnterMapFinish>
 	{
@@ -13,7 +15,7 @@
 				await sceneChangeComponent.ChangeSceneAsync("Map");
 			}
             args.ZoneScene.AddComponent<OperaComponent>();
-            await UIHelper.RemoveUI(args.ZoneScene, UiType.UILobby);
+            await UIHelper.RemoveUIPanel(args.ZoneScene, UiType.UILobby);
 		}
 	}
 }

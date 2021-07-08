@@ -67,9 +67,9 @@ namespace ET
 				}
 				UI ui = EntityFactory.CreateWithParent<UI, int, AssetEntity,Type>(uiComponent, uiType, assetEntity,UIComponentType);
 				ui.AddComponent(UIComponentType);
-				ui.UIAssetEntity.GameObject.transform.SetParent(self.UILayers[uiLayer]);
+				ui.UIAssetEntity.Object.transform.SetParent(self.UILayers[uiLayer]);
 				await EventSystem.Instance.EnableAsync(ui.GetComponent(ui.UIComponentType));
-				ui.UIAssetEntity.GameObject.GetComponent<Canvas>().enabled = true;
+				ui.UIAssetEntity.Object.GetComponent<Canvas>().enabled = true;
 				return ui;
 			}
 			catch (Exception e)
@@ -81,9 +81,9 @@ namespace ET
 		public static async ETTask<UI> OnResume(this UIEventComponent self, UI existUI)
 		{
 			var uiLayer = UIConfigCategory.Instance.Get(existUI.UIType).UILayer;
-			existUI.UIAssetEntity.GameObject.transform.SetParent(self.UILayers[uiLayer]);
+			existUI.UIAssetEntity.Object.transform.SetParent(self.UILayers[uiLayer]);
 			await EventSystem.Instance.EnableAsync(existUI.GetComponent(existUI.UIComponentType));
-			existUI.UIAssetEntity.GameObject.GetComponent<Canvas>().enabled = true;
+			existUI.UIAssetEntity.Object.GetComponent<Canvas>().enabled = true;
 			return existUI;
 		}
 
@@ -92,15 +92,15 @@ namespace ET
 			if (existUI!=null)
 			{
 				await EventSystem.Instance.DisableAsync(existUI.GetComponent(existUI.UIComponentType));
-				existUI.UIAssetEntity.GameObject.GetComponent<Canvas>().enabled = false;
-				existUI.UIAssetEntity.GameObject.transform.SetParent(self.UILayers[(int)UILayer.Hidden]);
+				existUI.UIAssetEntity.Object.GetComponent<Canvas>().enabled = false;
+				existUI.UIAssetEntity.Object.transform.SetParent(self.UILayers[(int)UILayer.Hidden]);
 			}
 		}
 
 		public static async ETTask OnRemove(this UIEventComponent self,UI existUI)
 		{
 			await EventSystem.Instance.DisableAsync(existUI.GetComponent(existUI.UIComponentType));
-			existUI.UIAssetEntity.GameObject.GetComponent<Canvas>().enabled = false;
+			existUI.UIAssetEntity.Object.GetComponent<Canvas>().enabled = false;
 		}
 
 	}

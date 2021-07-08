@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace ET
 {
@@ -11,6 +12,7 @@ namespace ET
 
             // 加载配置
             Game.Scene.AddComponent<ResourcesComponent>();
+            
             
             ResourcesComponent.Instance.LoadBundle(AssetBundleHelper.ConfigDirPath);
             Game.Scene.AddComponent<ConfigComponent>();
@@ -32,6 +34,8 @@ namespace ET
             Game.Scene.AddComponent<DataUpdateComponent>();
 
             Game.Scene.AddComponent<BuffActionDispatcher>();
+
+            Game.Scene.AddComponent<SceneComponent>();
             
 
             // wenchao 修改load unit
@@ -39,10 +43,11 @@ namespace ET
 
             Scene zoneScene = await SceneFactory.CreateZoneScene(1, "Process");
 
+            zoneScene.AddComponent<ConsoleComponent>();
+
             await Game.EventSystem.Publish(new EventType.AppStartInitFinish() { ZoneScene = zoneScene });
 
             Application.targetFrameRate = FrameworkConfigVar.DefaultFrameRate.IntVar();
-            
         }
     }
 }

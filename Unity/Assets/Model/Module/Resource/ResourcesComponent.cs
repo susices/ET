@@ -120,8 +120,6 @@ namespace ET
             this.SortedDepCache[assetBundleName] = ss;
             return ss;
         }
-        
-        
 
         private void CollectDependencies(List<string> parents, string assetBundleName, Dictionary<string, int> info)
         {
@@ -511,6 +509,35 @@ namespace ET
             }
 
             return sb.ToString();
+        }
+
+
+        /// <summary>
+        /// 根据资源路径 加载bundle并获取非实例化资源
+        /// </summary>
+        public async ETTask<T> LoadAndGetAssetByPathAsync<T>(string assetPath) where T: UnityEngine.Object
+        {
+            if (!AssetBundleHelper.GetBundlePrefabNameByPath(assetPath, out string bundleName, out string prefabName))
+            {
+                Log.Error($"解析资源路径失败 资源路径:{assetPath}");
+                return null;
+            }
+            await LoadBundleAsync(bundleName);
+            return GetAsset(assetPath, prefabName) as T;
+        }
+
+        /// <summary>
+        /// 根据资源路径 卸载资源
+        /// </summary>
+        /// <param name="assetPath"></param>
+        public void UnloadAssetByPath(string assetPath)
+        {
+            if (!AssetBundleHelper.GetBundlePrefabNameByPath(assetPath, out string bundleName, out string prefabName))
+            {
+                Log.Error($"解析资源路径失败 资源路径:{assetPath}");
+                return ;
+            }
+            UnloadBundle(bundleName);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace ET
 	{
 		public override void Awake(UILoginComponent self)
 		{
-			ReferenceCollector rc = self.GetParent<UI>().UIAssetEntity.GameObject.GetComponent<ReferenceCollector>();
+			ReferenceCollector rc = self.GetParent<UI>().UIAssetEntity.Object.GetComponent<ReferenceCollector>();
 			self.accountIpt = rc.Get<GameObject>("Account").GetComponent<InputField>();
 			self.passwordIpt = rc.Get<GameObject>("Password").GetComponent<InputField>();
 			self.loginBtn = rc.Get<GameObject>("LoginBtn").GetComponent<Button>();

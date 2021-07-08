@@ -73,6 +73,8 @@ namespace ET
 		[ProtoMember(1, IsRequired  = true)]
 		public int Id { get; set; }
 		[ProtoMember(3, IsRequired  = true)]
+		public string SceneName { get; set; }
+		[ProtoMember(4, IsRequired  = true)]
 		public int AssetPath { get; set; }
 
 

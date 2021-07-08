@@ -31,7 +31,7 @@ namespace ET
                 Log.Error($"解析资源路径失败 资源路径:{path}");
                 return null;
             }
-
+            
             ResourcesComponent.Instance.LoadBundle(bundleName);
             GameObject obj = (GameObject) ResourcesComponent.Instance.GetAsset(bundleName, prefabName);
             AssetEntityPool newPool = EntityFactory.CreateWithParent<AssetEntityPool, GameObject, string, int>(self, obj, bundleName,AssetPathIndex);

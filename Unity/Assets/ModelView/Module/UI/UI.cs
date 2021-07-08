@@ -28,8 +28,8 @@ namespace ET
 		{
 			this.uiTypeChildren.Clear();
 			UIAssetEntity = uiAssetEntity;
-			UIAssetEntity.GameObject.AddComponent<ComponentView>().Component = this;
-			UIAssetEntity.GameObject.layer = LayerMask.NameToLayer(LayerNames.UI);
+			UIAssetEntity.Object.AddComponent<ComponentView>().Component = this;
+			UIAssetEntity.Object.layer = LayerMask.NameToLayer(LayerNames.UI);
 			this.UIType = uiType;
 			this.UIComponentType = uiComponentType;
 		}
@@ -58,7 +58,7 @@ namespace ET
 
 		public void SetAsFirstSibling()
 		{
-			this.UIAssetEntity.GameObject.transform.SetAsFirstSibling();
+			this.UIAssetEntity.Object.transform.SetAsFirstSibling();
 		}
 
 		public void Add(UI ui)
@@ -86,7 +86,7 @@ namespace ET
 			{
 				return child;
 			}
-			GameObject childGameObject = this.UIAssetEntity.GameObject.transform.Find(UIType.ToString())?.gameObject;
+			GameObject childGameObject = this.UIAssetEntity.Object.transform.Find(UIType.ToString())?.gameObject;
 			if (childGameObject == null)
 			{
 				return null;

@@ -127,6 +127,14 @@ namespace ET
             //
             //     AssetManifest assetManifest =  ProtobufHelper.FromBytes(typeof (AssetManifest), bytes, 0, bytes.Length) as AssetManifest;
             // }
+            
+            GUILayout.Space(5);
+
+            if (GUILayout.Button("检查循环依赖", GUILayout.ExpandHeight(true)))
+            {
+                BuildHelper.CheckLoopByAssetDatabase();
+                Debug.Log("检查完成！");
+            }
 
 
             GUILayout.Space(5);
@@ -171,126 +179,6 @@ namespace ET
 
             EditorUtility.SetDirty(buildSettings);
             AssetDatabase.SaveAssets();
-        }
-
-        //使用深度遍历检查环
-        private static void CheckLoopByManifest(AssetBundleManifest manifest)
-        {
-            //dependenceMap保存bundle的直接依赖关系
-            var dependenceMap = new Dictionary<string, HashSet<string>>();
-            string[] abs = manifest.GetAllAssetBundles();
-            for (int i = 0; i < abs.Length; i++)
-            {
-                string abName = abs[i];
-                string[] directDependencies = manifest.GetDirectDependencies(abName);
-                dependenceMap.Add(abName, new HashSet<string>(directDependencies));
-            }
-
-            //q保存需要检查环的bundle名字
-            var q = new LinkedList<string>();
-            foreach (var entry in dependenceMap)
-            {
-                q.AddLast(entry.Key);
-            }
-
-            //searchedNodeSet保存遍历过的bundle，避免重复遍历
-            var searchedNodeSet = new HashSet<string>();
-
-            //loopSet记录检查到的环
-            var loopSet = new HashSet<string[]>();
-            while (q.Count > 0)
-            {
-                string bundleName = q.First.Value;
-                q.RemoveFirst();
-
-                //stack记录深度遍历时遍历到的bundle
-                var stack = new List<string>();
-
-                //开始通过遍历检查
-                SearchLoopByManifest(bundleName, stack, searchedNodeSet, dependenceMap, loopSet);
-
-                //把遍历过的bundle从q删除
-                foreach (string node in searchedNodeSet)
-                {
-                    q.Remove(node);
-                }
-            }
-
-            //以抛出异常的方式，打印所有环信息
-            int maxPrintLoopNum = 100;
-            if (loopSet.Count > 0)
-            {
-                int i = 0;
-                string log = "bundle loops:";
-                foreach (string[] bundles in loopSet)
-                {
-                    if (i >= maxPrintLoopNum)
-                    {
-                        break;
-                    }
-
-                    log += i + ":";
-                    for (int j = 0; j < bundles.Length + 1; j++)
-                    {
-                        string bundleName = bundles[j % bundles.Length];
-                        log += bundleName;
-                        if (j != bundles.Length)
-                        {
-                            log += " -> ";
-                        }
-                    }
-
-                    log += "\n";
-                    i++;
-                }
-
-                throw new Exception(log);
-            }
-        }
-
-        private static void SearchLoopByManifest(string bundleName, List<string> stack, HashSet<string> searchedNodeSet,
-        Dictionary<string, HashSet<string>> dependenceMap, HashSet<string[]> loopSet)
-        {
-            if (string.IsNullOrEmpty(bundleName))
-            {
-                return;
-            }
-
-            int index = stack.IndexOf(bundleName);
-            if (index < 0) //bundleName不在stack里，没形成环
-            {
-                if (!searchedNodeSet.Contains(bundleName)) //必须之前没遍历过这个结点
-                {
-                    searchedNodeSet.Add(bundleName);
-                    stack.Add(bundleName);
-                    HashSet<string> dependencies = null;
-                    dependenceMap.TryGetValue(bundleName, out dependencies);
-
-                    if (dependencies == null)
-                    {
-                        throw new Exception("dependencies is null: " + bundleName);
-                    }
-
-                    //遍历更深的结点
-                    foreach (string d in dependencies)
-                    {
-                        SearchLoopByManifest(d, stack, searchedNodeSet, dependenceMap, loopSet);
-                    }
-
-                    //这里一定要移除，stack记录当前遍历到的结点，当前的bundleName已经遍历过了，所以要移除
-                    stack.Remove(bundleName);
-                }
-            }
-            else //存在环，记录到loopSet里
-            {
-                string[] loop = new string[stack.Count - index];
-                for (int i = index; i < stack.Count; i++)
-                {
-                    loop[i - index] = stack[i];
-                }
-
-                loopSet.Add(loop);
-            }
         }
     }
 }
