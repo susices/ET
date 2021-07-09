@@ -80,6 +80,31 @@ public class ReferenceCollectorEditor: Editor
 			referenceCollector.Sort();
 		}
 		EditorGUILayout.EndHorizontal();
+		GUILayout.BeginHorizontal();
+		if (GUILayout.Button("导出引用声明代码"))
+		{
+			string generateCode = "";
+			for (int i = this.referenceCollector.data.Count-1; i >=0 ; i--)
+			{
+				var data = referenceCollector.data[i];
+				generateCode += $"public GameObject {data.key}; \r\n";
+			}
+			GUIUtility.systemCopyBuffer = generateCode;
+		}
+		EditorGUILayout.EndHorizontal();
+		GUILayout.BeginHorizontal();
+		if (GUILayout.Button("导出引用绑定代码"))
+		{
+			string generateCode = "";
+			generateCode += "ReferenceCollector rc = self.GetParent<UI>().UIAssetEntity.Object.GetComponent<ReferenceCollector>();\r\n";
+			for (int i = this.referenceCollector.data.Count-1; i >=0 ; i--)
+			{
+				var data = referenceCollector.data[i];
+				generateCode += $"self.{data.key} = rc.Get<GameObject>(\"{data.key}\");\r\n";
+			}
+			GUIUtility.systemCopyBuffer = generateCode;
+		}
+		EditorGUILayout.EndHorizontal();
 		EditorGUILayout.BeginHorizontal();
         //可以在编辑器中对searchKey进行赋值，只要输入对应的Key值，就可以点后面的删除按钮删除相对应的元素
         searchKey = EditorGUILayout.TextField(searchKey);
