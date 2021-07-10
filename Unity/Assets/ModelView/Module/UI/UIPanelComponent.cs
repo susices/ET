@@ -7,6 +7,6 @@ namespace ET
 	/// </summary>
 	public class UIComponent: Entity
 	{
-		public Dictionary<int, UI> UIs = new Dictionary<int, UI>();
+		public Dictionary<int, UIPanel> UIPanels = new Dictionary<int, UIPanel>();
 	}
 }

@@ -13,7 +13,7 @@ namespace ET
 	    public const string UILobby = "UILobby";
     }
 
-    public static class UiType
+    public static class UiPanelType
     {
 	    public const int UILogin = 1;
 	    public const int UILobby = 2;
