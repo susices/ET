@@ -2,10 +2,10 @@
 {
     public class BuffEntityAwakeSystem : AwakeSystem<BuffEntity, Entity,int>
     {
-        public override void Awake(BuffEntity self, Entity sourceEntity, int buffConfigId)
+        public override void Awake(BuffEntity self, Entity uiPanelType, int buffConfigId)
         {
             var buffConfig = BuffConfigCategory.Instance.Get(self.BuffConfigId);
-            self.SourceEntity = sourceEntity;
+            self.SourceEntity = uiPanelType;
             self.ParentBuffManager = self.Parent as BuffContainerComponent;
             self.BuffConfigId = buffConfigId;
             self.BuffEndTime = TimeHelper.ServerNow() + buffConfig.DurationMillsecond;

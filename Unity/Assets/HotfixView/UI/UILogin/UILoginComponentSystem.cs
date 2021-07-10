@@ -10,7 +10,7 @@ namespace ET
 	{
 		public override void Awake(UILoginComponent self)
 		{
-			ReferenceCollector rc = self.GetParent<UI>().UIAssetEntity.Object.GetComponent<ReferenceCollector>();
+			ReferenceCollector rc = self.GetParent<UIPanel>().UIPanelAssetEntity.Object.GetComponent<ReferenceCollector>();
 			self.accountIpt = rc.Get<GameObject>("Account").GetComponent<InputField>();
 			self.passwordIpt = rc.Get<GameObject>("Password").GetComponent<InputField>();
 			self.loginBtn = rc.Get<GameObject>("LoginBtn").GetComponent<Button>();
@@ -42,6 +42,15 @@ namespace ET
 		}
 	}
 	
+	public class UILoginComponentEnableSystemArgs : EnableSystem<UILoginComponent, string>
+	{
+		public override async ETTask Enable(UILoginComponent self, string args)
+		{
+			Log.Error(args);
+			await ETTask.CompletedTask;
+		}
+	}
+
 	public class UILoginComponentDisableSystem : DisableSystem<UILoginComponent>
 	{
 		public override async ETTask Disable(UILoginComponent self)

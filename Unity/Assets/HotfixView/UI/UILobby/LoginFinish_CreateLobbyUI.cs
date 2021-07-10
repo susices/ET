@@ -6,7 +6,7 @@ namespace ET
 	{
 		protected override async ETTask Run(EventType.LoginFinish args)
 		{
-			await UIHelper.ShowUIPanel(args.ZoneScene, UiType.UILobby);
+			await args.ZoneScene.ShowUIPanel(UiPanelType.UILobby);
 		}
 	}
 }

@@ -5,10 +5,10 @@ namespace ET
     [ObjectSystem]
     public class LockInfoAwakeSystem: AwakeSystem<LockInfo, long, CoroutineLock>
     {
-        public override void Awake(LockInfo self, long lockInstanceId, CoroutineLock coroutineLock)
+        public override void Awake(LockInfo self, long uiPanelType, CoroutineLock coroutineLock)
         {
             self.CoroutineLock = coroutineLock;
-            self.LockInstanceId = lockInstanceId;
+            self.LockInstanceId = uiPanelType;
         }
     }
 

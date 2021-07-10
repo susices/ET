@@ -77,7 +77,7 @@ namespace ET
 			this.Awake((T)o, a, b);
 		}
 
-		public abstract void Awake(T self, A a, B b);
+		public abstract void Awake(T self, A uiPanelType, B b);
 	}
 
 	[ObjectSystem]

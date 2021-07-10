@@ -15,7 +15,7 @@ namespace ET
 				await sceneChangeComponent.ChangeSceneAsync("Map");
 			}
             args.ZoneScene.AddComponent<OperaComponent>();
-            await UIHelper.RemoveUIPanel(args.ZoneScene, UiType.UILobby);
+            await args.ZoneScene.RemoveUIPanel(UiPanelType.UILobby);
 		}
 	}
 }

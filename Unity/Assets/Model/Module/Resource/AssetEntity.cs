@@ -32,9 +32,9 @@ namespace ET
     
     public class AssetEntityAwakeSystem : AwakeSystem<AssetEntity,AssetEntityPool, Transform>
     {
-        public override void Awake(AssetEntity self, AssetEntityPool assetEntityPool, Transform parent)
+        public override void Awake(AssetEntity self, AssetEntityPool uiPanelType, Transform parent)
         {
-            self.Awake(assetEntityPool, parent);
+            self.Awake(uiPanelType, parent);
         }
     }
     

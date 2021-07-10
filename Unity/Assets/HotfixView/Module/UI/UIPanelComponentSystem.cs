@@ -11,7 +11,7 @@ namespace ET
 	/// <summary>
 	/// 管理Scene上的UI
 	/// </summary>
-	public static class UIComponentSystem
+	public static class UIPanelComponentSystem
 	{
 		public static async ETTask<UIPanel> CreateUIPanel(this UIPanelComponent self, int uiPanelType)
 		{

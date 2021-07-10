@@ -638,9 +638,48 @@ namespace ET
 					continue;
 				}
 
+				IEnable iEnable = iEnableSystem as IEnable;
+				if (iEnable==null)
+				{
+					continue;
+				}
+
 				try
 				{
-					list.List.Add(iEnableSystem.Run(component));
+					list.List.Add(iEnable.Run(component));
+				}
+				catch (Exception e)
+				{
+					Log.Error(e);
+				}
+			}
+			await ETTaskHelper.WaitAll(list.List);
+		}
+		
+		public async ETTask EnableAsync<T>(Entity component, T args)
+		{
+			List<IEnableSystem> iEnableSystems = this.enableSystems[component.GetType()];
+			if (iEnableSystems == null)
+			{
+				return;
+			}
+
+			using var list = ListComponent<ETTask>.Create();
+			foreach (IEnableSystem iEnableSystem in iEnableSystems)
+			{
+				if (iEnableSystem==null)
+				{
+					continue;
+				}
+
+				IEnable<T> iEnable = iEnableSystem as IEnable<T>;
+				if (iEnable==null)
+				{
+					continue;
+				}
+				try
+				{
+					list.List.Add(iEnable.Run(component,args));
 				}
 				catch (Exception e)
 				{

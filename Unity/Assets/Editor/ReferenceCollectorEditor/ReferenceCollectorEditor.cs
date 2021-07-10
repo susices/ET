@@ -87,7 +87,7 @@ public class ReferenceCollectorEditor: Editor
 			for (int i = this.referenceCollector.data.Count-1; i >=0 ; i--)
 			{
 				var data = referenceCollector.data[i];
-				generateCode += $"public GameObject {data.key}; \r\n";
+				generateCode += $"public GameObject {data.key};{Environment.NewLine}";
 			}
 			GUIUtility.systemCopyBuffer = generateCode;
 		}
@@ -96,11 +96,12 @@ public class ReferenceCollectorEditor: Editor
 		if (GUILayout.Button("导出引用绑定代码"))
 		{
 			string generateCode = "";
-			generateCode += "ReferenceCollector rc = self.GetParent<UI>().UIAssetEntity.Object.GetComponent<ReferenceCollector>();\r\n";
+			generateCode += $"ReferenceCollector rc = self.GetParent<UI>().UIAssetEntity.Object.GetComponent<ReferenceCollector>();{Environment.NewLine}";
+			
 			for (int i = this.referenceCollector.data.Count-1; i >=0 ; i--)
 			{
 				var data = referenceCollector.data[i];
-				generateCode += $"self.{data.key} = rc.Get<GameObject>(\"{data.key}\");\r\n";
+				generateCode += $"self.{data.key} = rc.Get<GameObject>(\"{data.key}\");{Environment.NewLine}";
 			}
 			GUIUtility.systemCopyBuffer = generateCode;
 		}

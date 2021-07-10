@@ -5,33 +5,29 @@ using UnityEngine;
 
 namespace ET
 {
-	
-	public class UIAwakeSystem : AwakeSystem<UI, int, AssetEntity,Type>
+	public class UIAwakeSystem : AwakeSystem<UIPanel, int, AssetEntity>
 	{
-		public override void Awake(UI self, int UIType, AssetEntity UIAssetEntity, Type UIComponentType)
+		public override void Awake(UIPanel self, int uiPanelType, AssetEntity UIAssetEntity)
 		{
-			self.Awake(UIType, UIAssetEntity,UIComponentType);
+			self.Awake(uiPanelType, UIAssetEntity);
 		}
 	}
 	
-	public sealed class UI: Entity
+	public sealed class UIPanel: Entity
 	{
-		public AssetEntity UIAssetEntity;
+		public AssetEntity UIPanelAssetEntity;
 
-		public int UIType;
-
-		public Type UIComponentType;
-
-		public Dictionary<int, UI> uiTypeChildren = new Dictionary<int, UI>();
+		public int UIPanelType;
 		
-		public void Awake(int uiType, AssetEntity uiAssetEntity,Type uiComponentType )
+		public Dictionary<int, UIPanel> SubPanels = new Dictionary<int, UIPanel>();
+		
+		public void Awake(int uiPanelType, AssetEntity uiAssetEntity)
 		{
-			this.uiTypeChildren.Clear();
-			UIAssetEntity = uiAssetEntity;
-			UIAssetEntity.Object.AddComponent<ComponentView>().Component = this;
-			UIAssetEntity.Object.layer = LayerMask.NameToLayer(LayerNames.UI);
-			this.UIType = uiType;
-			this.UIComponentType = uiComponentType;
+			this.SubPanels.Clear();
+			this.UIPanelAssetEntity = uiAssetEntity;
+			this.UIPanelAssetEntity.Object.AddComponent<ComponentView>().Component = this;
+			this.UIPanelAssetEntity.Object.layer = LayerMask.NameToLayer(LayerNames.UI);
+			this.UIPanelType = uiPanelType;
 		}
 
 		public override void Dispose()
@@ -40,60 +36,47 @@ namespace ET
 			{
 				return;
 			}
-			
 			base.Dispose();
-
-			foreach (UI ui in this.uiTypeChildren.Values)
+			foreach (UIPanel ui in this.SubPanels.Values)
 			{
 				ui.Dispose();
 			}
-			
-			this.UIAssetEntity.Dispose();
-			this.UIAssetEntity = null;
-			this.uiTypeChildren.Clear();
-			this.UIType = 0;
-			this.UIComponentType = null;
-
+			this.UIPanelAssetEntity.Dispose();
+			this.UIPanelAssetEntity = null;
+			this.SubPanels.Clear();
+			this.UIPanelType = 0;
 		}
 
 		public void SetAsFirstSibling()
 		{
-			this.UIAssetEntity.Object.transform.SetAsFirstSibling();
+			this.UIPanelAssetEntity.Object.transform.SetAsFirstSibling();
 		}
 
-		public void Add(UI ui)
+		public void AddSubPanel(UIPanel uiPanel)
 		{
-			this.uiTypeChildren.Add(ui.UIType, ui);
-			ui.Parent = this;
+			this.SubPanels.Add(uiPanel.UIPanelType, uiPanel);
+			uiPanel.Parent = this;
 		}
 
-		public void Remove(int UIType)
+		public void RemoveSubPanel(int uiPanelType)
 		{
-			UI ui;
-			if (!this.uiTypeChildren.TryGetValue(UIType, out ui))
+			UIPanel uiPanel;
+			if (!this.SubPanels.TryGetValue(uiPanelType, out uiPanel))
 			{
 				return;
 			}
-			this.uiTypeChildren.Remove(UIType);
-			ui.Dispose();
+			this.SubPanels.Remove(uiPanelType);
+			uiPanel.Dispose();
 		}
 
-		public UI Get(int UIType)
+		public UIPanel GetSubPanel(int uiPanelType)
 		{
-			// wenchao 修改UI Get
-			UI child;
-			if (this.uiTypeChildren.TryGetValue(UIType, out child))
+			UIPanel child;
+			if (this.SubPanels.TryGetValue(uiPanelType, out child))
 			{
 				return child;
 			}
-			GameObject childGameObject = this.UIAssetEntity.Object.transform.Find(UIType.ToString())?.gameObject;
-			if (childGameObject == null)
-			{
-				return null;
-			}
-			child = EntityFactory.Create<UI, string, GameObject>(this.Domain, UIType.ToString(), childGameObject);
-			this.Add(child);
-			return child;
+			return null;
 		}
 	}
 }

@@ -26,10 +26,10 @@ namespace ET
     [ObjectSystem]
     public class ABInfoAwakeSystem: AwakeSystem<ABInfo, string, AssetBundle>
     {
-        public override void Awake(ABInfo self, string abName, AssetBundle a)
+        public override void Awake(ABInfo self, string uiPanelType, AssetBundle a)
         {
             self.AssetBundle = a;
-            self.Name = abName;
+            self.Name = uiPanelType;
             self.RefCount = 1;
             self.AlreadyLoadAssets = false;
         }
