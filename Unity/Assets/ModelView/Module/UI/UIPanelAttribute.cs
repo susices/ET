@@ -4,11 +4,11 @@ namespace ET
 {
     public class UIPanelAttribute : BaseAttribute
     {
-        public int UIType { get; }
+        public int UIPanelType { get; }
 
-        public UIPanelAttribute(int UIType)
+        public UIPanelAttribute(int uiPanelType)
         {
-            this.UIType = UIType;
+            this.UIPanelType = uiPanelType;
         }
     }
 }

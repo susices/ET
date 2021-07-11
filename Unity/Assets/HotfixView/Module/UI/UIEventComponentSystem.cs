@@ -16,7 +16,6 @@ namespace ET
 			self.UILayers.Add((int)UILayer.Low, referenceCollector.Get<GameObject>(UILayer.Low.ToString()).transform);
 			self.UILayers.Add((int)UILayer.Mid, referenceCollector.Get<GameObject>(UILayer.Mid.ToString()).transform);
 			self.UILayers.Add((int)UILayer.High, referenceCollector.Get<GameObject>(UILayer.High.ToString()).transform);
-
 			var uiEvents = Game.EventSystem.GetTypes(typeof (UIEventAttribute));
 			foreach (Type type in uiEvents)
 			{
@@ -25,24 +24,33 @@ namespace ET
 				{
 					continue;
 				}
-
 				UIEventAttribute uiEventAttribute = attrs[0] as UIEventAttribute;
 				AUIEvent aUIEvent = Activator.CreateInstance(type) as AUIEvent;
 				self.UIEvents.Add(uiEventAttribute.UIType, aUIEvent);
 			}
-
-
-			var uiTypes = Game.EventSystem.GetTypes(typeof (UIPanelAttribute));
-			foreach (var uiType in uiTypes)
+			
+			var uiPanelTypes = Game.EventSystem.GetTypes(typeof (UIPanelAttribute));
+			foreach (var uiType in uiPanelTypes)
 			{
 				object[] attrs = uiType.GetCustomAttributes(typeof(UIPanelAttribute), false);
 				if (attrs.Length == 0)
 				{
 					continue;
 				}
-
 				UIPanelAttribute uiPanelAttribute = attrs[0] as UIPanelAttribute;
-				self.UITypes.Add(uiPanelAttribute.UIType, uiType);
+				self.UIPanelTypes.Add(uiPanelAttribute.UIPanelType, uiType);
+			}
+
+			var uiItemTypes = Game.EventSystem.GetTypes(typeof (UIItemAttribute));
+			foreach (var uiItemType in uiItemTypes)
+			{
+				object[] attrs = uiItemType.GetCustomAttributes(typeof (UIItemAttribute), false);
+				if (attrs.Length ==0 )
+				{
+					continue;
+				}
+				UIItemAttribute uiItemAttribute = attrs[0] as UIItemAttribute;
+				self.UIItemTypes.Add(uiItemAttribute.UIItemType, uiItemType);
 			}
 		}
 	}
@@ -52,23 +60,22 @@ namespace ET
 	/// </summary>
 	public static class UIEventComponentSystem
 	{
-		public static async ETTask<UIPanel> OnCreate(this UIEventComponent self, UIPanelComponent uiPanelComponent, int uiType)
+		public static async ETTask<UIPanel> OnCreate(this UIEventComponent self, UIPanelComponent uiPanelComponent, int uiType, bool isSubPanel)
 		{
 			try
 			{
 				var uiconfig = UIPanelConfigCategory.Instance.Get(uiType);
 				var UIAssetPathIndex = uiconfig.AssetPath;
-				var uiLayer = uiconfig.UILayer;
 				var assetEntity = await PoolingAssetComponent.Instance.GetAssetEntityAsync(UIAssetPathIndex);
-				if (!self.UITypes.TryGetValue(uiType, out var UIComponentType))
+				if (!self.UIPanelTypes.TryGetValue(uiType, out var UIComponentType))
 				{
 					Log.Error($"UIType:{uiType.ToString()} 对应的component未找到！");
 					return null;
 				}
-				UIPanel uiPanel = EntityFactory.CreateWithParent<UIPanel, int, AssetEntity>(uiPanelComponent, uiType, assetEntity);
+				UIPanel uiPanel = EntityFactory.CreateWithParent<UIPanel, int, AssetEntity, bool>(uiPanelComponent, uiType, assetEntity, isSubPanel);
 				uiPanel.AddComponent(UIComponentType);
-				uiPanel.UIPanelAssetEntity.Object.transform.SetParent(self.UILayers[uiLayer]);
-				await EventSystem.Instance.EnableAsync(uiPanel.GetComponent(UIComponentType));  
+				UIHelper.SetUIPanelParent(uiPanel);
+				await EventSystem.Instance.EnableAsync(uiPanel.GetComponent(UIComponentType)); 
 				uiPanel.UIPanelAssetEntity.Object.GetComponent<Canvas>().enabled = true;
 				return uiPanel;
 			}
@@ -78,22 +85,21 @@ namespace ET
 			}
 		}
 		
-		public static async ETTask<UIPanel> OnCreate<T>(this UIEventComponent self, UIPanelComponent uiPanelComponent, int uiType,T args)
+		public static async ETTask<UIPanel> OnCreate<T>(this UIEventComponent self, UIPanelComponent uiPanelComponent, int uiType, bool isSubPanel,T args)
 		{
 			try
 			{
 				var uiconfig = UIPanelConfigCategory.Instance.Get(uiType);
 				var UIAssetPathIndex = uiconfig.AssetPath;
-				var uiLayer = uiconfig.UILayer;
 				var assetEntity = await PoolingAssetComponent.Instance.GetAssetEntityAsync(UIAssetPathIndex);
-				if (!self.UITypes.TryGetValue(uiType, out var UIComponentType))
+				if (!self.UIPanelTypes.TryGetValue(uiType, out var UIComponentType))
 				{
 					Log.Error($"UIType:{uiType.ToString()} 对应的component未找到！");
 					return null;
 				}
-				UIPanel uiPanel = EntityFactory.CreateWithParent<UIPanel, int, AssetEntity>(uiPanelComponent, uiType, assetEntity);
+				UIPanel uiPanel = EntityFactory.CreateWithParent<UIPanel, int, AssetEntity, bool>(uiPanelComponent, uiType, assetEntity, isSubPanel);
 				uiPanel.AddComponent(UIComponentType);
-				uiPanel.UIPanelAssetEntity.Object.transform.SetParent(self.UILayers[uiLayer]);
+				UIHelper.SetUIPanelParent(uiPanel);
 				await EventSystem.Instance.EnableAsync(uiPanel.GetComponent(UIComponentType),args);
 				uiPanel.UIPanelAssetEntity.Object.GetComponent<Canvas>().enabled = true;
 				return uiPanel;
@@ -106,18 +112,16 @@ namespace ET
 
 		public static async ETTask<UIPanel> OnResume(this UIEventComponent self, UIPanel existUIPanel)
 		{
-			var uiLayer = UIPanelConfigCategory.Instance.Get(existUIPanel.UIPanelType).UILayer;
-			existUIPanel.UIPanelAssetEntity.Object.transform.SetParent(self.UILayers[uiLayer]);
-			await EventSystem.Instance.EnableAsync(existUIPanel.GetComponent(self.UITypes[existUIPanel.UIPanelType]));
+			UIHelper.SetUIPanelParent(existUIPanel);
+			await EventSystem.Instance.EnableAsync(existUIPanel.GetComponent(self.UIPanelTypes[existUIPanel.UIPanelType]));
 			existUIPanel.UIPanelAssetEntity.Object.GetComponent<Canvas>().enabled = true;
 			return existUIPanel;
 		}
 		
 		public static async ETTask<UIPanel> OnResume<T>(this UIEventComponent self, UIPanel existUIPanel, T args)
 		{
-			var uiLayer = UIPanelConfigCategory.Instance.Get(existUIPanel.UIPanelType).UILayer;
-			existUIPanel.UIPanelAssetEntity.Object.transform.SetParent(self.UILayers[uiLayer]);
-			await EventSystem.Instance.EnableAsync(existUIPanel.GetComponent(self.UITypes[existUIPanel.UIPanelType]), args);
+			UIHelper.SetUIPanelParent(existUIPanel);
+			await EventSystem.Instance.EnableAsync(existUIPanel.GetComponent(self.UIPanelTypes[existUIPanel.UIPanelType]), args);
 			existUIPanel.UIPanelAssetEntity.Object.GetComponent<Canvas>().enabled = true;
 			return existUIPanel;
 		}
@@ -126,7 +130,7 @@ namespace ET
 		{
 			if (existUIPanel!=null)
 			{
-				await EventSystem.Instance.DisableAsync(existUIPanel.GetComponent(self.UITypes[existUIPanel.UIPanelType]));
+				await EventSystem.Instance.DisableAsync(existUIPanel.GetComponent(self.UIPanelTypes[existUIPanel.UIPanelType]));
 				existUIPanel.UIPanelAssetEntity.Object.GetComponent<Canvas>().enabled = false;
 				existUIPanel.UIPanelAssetEntity.Object.transform.SetParent(self.UILayers[(int)UILayer.Hidden]);
 			}
@@ -134,10 +138,10 @@ namespace ET
 
 		public static async ETTask OnRemove(this UIEventComponent self,UIPanel existUIPanel)
 		{
-			await EventSystem.Instance.DisableAsync(existUIPanel.GetComponent(self.UITypes[existUIPanel.UIPanelType]));
+			await EventSystem.Instance.DisableAsync(existUIPanel.GetComponent(self.UIPanelTypes[existUIPanel.UIPanelType]));
 			existUIPanel.UIPanelAssetEntity.Object.GetComponent<Canvas>().enabled = false;
 		}
-
+		
 	}
 	
 }

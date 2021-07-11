@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 namespace ET
@@ -15,6 +16,8 @@ namespace ET
 		
 		public Dictionary<int, Transform> UILayers = new Dictionary<int, Transform>();
 
-		public Dictionary<int, Type> UITypes = new Dictionary<int, Type>();
+		public Dictionary<int, Type> UIPanelTypes = new Dictionary<int, Type>();
+
+		public Dictionary<int, Type> UIItemTypes = new Dictionary<int, Type>();
 	}
 }

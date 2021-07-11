@@ -3,7 +3,7 @@
 namespace ET
 {
 	/// <summary>
-	/// 管理Scene上的UI
+	/// 管理一组UIPanel的组件
 	/// </summary>
 	public class UIPanelComponent: Entity
 	{
