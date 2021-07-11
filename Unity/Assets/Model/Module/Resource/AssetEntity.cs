@@ -16,7 +16,6 @@ namespace ET
 
         public override void Dispose()
         {
-            
             AssetEntityPool.RecycleGameObject(this.Object);
             this.Object = null;
             AssetEntityPool = null;

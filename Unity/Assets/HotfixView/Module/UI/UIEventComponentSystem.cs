@@ -98,8 +98,7 @@ namespace ET
 					return null;
 				}
 				UIPanel uiPanel = EntityFactory.CreateWithParent<UIPanel, int, AssetEntity, bool>(uiPanelComponent, uiType, assetEntity, isSubPanel);
-				uiPanel.AddComponent(UIComponentType);
-				UIHelper.SetUIPanelParent(uiPanel);
+				uiPanel.AddComponent(UIComponentType); 
 				await EventSystem.Instance.EnableAsync(uiPanel.GetComponent(UIComponentType),args);
 				uiPanel.UIPanelAssetEntity.Object.GetComponent<Canvas>().enabled = true;
 				return uiPanel;
