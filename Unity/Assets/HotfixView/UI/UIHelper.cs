@@ -20,5 +20,7 @@
                 uiPanel.UIPanelAssetEntity.Object.transform.SetParent(UIEventComponent.Instance.UILayers[uiLayer]);
             }
         }
+        
+        
     }
 }
