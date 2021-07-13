@@ -11,30 +11,22 @@ namespace ET
         /// 实例化gameObject
         /// </summary>
         public GameObject Object { private set; get; }
-
-        private AssetEntityPool AssetEntityPool;
-
-        public override void Dispose()
+        
+        public string AssetPath { private set; get;}
+        
+        public void Awake(string assetPath,GameObject gameObject)
         {
-            AssetEntityPool.RecycleGameObject(this.Object);
-            this.Object = null;
-            AssetEntityPool = null;
-            base.Dispose();
+            this.AssetPath = assetPath;
+            this.Object = gameObject;
         }
-
-        public void Awake(AssetEntityPool assetEntityPool, Transform parent = null)
+        
+        public void Destroy()
         {
-            AssetEntityPool = assetEntityPool;
-            this.Object = assetEntityPool.FetchGameObject(parent);
+            this.Object = null;
+            this.AssetPath = null;
         }
     }
     
-    public class AssetEntityAwakeSystem : AwakeSystem<AssetEntity,AssetEntityPool, Transform>
-    {
-        public override void Awake(AssetEntity self, AssetEntityPool uiPanelType, Transform parent)
-        {
-            self.Awake(uiPanelType, parent);
-        }
-    }
+    
     
 }
