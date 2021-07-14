@@ -8,6 +8,16 @@
             self.UIItemType = uiItemType;
         }
     }
+    
+    public class UIItemDestroySystem: DestroySystem<UIItem>
+    {
+        public override void Destroy(UIItem self)
+        {
+            self.UIItemAssetEntity.Dispose();
+            self.UIItemAssetEntity = null;
+            self.UIItemType = 0;
+        }
+    }
 
     public static class UIItemSystem
     {

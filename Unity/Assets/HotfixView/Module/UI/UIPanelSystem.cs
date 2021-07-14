@@ -14,6 +14,17 @@ namespace ET
             self.IsSubPanel = isSubPanel;
         }
     }
+    
+    public class UIPanelDestroySystem : DestroySystem<UIPanel>
+    {
+        public override void Destroy(UIPanel self)
+        {
+            self.UIPanelAssetEntity.Dispose();
+            self.UIPanelAssetEntity = null;
+            self.UIPanelType = 0;
+            self.IsSubPanel = false;
+        }
+    }
 
     public static class UIPanelSystem
     {
@@ -87,7 +98,6 @@ namespace ET
                 Log.Error("当前UIPanel 没有UIPanelComponent组件！");
                 return null;
             }
-
             return self.GetComponent<UIPanelComponent>().Get(uiPanelType);
         }
 
@@ -96,44 +106,15 @@ namespace ET
         /// </summary>
         public static async ETTask<UIItem> CreateUIItem(this UIPanel self, int uiItemType, Transform parentTransform)
         {
-            if (!UIEventComponent.Instance.UIItemTypes.TryGetValue(uiItemType, out Type uiItemComponentType))
-            {
-                Log.Error($"UIType:{uiItemType.ToString()} 对应的UIItemComponent未找到！");
-                return null;
-            }
-            UIItemConfig uiItemConfig = UIItemConfigCategory.Instance.Get(uiItemType);
-            AssetEntity AssetEntity = await PoolingAssetComponent.Instance.GetAssetEntityAsync(uiItemConfig.AssetPath, parentTransform);
-            UIItem uiItem = EntityFactory.CreateWithParent<UIItem, int, AssetEntity>(self, uiItemType, AssetEntity);
-            uiItem.AddComponent(uiItemComponentType);
-            await EventSystem.Instance.EnableAsync(uiItem.GetComponent(uiItemComponentType));
-            if (uiItem.UIItemAssetEntity.Object.TryGetComponent<CanvasGroup>(out var canvasGroup))
-            {
-                canvasGroup.alpha = 1;
-            }
-            return uiItem;
+            return await UIEventComponent.Instance.OnCreateUIItem(self, uiItemType, parentTransform);
         }
         
         /// <summary>
-        /// 创建指定类型的的UIItem 泛型参数
+        /// 创建指定类型的UIItem 泛型参数
         /// </summary>
         public static async ETTask<UIItem> CreateUIItem<T>(this UIPanel self, int uiItemType, T args, Transform parentTransform)
         {
-            if (!UIEventComponent.Instance.UIItemTypes.TryGetValue(uiItemType, out Type uiItemComponentType))
-            {
-                Log.Error($"UIType:{uiItemType.ToString()} 对应的UIItemComponent未找到！");
-                return null;
-            }
-            UIItemConfig uiItemConfig = UIItemConfigCategory.Instance.Get(uiItemType);
-            AssetEntity AssetEntity = await PoolingAssetComponent.Instance.GetAssetEntityAsync(uiItemConfig.AssetPath, parentTransform);
-            UIItem uiItem = EntityFactory.CreateWithParent<UIItem, int, AssetEntity>(self, uiItemType, AssetEntity);
-            uiItem.AddComponent(uiItemComponentType);
-            await EventSystem.Instance.EnableAsync(uiItem.GetComponent(uiItemComponentType),args);
-            if (uiItem.UIItemAssetEntity.Object.TryGetComponent<CanvasGroup>(out var canvasGroup))
-            {
-                canvasGroup.alpha = 1;
-            }
-            return uiItem;
+            return await UIEventComponent.Instance.OnCreateUIItem(self, uiItemType, args, parentTransform);
         }
-        
     }
 }

@@ -8,7 +8,8 @@ namespace ET
         {
             if (PoolingAssetComponent.Instance.PathAssetEntityPools.TryGetValue(assetPath, out var assetEntityPool))
             {
-                self.Awake(assetPath, assetEntityPool.FetchGameObject(parent));
+                self.AssetPath = assetPath;
+                self.Object = assetEntityPool.FetchGameObject(parent);
             }
         }
     }
@@ -20,7 +21,8 @@ namespace ET
             if (PoolingAssetComponent.Instance.PathAssetEntityPools.TryGetValue(self.AssetPath, out var assetEntityPool))
             {
                 assetEntityPool.RecycleGameObject(self.Object);
-                self.Destroy();
+                self.Object = null;
+                self.AssetPath = null;
             }
         }
     }

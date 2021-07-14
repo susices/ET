@@ -23,7 +23,7 @@
                 return await self.ResumeUIPanel(existUI);
             }
 
-            UIPanel uiPanel = await UIEventComponent.Instance.OnCreate(self, uiPanelType, isSubPanel);
+            UIPanel uiPanel = await UIEventComponent.Instance.OnCreateUIPanel(self, uiPanelType, isSubPanel);
             self.UIPanels.Add(uiPanelType, uiPanel);
             return uiPanel;
         }
@@ -39,7 +39,7 @@
                 return await self.ResumeUIPanel(existUI, args);
             }
 
-            UIPanel uiPanel = await UIEventComponent.Instance.OnCreate(self, uiPanelType,isSubPanel, args);
+            UIPanel uiPanel = await UIEventComponent.Instance.OnCreateUIPanel(self, uiPanelType,isSubPanel, args);
             self.UIPanels.Add(uiPanelType, uiPanel);
             return uiPanel;
         }
@@ -49,7 +49,7 @@
         /// </summary>
         private static async ETTask<UIPanel> ResumeUIPanel(this UIPanelComponent self, UIPanel existUIPanel)
         {
-            return await UIEventComponent.Instance.OnResume(existUIPanel);
+            return await UIEventComponent.Instance.OnResumeUIPanel(existUIPanel);
         }
 
         /// <summary>
@@ -57,7 +57,7 @@
         /// </summary>
         private static async ETTask<UIPanel> ResumeUIPanel<T>(this UIPanelComponent self, UIPanel existUIPanel, T args)
         {
-            return await UIEventComponent.Instance.OnResume(existUIPanel,args);
+            return await UIEventComponent.Instance.OnResumeUIPanel(existUIPanel,args);
         }
 
         /// <summary>
@@ -68,7 +68,7 @@
             UIPanel existUI = self.Get(uiPanelType);
             if (existUI != null)
             {
-                await UIEventComponent.Instance.OnPause(existUI);
+                await UIEventComponent.Instance.OnPauseUIPanel(existUI);
             }
             else
             {
@@ -87,7 +87,7 @@
                 return;
             }
 
-            await UIEventComponent.Instance.OnRemove(existUI);
+            await UIEventComponent.Instance.OnRemoveUIPanel(existUI);
             self.UIPanels.Remove(uiPanelType);
             existUI.Dispose();
         }
