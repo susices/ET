@@ -12,6 +12,7 @@ namespace ET
             self.UIPanelAssetEntity.Object.layer = LayerMask.NameToLayer(LayerNames.UI);
             self.UIPanelType = uiPanelType;
             self.IsSubPanel = isSubPanel;
+            self.IsActive = false;
         }
     }
     
@@ -23,6 +24,7 @@ namespace ET
             self.UIPanelAssetEntity = null;
             self.UIPanelType = 0;
             self.IsSubPanel = false;
+            self.IsActive = false;
         }
     }
 

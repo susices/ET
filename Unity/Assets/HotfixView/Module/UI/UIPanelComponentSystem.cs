@@ -97,8 +97,7 @@
         /// </summary>
         public static UIPanel Get(this UIPanelComponent self, int uiPanelType)
         {
-            UIPanel uiPanel = null;
-            self.UIPanels.TryGetValue(uiPanelType, out uiPanel);
+            self.UIPanels.TryGetValue(uiPanelType, out UIPanel uiPanel);
             return uiPanel;
         }
     }

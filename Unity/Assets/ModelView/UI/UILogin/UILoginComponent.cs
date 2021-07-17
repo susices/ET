@@ -2,7 +2,7 @@
 
 namespace ET
 {
-    [UIPanel(UiPanelType.UILogin)]
+    [UIPanelComponent(UiPanelComponentIndex.UILogin)]
     public class UILoginComponent: Entity
     {
         /// <summary>

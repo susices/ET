@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace ET
 {
-	[UIPanel(UiPanelType.UILobby)]
+	[UIPanelComponent(UiPanelComponentIndex.UILobby)]
 	public class UILobbyComponent : Entity
 	{
 		public GameObject enterMap;

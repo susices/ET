@@ -16,8 +16,8 @@ namespace ET
 		
 		public Dictionary<int, Transform> UILayers = new Dictionary<int, Transform>();
 
-		public Dictionary<int, Type> UIPanelTypes = new Dictionary<int, Type>();
+		public Dictionary<int, Type> UIPanelComponentTypes = new Dictionary<int, Type>();
 
-		public Dictionary<int, Type> UIItemTypes = new Dictionary<int, Type>();
+		public Dictionary<int, Type> UIItemComponentTypes = new Dictionary<int, Type>();
 	}
 }

@@ -17,6 +17,7 @@ namespace ET
 			self.loginBtn.onClick.AddListener(self.OnLogin);
 			self.registerBtn = rc.Get<GameObject>("RegisterBtn").GetComponent<Button>();
 			self.registerBtn.onClick.AddListener(self.OnRegieter);
+			Log.Debug("LoginAwake");
 		}
 	}
 	
