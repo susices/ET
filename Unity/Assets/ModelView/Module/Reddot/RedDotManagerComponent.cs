@@ -1,6 +1,9 @@
-﻿namespace Assets.ModelView.Module.Reddot
+﻿namespace ET
 {
-    public class ReddotManagerComponent
+    /// <summary>
+    /// 红点系统管理器组件
+    /// </summary>
+    public class RedDotManagerComponent : Entity
     {
         
     }
