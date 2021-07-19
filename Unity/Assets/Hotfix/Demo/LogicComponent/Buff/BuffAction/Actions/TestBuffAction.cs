@@ -2,9 +2,9 @@
 {
     
     [BaseBuffAction(1)]
-    public class TestBuffAction : ABuffAction
+    public class TestBuffAction : IBuffAction
     {
-        public override void Run(Entity buffEntity, int[] args)
+        public void Run(Entity buffEntity, int[] args)
         {
             
         }

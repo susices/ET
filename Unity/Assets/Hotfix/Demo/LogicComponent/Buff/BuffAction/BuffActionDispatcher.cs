@@ -6,6 +6,7 @@ namespace ET
     {
         public static BuffActionDispatcher Instance;
 
-        public Dictionary<int, ABuffAction> idBuffActions = new Dictionary<int, ABuffAction>();
+        public Dictionary<int, IBuffAction> idBuffActions = new Dictionary<int, IBuffAction>();
+        
     }
 }

@@ -1,14 +1,16 @@
-﻿namespace ET
+﻿using System.Collections.Generic;
+
+namespace ET
 {
     public class BuffEntityAwakeSystem : AwakeSystem<BuffEntity, Entity,int>
     {
         public override void Awake(BuffEntity self, Entity uiPanelType, int buffConfigId)
         {
-            var buffConfig = BuffConfigCategory.Instance.Get(self.BuffConfigId);
+            var buffConfig = BuffConfigCategory.Instance.Get(buffConfigId);
             self.SourceEntity = uiPanelType;
-            self.ParentBuffManager = self.Parent as BuffContainerComponent;
+            self.BuffContainer = self.Parent as BuffContainerComponent;
             self.BuffConfigId = buffConfigId;
-            self.BuffEndTime = TimeHelper.ServerNow() + buffConfig.DurationMillsecond;
+            self.BuffEndTime = TimeHelper.ServerFrameTime() + buffConfig.DurationMillsecond;
             self.CurrentLayer++;
             self.State = (BuffState) buffConfig.State;
         }
@@ -27,7 +29,7 @@
     {
         public override void Update(BuffEntity self)
         {
-            if (TimeHelper.ServerNow()>= self.BuffEndTime)
+            if (TimeHelper.ServerFrameTime()>= self.BuffEndTime)
             {
                 self.Dispose();
             }
@@ -41,9 +43,13 @@
             if (self.BuffTickTimerId!=null)
             {
                 TimerComponent.Instance.Remove(self.BuffTickTimerId.Value);
+                self.TickBuffActions.Dispose();
+                self.TickBuffActions = null;
+                self.TickBuffActionsArgs.Dispose();
+                self.TickBuffActionsArgs = null;
             }
             
-            if (TimeHelper.ServerNow()>= self.BuffEndTime)
+            if (TimeHelper.ServerFrameTime()>= self.BuffEndTime)
             {
                 BuffActionDispatcher.Instance.RunBuffTimeOutAction(self);
             }
@@ -74,18 +80,33 @@
         /// <param name="timeSpan"></param>
         public static void RunTickAction(this BuffEntity self, int timeSpan)
         {
-            if (timeSpan==0)
+            if (timeSpan<=0)
             {
                 self.BuffTickTimerId = null;
                 return;
             }
+
+            if (BuffConfigCategory.Instance.Get(self.BuffConfigId).BuffTickActions ==null)
+            {
+                return;
+            }
+
+            self.TickBuffActions = ListComponent<IBuffAction>.Create();
+            self.TickBuffActionsArgs = ListComponent<int[]>.Create();
+            if (!BuffActionDispatcher.Instance.GetBuffTickActions(self, self.TickBuffActions.List, self.TickBuffActionsArgs.List))
+            {
+                self.TickBuffActions.Dispose();
+                self.TickBuffActions = null;
+                self.TickBuffActionsArgs.Dispose();
+                self.TickBuffActionsArgs = null;
+                return;
+            }
             
-            BuffActionDispatcher.Instance.GetBuffTickActions(self, out var buffActionList, out var argsList);
             self.BuffTickTimerId = TimerComponent.Instance.NewRepeatedTimer(timeSpan, () =>
             {
-                for (int i = 0; i < buffActionList.Count; i++)
+                for (int i = 0; i < self.TickBuffActions.List.Count; i++)
                 {
-                    buffActionList[i].Run(self, argsList[i]);
+                    self.TickBuffActions.List[i].Run(self, self.TickBuffActionsArgs.List[i]);
                 }
             });
         }
@@ -96,7 +117,7 @@
             self.SourceEntity = null;
             self.BuffConfigId = 0;
             self.BuffEndTime = 0;
-            self.ParentBuffManager = null;
+            self.BuffContainer = null;
             self.BuffTickTimerId = null;
             self.State = BuffState.None;
         }

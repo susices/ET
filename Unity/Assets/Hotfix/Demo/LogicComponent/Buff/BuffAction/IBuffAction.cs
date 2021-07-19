@@ -1,15 +1,15 @@
 ﻿namespace ET
 {
     /// <summary>
-    /// BuffAction抽象类  
+    /// BuffAction接口  
     /// </summary>
-    public abstract class ABuffAction
+    public interface IBuffAction
     {
         /// <summary>
         /// 执行Action
         /// </summary>
         /// <param name="buffEntity">所属的BuffEntity</param>
         /// <param name="args">参数列表</param>
-        public abstract void Run(Entity buffEntity, int[] args);
+         void Run(Entity buffEntity, int[] args);
     }
 }

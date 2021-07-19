@@ -50,8 +50,8 @@ namespace ET
                 }
 
                 BaseBuffActionAttribute buffActionAttribute = attrs[0] as BaseBuffActionAttribute;
-                ABuffAction aBuffAction = Activator.CreateInstance(type) as ABuffAction;
-                if (aBuffAction == null)
+                IBuffAction buffAction = Activator.CreateInstance(type) as IBuffAction;
+                if (buffAction == null)
                 {
                     Log.Error($"{type.Name} is not a BuffAction!");
                     continue;
@@ -64,8 +64,10 @@ namespace ET
                     continue;
                 }
 
-                self.idBuffActions.Add(buffActionAttribute.Id, aBuffAction);
+                self.idBuffActions.Add(buffActionAttribute.Id, buffAction);
             }
+            
+            Log.Debug("BuffActionDispatcherSystem Load Success");
         }
 
         /// <summary>
@@ -77,7 +79,7 @@ namespace ET
         /// <param name="args"></param>
         public static void RunBuffAction(this BuffActionDispatcher self, BuffEntity buffEntity, int baseBuffActionId, int[] args)
         {
-            if (!self.idBuffActions.TryGetValue(baseBuffActionId, out ABuffAction baseBuffAction))
+            if (!self.idBuffActions.TryGetValue(baseBuffActionId, out IBuffAction baseBuffAction))
             {
                 Log.Error($"buffActionId {baseBuffActionId.ToString()} is not exist in idbuffActions!");
                 return;
@@ -157,13 +159,12 @@ namespace ET
         /// </summary>
         /// <param name="self"></param>
         /// <param name="buffEntity"></param>
-        /// <param name="aBuffActionList"></param>
+        /// <param name="BuffActionList"></param>
         /// <param name="argsList"></param>
-        public static void GetBuffTickActions(this BuffActionDispatcher self, BuffEntity buffEntity, out List<ABuffAction> aBuffActionList, out List<int[]> argsList)
+        public static bool GetBuffTickActions(this BuffActionDispatcher self, BuffEntity buffEntity, List<IBuffAction> BuffActionList, List<int[]> argsList)
         {
             int[] buffTickActionIds = BuffConfigCategory.Instance.Get(buffEntity.BuffConfigId).BuffTickActions;
-            using var buffActionlist = ListComponent<ABuffAction>.Create();
-            using var argsListComponent = ListComponent<int[]>.Create();
+            
             for (int i = 0; i < buffTickActionIds.Length; i++)
             {
                 BuffActionConfig buffActionConfig = BuffActionConfigCategory.Instance.Get(buffTickActionIds[i]);
@@ -171,12 +172,15 @@ namespace ET
                 int[] args = buffActionConfig.actionArgs;
                 if (self.idBuffActions.TryGetValue(baseBuffActionId, out var baseBuffAction))
                 {
-                    buffActionlist.List.Add(baseBuffAction);
-                    argsListComponent.List.Add(args);
+                    BuffActionList.Add(baseBuffAction);
+                    argsList.Add(args);
+                }
+                else
+                {
+                    return false;
                 }
             }
-            aBuffActionList = buffActionlist.List;
-            argsList = argsListComponent.List;
+            return true;
         }
 
         /// <summary>

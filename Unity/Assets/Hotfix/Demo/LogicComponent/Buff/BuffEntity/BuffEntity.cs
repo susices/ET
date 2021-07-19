@@ -1,4 +1,6 @@
-﻿namespace ET
+﻿using System.Collections.Generic;
+
+namespace ET
 {
     /// <summary>
     /// Buff实体
@@ -26,9 +28,9 @@
         public Entity SourceEntity;
 
         /// <summary>
-        /// 被添加到的BuffManager
+        /// 被添加到的Buff容器
         /// </summary>
-        public BuffContainerComponent ParentBuffManager;
+        public BuffContainerComponent BuffContainer;
 
         /// <summary>
         /// Buff结束时间 单位毫秒
@@ -39,7 +41,16 @@
         /// Buff轮询计时器Id
         /// </summary>
         public long? BuffTickTimerId;
-        
-        
+
+        /// <summary>
+        /// 轮询BuffAction列表组件
+        /// </summary>
+        public ListComponent<IBuffAction> TickBuffActions;
+
+        /// <summary>
+        /// 轮询BuffAction 参数列表组件
+        /// </summary>
+        public ListComponent<int[]> TickBuffActionsArgs;
+
     }
 }

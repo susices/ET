@@ -49,8 +49,10 @@ namespace ET
                 return false;
             }
 
+            using var buffEntityList = ListComponent<BuffEntity>.Create();
+
             //检测是否含有该种Buff
-            if (!CheckBuffByConfigId(self, buffConfigId, out var buffEntities))
+            if (!CheckBuffByConfigId(self, buffConfigId, buffEntityList.List))
             {
                 AddBuff(self, buffConfigId, sourceEntity);
                 return true;
@@ -59,7 +61,7 @@ namespace ET
             // 判断是否存在同一来源 buff 并判断是否可刷新
             BuffConfig buffConfig = BuffConfigCategory.Instance.Get(buffConfigId);
             BuffEntity sameSourceBuffEntity = null;
-            foreach (BuffEntity buffEntity in buffEntities)
+            foreach (BuffEntity buffEntity in buffEntityList.List)
             {
                 if (buffEntity.SourceEntity == sourceEntity)
                 {
@@ -79,7 +81,7 @@ namespace ET
             }
 
             //检测是否可以添加新Buff
-            if (buffEntities.Count < buffConfig.MaxSourceCount)
+            if (buffEntityList.List.Count < buffConfig.MaxSourceCount)
             {
                 AddBuff(self, buffConfigId, sourceEntity);
                 return true;
@@ -130,19 +132,18 @@ namespace ET
         /// <summary>
         /// 检查是否存在指定configId的Buff  并返回符合的buffEntity列表
         /// </summary>
-        private static bool CheckBuffByConfigId(this BuffContainerComponent self, int buffConfigId, out List<BuffEntity> buffEntities)
+        private static bool CheckBuffByConfigId(this BuffContainerComponent self, int buffConfigId, List<BuffEntity> buffEntities)
         {
-            using var list = ListComponent<BuffEntity>.Create();
+            
             bool value = false;
             foreach (var child in self.Children)
             {
                 if (child.Value is BuffEntity buffEntity && buffEntity.BuffConfigId == buffConfigId)
                 {
-                    list.List.Add(buffEntity);
+                    buffEntities.Add(buffEntity);
                     value = true;
                 }
             }
-            buffEntities = list.List;
             return value;
         }
     }
