@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 
 namespace ET.Module.Reddot
 {
@@ -8,6 +9,11 @@ namespace ET.Module.Reddot
         {
             RedDotManagerComponent.Instance = self;
             self.AllNodes = new Dictionary<string, RedDotNodeEntity>();
+            self.SplitChar = '/';
+            self.RootNode = EntityFactory.Create<RedDotNodeEntity, string>(self.Domain, "Root");
+            self.DirtyNodes = new HashSet<RedDotNodeEntity>();
+            self.TempDirtyNodes = new List<RedDotNodeEntity>();
+            self.CachedSb = new StringBuilder();
         }
     }
 
