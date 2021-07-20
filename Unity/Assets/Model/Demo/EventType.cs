@@ -84,5 +84,21 @@ namespace ET
             public DataType DataType;
             public int DataUpdateMode;
         }
+
+        /// <summary>
+        /// 红点节点值改变
+        /// </summary>
+        public struct ReddotNodeValueChange
+        {
+            
+        }
+
+        /// <summary>
+        /// 红点节点数量改变
+        /// </summary>
+        public struct ReddotNodeNumChange
+        {
+            
+        }
     }
 }
