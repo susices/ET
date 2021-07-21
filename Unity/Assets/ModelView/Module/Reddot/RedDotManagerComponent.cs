@@ -36,7 +36,7 @@ namespace ET
         public StringBuilder CachedSb;
 
         /// <summary>
-        /// 红点根节点
+        /// 根节点
         /// </summary>
         public RedDotNodeEntity RootNode;
         

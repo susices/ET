@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using UnityEditor;
-
-namespace ET.Module.Reddot
+namespace ET
 {
     public class RedDotManagerComponentAwakeSystem : AwakeSystem<RedDotManagerComponent>
     {
@@ -94,6 +92,7 @@ namespace ET.Module.Reddot
             }
 
             self.DirtyNodes.Add(node);
+            
         }
 
 

@@ -90,7 +90,8 @@ namespace ET
         /// </summary>
         public struct ReddotNodeValueChange
         {
-            
+            public Entity ReddotNode;
+            public int NewValue;
         }
 
         /// <summary>
@@ -100,5 +101,6 @@ namespace ET
         {
             
         }
+        
     }
 }

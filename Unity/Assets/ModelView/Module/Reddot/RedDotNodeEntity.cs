@@ -7,7 +7,7 @@ namespace ET
     /// </summary>
     public class RedDotNodeEntity : Entity
     {
-        public Dictionary<RangeString, RedDotNodeEntity> ChildrenNodes;
+        public Dictionary<RangeString, RedDotNodeEntity> ChildrenNodes = new Dictionary<RangeString, RedDotNodeEntity>();
 
         public string FullPath;
 
@@ -16,7 +16,6 @@ namespace ET
         public int NodeValue;
 
         public RedDotNodeEntity ParentNode;
-        
         
     }
 }
