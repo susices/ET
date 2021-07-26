@@ -7,8 +7,21 @@ namespace ET
     /// </summary>
     public class ReddotNodeValueChangeEvent : AEvent<EventType.ReddotNodeValueChange>
     {
-        protected override async ETTask Run(ReddotNodeValueChange a)
+        protected override async ETTask Run(ReddotNodeValueChange reddotNodeValueChange)
         {
+            var redDotNodeEntity = RedDotManagerComponent.Instance.GetReddotNode(reddotNodeValueChange.ReddotNodePath);
+            if (redDotNodeEntity==null)
+            {
+                return;
+            }
+
+            foreach (var redDotUI in redDotNodeEntity.RedDotUIEntities.Values)
+            {
+                if (redDotUI is RedDotUIEntity redDotUIComponent)
+                {
+                    redDotUIComponent.OnNodeValueChange(reddotNodeValueChange.NewValue);
+                }
+            }
             await ETTask.CompletedTask;
         }
     }

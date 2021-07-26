@@ -16,17 +16,42 @@ namespace ET
             self.CachedSb = new StringBuilder();
         }
     }
+    
+    public class RedDotManagerComponentUpdateSystem : UpdateSystem<RedDotManagerComponent>
+    {
+        public override void Update(RedDotManagerComponent self)
+        {
+            if (self.DirtyNodes.Count==0)
+            {
+                return;
+            }
+            
+            self.TempDirtyNodes.Clear();
+            foreach (RedDotNodeEntity node in self.DirtyNodes)
+            {
+                self.TempDirtyNodes.Add(node);
+            }
+            self.DirtyNodes.Clear();
+
+            foreach (RedDotNodeEntity node in self.TempDirtyNodes)
+            {
+                node.ChangeDirtyNodeValue();
+            }
+        }
+    }
 
     public static class RedDotManagerComponentSystem
     {
-        public static RedDotNodeEntity AddListener(this RedDotManagerComponent self, string path)
+        public static void RegisterRedDotUIEntities(this RedDotManagerComponent self, string path, Entity reddotUI)
         {
-            return null;
+            RedDotNodeEntity redDotNodeEntity = self.GetReddotNode(path);
+            redDotNodeEntity.RegisterRedDotUIComponent(reddotUI);
         }
 
-        public static void RemoveListener(this RedDotManagerComponent self, string path)
+        public static void UnRegisterRedDotUIEntities(this RedDotManagerComponent self, string path, Entity reddotUI)
         {
-            
+            RedDotNodeEntity redDotNodeEntity = self.GetReddotNode(path);
+            redDotNodeEntity.UnRegisterRedDotUIComponent(reddotUI);
         }
 
         public static void ChangeValue(this RedDotManagerComponent self, string path, int newValue)
@@ -84,6 +109,25 @@ namespace ET
         }
 
 
+        public static bool RemoveTreeNode(this RedDotManagerComponent self, string path)
+        {
+            if (!self.AllNodes.ContainsKey(path))
+            {
+                return false;
+            }
+
+            RedDotNodeEntity node = self.GetReddotNode(path);
+            self.AllNodes.Remove(path);
+            return node.ParentNode.RemoveChild(new RangeString(node.Name, 0, node.Name.Length));
+        }
+
+        public static void RemoveAllTreeNode(this RedDotManagerComponent self)
+        {
+            self.RootNode.RemoveAllChild();
+            self.AllNodes.Clear();
+        }
+
+
         public static void MarkDirtyNode(this RedDotManagerComponent self, RedDotNodeEntity node)
         {
             if (node==null || node.Name == self.RootNode.Name)
@@ -92,8 +136,9 @@ namespace ET
             }
 
             self.DirtyNodes.Add(node);
-            
         }
+        
+        
 
 
     }

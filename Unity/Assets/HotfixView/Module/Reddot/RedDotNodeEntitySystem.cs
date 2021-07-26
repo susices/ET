@@ -26,7 +26,10 @@ namespace ET
     {
         public override void Destroy(RedDotNodeEntity self)
         {
-            
+            foreach (var redDotUI in self.RedDotUIEntities.Values)
+            {
+                redDotUI.Dispose();
+            }
         }
     }
 
@@ -90,7 +93,7 @@ namespace ET
             return false;
         }
 
-        public static void RemoveAllChild(this RedDotNodeEntity self, RangeString key)
+        public static void RemoveAllChild(this RedDotNodeEntity self)
         {
             if (self.ChildrenNodes == null || self.ChildrenNodes.Count == 0)
             {
@@ -110,7 +113,7 @@ namespace ET
             }
 
             self.NodeValue = newValue;
-            EventSystem.Instance.Publish(new EventType.ReddotNodeValueChange(){ReddotNode = self, NewValue = newValue}).Coroutine();
+            EventSystem.Instance.Publish(new EventType.ReddotNodeValueChange(){ReddotNodePath = self.GetFullPath(), NewValue = newValue}).Coroutine();
             RedDotManagerComponent.Instance.MarkDirtyNode(self.ParentNode);
         }
 
@@ -124,7 +127,7 @@ namespace ET
             self.InternalChangeValue(newValue);
         }
 
-        public static void ChangeDirtyNodeValue(this RedDotNodeEntity self, int newValue)
+        public static void ChangeDirtyNodeValue(this RedDotNodeEntity self)
         {
             int sum = 0;
 
@@ -153,6 +156,24 @@ namespace ET
                 }
             }
             return self.FullPath;
+        }
+
+        public static void RegisterRedDotUIComponent(this RedDotNodeEntity self, Entity reddotUIComponent)
+        {
+            if (self.RedDotUIEntities.ContainsKey(reddotUIComponent.Id))
+            {
+                Log.Error("ReddotUIComponent Register Error!");
+                return;
+            }
+            self.RedDotUIEntities.Add(reddotUIComponent.Id, reddotUIComponent);
+        }
+
+        public static void UnRegisterRedDotUIComponent(this RedDotNodeEntity self, Entity reddotUIComponent)
+        {
+            if (!self.RedDotUIEntities.Remove(reddotUIComponent.Id))
+            {
+                Log.Error("ReddotUIComponent UnRegister Error!");
+            }
         }
     }
 }

@@ -90,7 +90,7 @@ namespace ET
         /// </summary>
         public struct ReddotNodeValueChange
         {
-            public Entity ReddotNode;
+            public string ReddotNodePath;
             public int NewValue;
         }
 

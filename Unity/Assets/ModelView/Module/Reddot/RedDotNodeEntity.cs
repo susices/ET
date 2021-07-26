@@ -9,6 +9,8 @@ namespace ET
     {
         public Dictionary<RangeString, RedDotNodeEntity> ChildrenNodes = new Dictionary<RangeString, RedDotNodeEntity>();
 
+        public Dictionary<long, Entity> RedDotUIEntities = new Dictionary<long, Entity>();
+
         public string FullPath;
 
         public string Name;
@@ -16,6 +18,6 @@ namespace ET
         public int NodeValue;
 
         public RedDotNodeEntity ParentNode;
-        
+
     }
 }
