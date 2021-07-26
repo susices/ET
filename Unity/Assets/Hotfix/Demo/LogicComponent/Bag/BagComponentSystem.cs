@@ -18,8 +18,7 @@
             var sessioncomponent = self.DomainScene().GetComponent<SessionComponent>();
             var session = sessioncomponent.Session;
             var m2cAllBagInfo = (M2C_AllBagInfo)await session.Call(new C2M_AllBagInfo());
-            self.GetComponent<DataSetComponent>().UpdateData(DataUpdateMode.Overwrite, m2cAllBagInfo.BagItems);
-            await ETTask.CompletedTask;
+            await self.GetComponent<DataSetComponent>().UpdateData(DataUpdateMode.Overwrite, m2cAllBagInfo.BagItems);
         }
         
         public static async ETTask UseItem(this BagComponent self, int itemId, int count)

@@ -583,4 +583,32 @@ namespace ET
 
 	}
 
+	[ResponseType(typeof(G2C_OffLine))]
+	[Message(OuterOpcode.C2G_OffLine)]
+	[ProtoContract]
+	public partial class C2G_OffLine: Object, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int unitId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.G2C_OffLine)]
+	[ProtoContract]
+	public partial class G2C_OffLine: Object, IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
 }

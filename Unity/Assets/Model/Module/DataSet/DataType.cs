@@ -5,6 +5,7 @@
     /// </summary>
     public enum DataType
     {
+        None,
         /// <summary>
         /// 背包物品
         /// </summary>

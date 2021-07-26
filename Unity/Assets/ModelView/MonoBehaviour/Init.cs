@@ -55,7 +55,6 @@ namespace ET
 		private void OnApplicationQuit()
 		{
 			Game.Close();
-			
 		}
 	}
 }

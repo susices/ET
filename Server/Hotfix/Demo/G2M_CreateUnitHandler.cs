@@ -34,7 +34,6 @@ namespace ET
 				createUnits.Units.Add(UnitHelper.CreateUnitInfo(u));
 			}
 			MessageHelper.SendActor(unit.GetComponent<UnitGateComponent>().GateSessionActorId, createUnits);
-
 			reply();
 		}
 	}

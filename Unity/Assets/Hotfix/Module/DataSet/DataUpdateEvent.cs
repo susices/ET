@@ -7,7 +7,7 @@ namespace ET
     {
         protected override async ETTask Run(EventType.DataUpdate dataUpdate)
         {
-            await DataUpdateComponent.Instance.BroadCast(dataUpdate.DataType, dataUpdate.DataSetComponentId,dataUpdate.DataUpdateMode);
+            await DataUpdateComponent.Instance.BroadCast(dataUpdate.DataType);
         }
     }
 }

@@ -71,7 +71,6 @@ message C2M_PathfindingResult // IActorLocationMessage
 {
 	int32 RpcId = 90;
 	int64 ActorId = 93;
-		
 	float X = 1;
 	float Y = 2;
 	float Z = 3;
@@ -279,6 +278,25 @@ message M2C_UseBagItem // IResponse
 	string Message = 92;
 	
 }
+
+//ResponseType G2C_OffLine
+message C2G_OffLine // IRequest
+{
+	int32 RpcId = 90;
+	int32 unitId = 91;
+}
+
+message G2C_OffLine // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+
+
+
 
 
 

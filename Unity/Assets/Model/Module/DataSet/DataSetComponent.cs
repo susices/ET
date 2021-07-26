@@ -13,11 +13,7 @@ namespace ET
         /// 数据集
         /// </summary>
         public Dictionary<int,IDataMessage> DataSet;
-
-        /// <summary>
-        /// 差异更新索引列表
-        /// </summary>
-        public List<int> DifferenceUpdateIndexList;
+        
         /// <summary>
         /// 数据更新事件类型
         /// </summary>
