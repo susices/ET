@@ -15,6 +15,8 @@ namespace ET
 				await sceneChangeComponent.ChangeSceneAsync("Map");
 			}
             args.ZoneScene.AddComponent<OperaComponent>();
+            var session = args.ZoneScene.GetComponent<SessionComponent>().Session;
+            var m2cAllBagInfo = (M2C_AllBagInfo)await session.Call(new C2M_AllBagInfo());
             await args.ZoneScene.RemoveUIPanel(UiPanelComponentIndex.UILobby);
 		}
 	}

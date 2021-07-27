@@ -5,12 +5,12 @@ namespace ET
     /// <summary>
     /// 获取玩家背包所有物品
     /// </summary>
-    public class C2M_AllBagInfoHandler: AMRpcHandler<C2M_AllBagInfo, M2C_AllBagInfo>
+    public class C2M_AllBagInfoHandler: AMActorLocationRpcHandler<Unit,C2M_AllBagInfo, M2C_AllBagInfo>
     {
-        protected override async ETTask Run(Session session, C2M_AllBagInfo request, M2C_AllBagInfo response, Action reply)
+        protected override async ETTask Run(Unit unit, C2M_AllBagInfo request, M2C_AllBagInfo response, Action reply)
         {
             var baginfos = await Game.Scene.GetComponent<DBComponent>()
-                    .Query<BagInfo>(d => d.PlayerId == session.GetComponent<SessionPlayerComponent>().Player.Id);
+                    .Query<BagInfo>(d => d.PlayerId == unit.GetComponent<UnitInfoComponent>().PlayerId);
             if (baginfos.Count != 1)
             {
                 response.Error = ErrorCode.ERR_BagInfoError;

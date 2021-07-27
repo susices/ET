@@ -524,7 +524,7 @@ namespace ET
 	[ResponseType(typeof(M2C_AllBagInfo))]
 	[Message(OuterOpcode.C2M_AllBagInfo)]
 	[ProtoContract]
-	public partial class C2M_AllBagInfo: Object, IRequest
+	public partial class C2M_AllBagInfo: Object, IActorLocationRequest
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
@@ -533,7 +533,7 @@ namespace ET
 
 	[Message(OuterOpcode.M2C_AllBagInfo)]
 	[ProtoContract]
-	public partial class M2C_AllBagInfo: Object, IResponse
+	public partial class M2C_AllBagInfo: Object, IActorLocationResponse
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }

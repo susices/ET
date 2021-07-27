@@ -16,9 +16,9 @@ namespace ET
     {
         
         /// <summary>
-        /// 添加数据更新事件监听
+        /// 添加数据更新事件监听组件
         /// </summary>
-        public static void AddListener(this DataUpdateComponent self,  DataType dataType, Entity uiComponent)
+        public static void AddListener(this DataUpdateComponent self,  DataType dataType, Entity component)
         {
             Dictionary<long, Entity> dic;
             if (!self.DataUpdateComponents.TryGetDic(dataType, out dic))
@@ -27,19 +27,19 @@ namespace ET
                 self.DataUpdateComponents.Add(dataType, dic);
             }
 
-            if (dic.ContainsKey(uiComponent.Id))
+            if (dic.ContainsKey(component.Id))
             {
-                Log.Error("Can not add same uiComponent");
+                Log.Error("Can not add same Component in one datatype dic");
                 return;
             }
             
-            dic.Add(uiComponent.Id, uiComponent);
+            dic.Add(component.Id, component);
         }
         
         /// <summary>
-        /// 移除数据更新事件监听
+        /// 移除数据更新监听组件
         /// </summary>
-        public static void RemoveListener(this DataUpdateComponent self, DataType dataType, Entity uiComponent)
+        public static void RemoveListener(this DataUpdateComponent self, DataType dataType, Entity component)
         {
             Dictionary<long, Entity> dic;
             if (!self.DataUpdateComponents.TryGetDic(dataType, out dic))
@@ -47,9 +47,9 @@ namespace ET
                 return;
             }
 
-            if (!dic.Remove(uiComponent.Id))
+            if (!dic.Remove(component.Id))
             {
-                Log.Error("Can not remove uiComponent, not found");
+                Log.Error("Can not remove Component, not found");
             }
         }
         
@@ -70,7 +70,7 @@ namespace ET
                 case DataType.BagItem:
                     foreach (var uiComponent in dic.Values)
                     {
-                
+                        
                     }
                     break;
             }

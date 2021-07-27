@@ -16,8 +16,7 @@ namespace ET
                 SendActor(unitGateComponent.GateSessionActorId, message);
             }
         }
-        
-        
+
         /// <summary>
         /// 发送协议给ActorLocation
         /// </summary>

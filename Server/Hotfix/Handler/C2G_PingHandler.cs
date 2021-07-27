@@ -9,6 +9,7 @@ namespace ET
 		protected override async ETTask Run(Session session, C2G_Ping request, G2C_Ping response, Action reply)
 		{
 			response.Time = TimeHelper.ServerNow();
+			session.GetComponent<HeartBeatComponent>().LastPingTime = TimeHelper.ServerNow();
 			reply();
 			await ETTask.CompletedTask;
 		}

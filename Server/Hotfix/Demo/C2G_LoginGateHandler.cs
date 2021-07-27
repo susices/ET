@@ -21,6 +21,7 @@ namespace ET
 			scene.GetComponent<PlayerComponent>().Add(player);
 			session.AddComponent<SessionPlayerComponent>().Player = player;
 			session.AddComponent<MailBoxComponent, MailboxType>(MailboxType.GateSession);
+			session.AddComponent<HeartBeatComponent>();
 
 			response.PlayerId = player.Id;
 			reply();

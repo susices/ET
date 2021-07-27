@@ -249,12 +249,12 @@ message BagItem // IDataMessage
 }
 
 //ResponseType M2C_AllBagInfo
-message C2M_AllBagInfo // IRequest
+message C2M_AllBagInfo // IActorLocationRequest
 {
 	int32 RpcId = 90;
 }
 
-message M2C_AllBagInfo // IResponse
+message M2C_AllBagInfo // IActorLocationResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
