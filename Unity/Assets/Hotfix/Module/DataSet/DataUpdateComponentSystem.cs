@@ -73,6 +73,9 @@ namespace ET
                         
                     }
                     break;
+                case DataType.None:
+                    
+                    break;
             }
             
             await ETTask.CompletedTask;
