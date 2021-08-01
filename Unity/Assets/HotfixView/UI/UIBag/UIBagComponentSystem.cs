@@ -1,37 +1,48 @@
 ﻿using EnhancedUI.EnhancedScroller;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ET
 {
-    public class UIBagComponentAwakeSystem:AwakeSystem<UIBagComponent>, IEnhancedScrollerDelegate
+    public class UIBagComponentAwakeSystem:AwakeSystem<UIBagComponent>
     {
         public override void Awake(UIBagComponent self)
         {
             ReferenceCollector rc = self.GetParent<UIPanel>().UIPanelAssetEntity.Object.GetComponent<ReferenceCollector>();
-            self.ScrollView = rc.Get<GameObject>("ScrollView");
-            self.CloseBtn = rc.Get<GameObject>("CloseBtn");
+            self.ScrollView = rc.Get<GameObject>("ScrollView").GetComponent<EnhancedScroller>();
+            self.CloseBtn = rc.Get<GameObject>("CloseBtn").GetComponent<Button>();
+            self.UIBagScrollCellViewPrefab = rc.Get<GameObject>("UIBagScrollCellView").GetComponent<UIBagScrollCellView>();
+            self.CloseBtn.onClick.AddListener(self.OnCloseBagPanel);
             Unit myUnit = self.DomainScene().GetComponent<UnitComponent>().MyUnit;
             self.PlayerBagComponent = myUnit.GetComponent<BagComponent>();
+            self.ScrollView.Delegate = new UIBagScrollView(self);
         }
-
-        public int GetNumberOfCells(EnhancedScroller scroller)
+    }
+    
+    public class UIBagComponentEnableSystem:EnableSystem<UIBagComponent>
+    {
+        public override async ETTask Enable(UIBagComponent self)
         {
-            throw new System.NotImplementedException();
+            self.ScrollView.ReloadData();
+            await ETTask.CompletedTask;
         }
-
-        public float GetCellViewSize(EnhancedScroller scroller, int dataIndex)
+    }
+    
+    public class UIBagComponentDestorySystem:DestroySystem<UIBagComponent>
+    {
+        public override void Destroy(UIBagComponent self)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public EnhancedScrollerCellView GetCellView(EnhancedScroller scroller, int dataIndex, int cellIndex)
-        {
-            throw new System.NotImplementedException();
+            self.CloseBtn.onClick.RemoveAllListeners();
+            self.ScrollView.Delegate = null;
+            self.ScrollView.ClearAll();
         }
     }
 
     public static class UIBagComponentSystem
     {
-        
+        public static void OnCloseBagPanel(this UIBagComponent self)
+        {
+            self.DomainScene().RemoveUIPanel(UIPanelType.UIBag).Coroutine();
+        }
     }
 }

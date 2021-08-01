@@ -559,6 +559,9 @@ MonoBehaviour:
     gameObject: {fileID: 4462311396848797578}
   - key: ScrollView
     gameObject: {fileID: 4134923346991603050}
+  - key: UIBagScrollCellView
+    gameObject: {fileID: 1568510589882739839, guid: 0d80e0a693d636d49b046311d20d0e24,
+      type: 3}
 --- !u!1 &5522659799011335757
 GameObject:
   m_ObjectHideFlags: 0

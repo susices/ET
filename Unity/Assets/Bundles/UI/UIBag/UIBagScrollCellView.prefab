@@ -91,6 +91,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cellIdentifier: UIBagScrollCellView
+  m_bagItemId: {fileID: 6083114447481893079}
+  m_bagItemValue: {fileID: 6360866535399795520}
 --- !u!1 &1640506687517928568
 GameObject:
   m_ObjectHideFlags: 0
