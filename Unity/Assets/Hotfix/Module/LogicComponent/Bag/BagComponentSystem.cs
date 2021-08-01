@@ -7,6 +7,7 @@
         public override void Awake(BagComponent self)
         {
             self.AddComponent<DataSetComponent,DataType>(DataType.BagItem);
+            self.BagItemDataSet = self.GetComponent<DataSetComponent>().DataSet;
         }
     }
 

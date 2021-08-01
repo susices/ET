@@ -12,8 +12,7 @@ namespace ET
         /// <summary>
         /// 数据集
         /// </summary>
-        public Dictionary<int,IDataMessage> DataSet;
-        
+        public SortedList<int,IDataMessage> DataSet = new SortedList<int,IDataMessage>();
         /// <summary>
         /// 数据更新事件类型
         /// </summary>

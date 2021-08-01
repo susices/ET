@@ -96,7 +96,7 @@ public class ReferenceCollectorEditor: Editor
 		if (GUILayout.Button("导出引用绑定代码"))
 		{
 			string generateCode = "";
-			generateCode += $"ReferenceCollector rc = self.GetParent<UI>().UIAssetEntity.Object.GetComponent<ReferenceCollector>();{Environment.NewLine}";
+			generateCode += $"ReferenceCollector rc = self.GetParent<UIPanel>().UIPanelAssetEntity.Object.GetComponent<ReferenceCollector>();{Environment.NewLine}";
 			
 			for (int i = this.referenceCollector.data.Count-1; i >=0 ; i--)
 			{

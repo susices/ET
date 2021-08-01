@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using ET.EventType;
 
 namespace ET
@@ -8,7 +9,6 @@ namespace ET
     {
         public override void Awake(DataSetComponent self, DataType dataType)
         {
-            self.DataSet = new Dictionary<int,IDataMessage>();
             self.DataType = dataType;
             DataUpdateComponent.Instance.DataSetComponents.Add(dataType, self);
         }
