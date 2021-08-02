@@ -60,6 +60,8 @@ namespace ET
 
         public const int ERR_BagInfoError = 200003;
 
+        public const int ERR_UseBagItemError = 200004;
+
         public static bool IsRpcNeedThrowException(int error)
         {
             if (error == 0)

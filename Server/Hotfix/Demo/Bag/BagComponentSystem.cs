@@ -2,12 +2,19 @@
 
 namespace ET
 {
+    public class BagComponentAwakeSystem:AwakeSystem<BagComponent, BagInfo>
+    {
+        public override void Awake(BagComponent self,BagInfo bagInfo)
+        {
+            self.BagInfo = bagInfo;
+        }
+    }
     
     public class BagComponentDestorySystem:DestroySystem<BagComponent>
     {
         public override void Destroy(BagComponent self)
         {
-            self.BagItems.Clear();
+            self.BagInfo = null;
         }
     }
 
@@ -20,26 +27,27 @@ namespace ET
                 return false;
             }
             
-            using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.Bag, self.PlayerId))
+            using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.Bag, self.BagInfo.PlayerId))
             {
                 var bagItem = self.GetBagItem(bagItemId);
                 if (bagItem==null || bagItem.DataValue< itemCount)
                 {
                     return false;
                 }
-                await Game.Scene.GetComponent<DBComponent>().Save(self);
+                bagItem.DataValue -= itemCount;
+                await Game.Scene.GetComponent<DBComponent>().Save(self.BagInfo);
             }
             return true;
         }
 
         public static async ETTask<bool> AddItem(this BagComponent self, int bagItemId, int ItemCount)
         {
-            using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.Bag, self.PlayerId))
+            using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.Bag, self.BagInfo.PlayerId))
             {
                 var bagItem = self.GetBagItem(bagItemId);
                 if (bagItem==null)
                 {
-                    self.BagItems.Add(new BagItem()
+                    self.BagInfo.BagItems.Add(new BagItem()
                     {
                         DataId = bagItemId,
                         DataValue = ItemCount
@@ -49,39 +57,36 @@ namespace ET
                 {
                     bagItem.DataValue += ItemCount;
                 }
-
+                await Game.Scene.GetComponent<DBComponent>().Save(self.BagInfo);
                 return true;
             }
         }
 
         public static async ETTask<bool> DropItem(this BagComponent self, int bagItemId, int ItemCount)
         {
-            using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.Bag, self.PlayerId))
+            using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.Bag, self.BagInfo.PlayerId))
             {
                 var bagItem = self.GetBagItem(bagItemId);
                 if (bagItem==null || bagItem.DataValue<ItemCount)
                 {
                     return false;
                 }
-
                 bagItem.DataValue -= ItemCount;
+                await Game.Scene.GetComponent<DBComponent>().Save(self.BagInfo);
                 return true;
             }
         }
 
         public static BagItem GetBagItem(this BagComponent self, int bagItemId)
         {
-            for (int i = 0; i < self.BagItems.Count; i++)
+            for (int i = 0; i < self.BagInfo.BagItems.Count; i++)
             {
-                if (self.BagItems[i].DataId == bagItemId)
+                if (self.BagInfo.BagItems[i].DataId == bagItemId)
                 {
-                    return self.BagItems[i];
+                    return self.BagInfo.BagItems[i];
                 }
             }
             return null;
         }
-        
-        
-
     }
 }

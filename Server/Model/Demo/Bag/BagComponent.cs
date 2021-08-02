@@ -4,7 +4,6 @@ namespace ET
 {
     public class BagComponent:Entity
     {
-        public long PlayerId;
-        public List<BagItem> BagItems = new List<BagItem>();
+        public BagInfo BagInfo;
     }
 }
