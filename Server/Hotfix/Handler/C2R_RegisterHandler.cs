@@ -35,13 +35,13 @@ namespace ET
                 accountInfo.PlayerId = IdGenerater.Instance.GenerateId();
                 await Game.Scene.GetComponent<DBComponent>().Save(accountInfo);
 
-                BagInfo bagInfo = EntityFactory.CreateWithId<BagInfo>(session.Domain, IdGenerater.Instance.GenerateId());
-                bagInfo.PlayerId = accountInfo.PlayerId;
-                bagInfo.BagItems = new List<BagItem>();
-                bagInfo.BagItems.Add(new BagItem{DataId = 1,DataValue = 1});
-                bagInfo.BagItems.Add(new BagItem{DataId = 2,DataValue = 2});
-                bagInfo.BagItems.Add(new BagItem{DataId = 3,DataValue = 3});
-                await Game.Scene.GetComponent<DBComponent>().Save(bagInfo);
+                BagComponent baComponent = EntityFactory.CreateWithId<BagComponent>(session.Domain, IdGenerater.Instance.GenerateId());
+                baComponent.PlayerId = accountInfo.PlayerId;
+                baComponent.BagItems = new List<BagItem>();
+                baComponent.BagItems.Add(new BagItem{DataId = 1,DataValue = 1});
+                baComponent.BagItems.Add(new BagItem{DataId = 2,DataValue = 2});
+                baComponent.BagItems.Add(new BagItem{DataId = 3,DataValue = 3});
+                await Game.Scene.GetComponent<DBComponent>().Save(baComponent);
             }
             catch (Exception e)
             {

@@ -32,7 +32,6 @@ namespace ET
                 Log.Error("Can not add same Component in one datatype dic");
                 return;
             }
-            
             dic.Add(component.Id, component);
         }
         
@@ -51,34 +50,6 @@ namespace ET
             {
                 Log.Error("Can not remove Component, not found");
             }
-        }
-        
-        /// <summary>
-        /// 指定数据类型的更新事件广播
-        /// </summary>
-        /// <param name="dataType">数据类型</param>
-        public static async ETTask BroadCast(this DataUpdateComponent self, DataType dataType)
-        {
-            Dictionary<long, Entity> dic;
-            if (!self.DataUpdateComponents.TryGetDic(dataType, out dic))
-            {
-                return;
-            }
-
-            switch (dataType)
-            {
-                case DataType.BagItem:
-                    foreach (var uiComponent in dic.Values)
-                    {
-                        
-                    }
-                    break;
-                case DataType.None:
-                    
-                    break;
-            }
-            
-            await ETTask.CompletedTask;
         }
     }
 }

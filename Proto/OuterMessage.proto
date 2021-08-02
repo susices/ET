@@ -263,20 +263,19 @@ message M2C_AllBagInfo // IActorLocationResponse
 }
 
 //ResponseType M2C_UseBagItem
-message C2M_UseBagItem // IRequest
+message C2M_UseBagItem // IActorLocationRequest
 {
 	int32 RpcId = 90;
-	int64 PlayerId = 91;
 	int32 BagItemId = 1;
 	int32 BagItemCount = 2;
 }
 
-message M2C_UseBagItem // IResponse
+message M2C_UseBagItem // IActorLocationResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
-	
+	repeated BagItem BagItems = 1;
 }
 
 //ResponseType G2C_OffLine

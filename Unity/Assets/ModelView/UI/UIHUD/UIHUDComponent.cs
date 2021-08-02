@@ -1,4 +1,7 @@
 ﻿
+using UnityEngine;
+using UnityEngine.UI;
+
 namespace ET
 {
     /// <summary>
@@ -7,6 +10,6 @@ namespace ET
     [UIPanelComponent(UIPanelType.UIHUD)]
     public class UIHUDComponent : Entity
     {
-        
+        public Button BagBtn;
     }
 }

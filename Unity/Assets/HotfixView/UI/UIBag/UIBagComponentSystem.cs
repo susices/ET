@@ -15,7 +15,9 @@ namespace ET
             self.CloseBtn.onClick.AddListener(self.OnCloseBagPanel);
             Unit myUnit = self.DomainScene().GetComponent<UnitComponent>().MyUnit;
             self.PlayerBagComponent = myUnit.GetComponent<BagComponent>();
-            self.ScrollView.Delegate = new UIBagScrollView(self);
+            var uiBagScrollView = new UIBagScrollView(self);
+            self.ScrollView.Delegate = uiBagScrollView;
+            self.ScrollView.cellViewInstantiated += uiBagScrollView.AfterCellViewCreated;
         }
     }
     
@@ -23,11 +25,21 @@ namespace ET
     {
         public override async ETTask Enable(UIBagComponent self)
         {
+            DataUpdateComponent.Instance.AddListener(DataType.BagItem, self);
             self.ScrollView.ReloadData();
             await ETTask.CompletedTask;
         }
     }
     
+    public class UIBagComponentDisableSystem:DisableSystem<UIBagComponent>
+    {
+        public override async ETTask Disable(UIBagComponent self)
+        {
+            DataUpdateComponent.Instance.RemoveListener(DataType.BagItem, self);
+            await ETTask.CompletedTask;
+        }
+    }
+
     public class UIBagComponentDestorySystem:DestroySystem<UIBagComponent>
     {
         public override void Destroy(UIBagComponent self)
@@ -43,6 +55,16 @@ namespace ET
         public static void OnCloseBagPanel(this UIBagComponent self)
         {
             self.DomainScene().RemoveUIPanel(UIPanelType.UIBag).Coroutine();
+        }
+        
+        public static void OnUseBagItem(this UIBagComponent self, int bagItemId)
+        {
+            self.PlayerBagComponent.UseItem(bagItemId,1).Coroutine();
+        }
+
+        public static void OnDataUpdate(this UIBagComponent self)
+        {
+            self.ScrollView.ReloadData();
         }
     }
 }

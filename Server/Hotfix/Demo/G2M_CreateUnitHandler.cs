@@ -18,6 +18,9 @@ namespace ET
 			unit.AddComponent<MailBoxComponent>();
 			await unit.AddLocation();
 			unit.AddComponent<UnitGateComponent, long>(request.GateSessionId);
+
+			await BagHelper.AddBagComponent(unit);
+			
 			scene.GetComponent<UnitComponent>().Add(unit);
 			response.UnitId = unit.Id;
 			

@@ -9,19 +9,18 @@ namespace ET
     {
         protected override async ETTask Run(Unit unit, C2M_AllBagInfo request, M2C_AllBagInfo response, Action reply)
         {
-            var baginfos = await Game.Scene.GetComponent<DBComponent>()
-                    .Query<BagInfo>(d => d.PlayerId == unit.GetComponent<UnitInfoComponent>().PlayerId);
-            if (baginfos.Count != 1)
+            var bagComponents = await Game.Scene.GetComponent<DBComponent>()
+                    .Query<BagComponent>(d => d.PlayerId == unit.GetComponent<UnitInfoComponent>().PlayerId);
+            if (bagComponents.Count != 1)
             {
                 response.Error = ErrorCode.ERR_BagInfoError;
                 reply();
                 return;
             }
 
-            response.BagItems = baginfos[0].BagItems;
+            response.BagItems = bagComponents[0].BagItems;
             response.Error = ErrorCode.ERR_Success;
             reply();
-            await ETTask.CompletedTask;
         }
     }
 }

@@ -29,14 +29,22 @@ g
 4Assets/Bundles/Config/StartSceneConfigCategory.bytesStartSceneConfigCategoryassets/bundles/config
 e
 3Assets/Bundles/Config/StartZoneConfigCategory.bytesStartZoneConfigCategoryassets/bundles/config
+_
+0Assets/Bundles/Config/UIItemConfigCategory.bytesUIItemConfigCategoryassets/bundles/config
 a
 1Assets/Bundles/Config/UIPanelConfigCategory.bytesUIPanelConfigCategoryassets/bundles/config
 [
 .Assets/Bundles/Config/UnitConfigCategory.bytesUnitConfigCategoryassets/bundles/config
->
- Assets/Bundles/UI/UILobby.prefabUILobbyassets/bundles/ui
->
- Assets/Bundles/UI/UILogin.prefabUILoginassets/bundles/ui
+F
+$Assets/Bundles/UI/UIBag/UIBag.prefabUIBagassets/bundles/ui/uibag
+b
+2Assets/Bundles/UI/UIBag/UIBagScrollCellView.prefabUIBagScrollCellViewassets/bundles/ui/uibag
+F
+$Assets/Bundles/UI/UIHUD/UIHUD.prefabUIHUDassets/bundles/ui/uihud
+N
+(Assets/Bundles/UI/UILobby/UILobby.prefabUILobbyassets/bundles/ui/uilobby
+N
+(Assets/Bundles/UI/UILogin/UILogin.prefabUILoginassets/bundles/ui/uilogin
 <
 Assets/Bundles/Unit/Unit.prefabUnitassets/bundles/unit
 7

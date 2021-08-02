@@ -8,15 +8,15 @@ namespace ET
 		{
 			//wenchao 修改加载场景
 			// 加载场景资源
-			await ResourcesComponent.Instance.LoadBundleAsync(SceneConfigCategory.Instance.Get(1).AssetPath.LocalizedAssetPath());
+			var sceneConfig = SceneConfigCategory.Instance.Get(1);
+			await ResourcesComponent.Instance.LoadBundleAsync(sceneConfig.AssetPath.LocalizedAssetPath());
 			// 切换到map场景
 			using (SceneChangeComponent sceneChangeComponent = Game.Scene.AddComponent<SceneChangeComponent>())
 			{
-				await sceneChangeComponent.ChangeSceneAsync("Map");
+				await sceneChangeComponent.ChangeSceneAsync(sceneConfig.SceneName);
 			}
             args.ZoneScene.AddComponent<OperaComponent>();
             var session = args.ZoneScene.GetComponent<SessionComponent>().Session;
-            var m2cAllBagInfo = (M2C_AllBagInfo)await session.Call(new C2M_AllBagInfo());
             await args.ZoneScene.RemoveUIPanel(UIPanelType.UILobby);
 		}
 	}

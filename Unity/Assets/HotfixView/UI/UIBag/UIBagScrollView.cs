@@ -27,5 +27,11 @@ namespace ET
             cellView.SetData(this.m_UIBagComponent.PlayerBagComponent.BagItemDataSet.Values[dataIndex] as BagItem);
             return cellView;
         }
+
+        public void AfterCellViewCreated(EnhancedScroller scroller, EnhancedScrollerCellView cellView)
+        {
+            UIBagScrollCellView bagCellView = cellView as UIBagScrollCellView;
+            bagCellView.m_useBtn.onClick.AddListener(() => { this.m_UIBagComponent.OnUseBagItem(bagCellView.m_bagItem.DataId);});
+        }
     }
 }

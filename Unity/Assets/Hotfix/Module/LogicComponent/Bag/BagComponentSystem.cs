@@ -1,4 +1,8 @@
-﻿namespace ET
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+namespace ET
 {
 
     [ObjectSystem]
@@ -23,7 +27,19 @@
         
         public static async ETTask UseItem(this BagComponent self, int itemId, int count)
         {
-            await ETTask.CompletedTask;
+            var sessioncomponent = self.DomainScene().GetComponent<SessionComponent>();
+            var session = sessioncomponent.Session;
+            var m2cUseBatItem = (M2C_UseBagItem) await session.Call(new C2M_UseBagItem()
+            {
+                BagItemId = itemId,
+                BagItemCount = count
+            });
+            if (m2cUseBatItem.Error != ErrorCode.ERR_Success)
+            {
+                Log.Error("使用物品失败！");
+                return;
+            }
+            await self.GetComponent<DataSetComponent>().UpdateData(DataUpdateMode.Difference, m2cUseBatItem.BagItems);
         }
 
         public static async ETTask SwitchBagTab(this BagComponent self, int tab)

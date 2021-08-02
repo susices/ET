@@ -552,13 +552,10 @@ namespace ET
 	[ResponseType(typeof(M2C_UseBagItem))]
 	[Message(OuterOpcode.C2M_UseBagItem)]
 	[ProtoContract]
-	public partial class C2M_UseBagItem: Object, IRequest
+	public partial class C2M_UseBagItem: Object, IActorLocationRequest
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
-
-		[ProtoMember(91)]
-		public long PlayerId { get; set; }
 
 		[ProtoMember(1)]
 		public int BagItemId { get; set; }
@@ -570,7 +567,7 @@ namespace ET
 
 	[Message(OuterOpcode.M2C_UseBagItem)]
 	[ProtoContract]
-	public partial class M2C_UseBagItem: Object, IResponse
+	public partial class M2C_UseBagItem: Object, IActorLocationResponse
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
@@ -580,6 +577,9 @@ namespace ET
 
 		[ProtoMember(92)]
 		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public List<BagItem> BagItems = new List<BagItem>();
 
 	}
 

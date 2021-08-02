@@ -5,14 +5,18 @@ namespace ET
 {
     public class UIBagScrollCellView : EnhancedScrollerCellView
     {
+        public BagItem m_bagItem;
         public Text m_bagItemId;
 
         public Text m_bagItemValue;
 
+        public Button m_useBtn;
+
         public void SetData(BagItem bagItem)
         {
-            this.m_bagItemId.text = bagItem.DataId.ToString();
-            this.m_bagItemValue.text = bagItem.DataValue.ToString();
+            m_bagItem = bagItem;
+            this.m_bagItemId.text = m_bagItem.DataId.ToString();
+            this.m_bagItemValue.text = m_bagItem.DataValue.ToString();
         }
     }
 }
