@@ -15,8 +15,8 @@ namespace ET
         public void SetData(BagItem bagItem)
         {
             m_bagItem = bagItem;
-            this.m_bagItemId.text = m_bagItem.DataId.ToString();
-            this.m_bagItemValue.text = m_bagItem.DataValue.ToString();
+            this.m_bagItemId.text = $"Id: {m_bagItem.DataId.ToString()}";
+            this.m_bagItemValue.text = $"Count: {m_bagItem.DataValue.ToString()}";
         }
     }
 }
