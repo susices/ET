@@ -23,6 +23,18 @@
     <Compile Include="..\..\Unity\Assets\Hotfix\Demo\Move\MoveComponentSystem.cs">
       <Link>Demo\Move\MoveComponentSystem.cs</Link>
     </Compile>
+    <Compile Include="..\..\Unity\Assets\Hotfix\Module\Buff\BuffAction\BuffActionDispatcherSystem.cs">
+      <Link>Module\Buff\BuffAction\BuffActionDispatcherSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Unity\Assets\Hotfix\Module\Buff\BuffContainer\BuffContainerSystem.cs">
+      <Link>Module\Buff\BuffContainer\BuffContainerSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Unity\Assets\Hotfix\Module\Buff\BuffEntity\BuffEntitySystem.cs">
+      <Link>Module\Buff\BuffEntity\BuffEntitySystem.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Unity\Assets\Hotfix\Module\Buff\BuffEntity\BuffFactory.cs">
+      <Link>Module\Buff\BuffEntity\BuffFactory.cs</Link>
+    </Compile>
     <Compile Include="..\..\Unity\Assets\Hotfix\Module\Config\ConfigComponentSystem.cs">
       <Link>Module\Config\ConfigComponentSystem.cs</Link>
     </Compile>

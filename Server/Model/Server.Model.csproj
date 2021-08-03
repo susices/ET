@@ -34,6 +34,30 @@
       <Link>Demo\Move\MoveComponent.cs</Link>
     </Compile>
 
+    <Compile Include="..\..\Unity\Assets\Model\Module\Buff\BuffAction\BaseBuffActionAttribute.cs">
+      <Link>Module\Buff\BuffAction\BaseBuffActionAttribute.cs</Link>
+    </Compile>
+
+    <Compile Include="..\..\Unity\Assets\Model\Module\Buff\BuffAction\BuffActionDispatcher.cs">
+      <Link>Module\Buff\BuffAction\BuffActionDispatcher.cs</Link>
+    </Compile>
+
+    <Compile Include="..\..\Unity\Assets\Model\Module\Buff\BuffAction\IBuffAction.cs">
+      <Link>Module\Buff\BuffAction\IBuffAction.cs</Link>
+    </Compile>
+
+    <Compile Include="..\..\Unity\Assets\Model\Module\Buff\BuffContainer\BuffContainerComponent.cs">
+      <Link>Module\Buff\BuffContainer\BuffContainerComponent.cs</Link>
+    </Compile>
+
+    <Compile Include="..\..\Unity\Assets\Model\Module\Buff\BuffEntity\BuffEntity.cs">
+      <Link>Module\Buff\BuffEntity\BuffEntity.cs</Link>
+    </Compile>
+
+    <Compile Include="..\..\Unity\Assets\Model\Module\Buff\BuffEntity\BuffState.cs">
+      <Link>Module\Buff\BuffEntity\BuffState.cs</Link>
+    </Compile>
+
     <Compile Include="..\..\Unity\Assets\Model\Module\Config\**\*.cs">
       <Link>Module\Config\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>

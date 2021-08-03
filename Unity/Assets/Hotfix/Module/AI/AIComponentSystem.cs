@@ -67,7 +67,6 @@ namespace ET
                 aaiHandler.Execute(self, aiConfig, cancellationToken).Coroutine();
                 return;
             }
-            
         }
 
         private static void Cancel(this AIComponent self)
