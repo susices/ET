@@ -7,11 +7,11 @@
 
 ### 资源管理
 
+描述：
 
+包含了按目录标记AssetBundle功能， 同个目录下的资源打进同个AB中。 编辑器下AB循环依赖分析功能。
 
-按目录标记AssetBundle功能， 同个目录下的资源打进同个AB中。
-
-编辑器下AB循环依赖分析功能。
+使用方法:
 
 按资源相对路径异步加载资源：
 ```csharp
@@ -41,6 +41,105 @@ AssetEntity资源释放后会缓存一定时间，时间过后没有被使用则
 
 ### UI
 
+描述： 
+
+通过UIPanel UIComponent UIItem等非Mono脚本构建的可复用资源和逻辑的UI框架.
+支持UI生命周期, 支持UI资源的对象池, 支持UIPanel的嵌套, 支持UIPanel传入泛型参数.
+
+相关对象:  UIPanel UIPanelComponent SubUIPanel UIItem UIComponent
+
+UIPanel: UI页面实体类, 持有UI页面Prefab引用, 描述UIPanel基本信息. UIPanel只能挂载到UIPanelComponent.
+
+UIPanelComponent: 持有UIPanel列表.
+
+SubUIPanel: UIPanel的子Panel 需挂载至UIPanel中的UIPanelComponent.
+
+UIItem: UIPanel中挂载的UI物体
+
+UIComponent: 挂载至UIPanel的UI逻辑组件, 负责Ui业务逻辑.
+
+使用方法：
+
+打开UIPanel
+
+```csharp
+await args.ZoneScene.ShowUIPanel(UIPanelType.UIHUD);
+```
+
+关闭UIPanel
+
+```csharp
+self.DomainScene().RemoveUIPanel(UIPanelType.UIBag).Coroutine();
+```
+
+UIComponent编写
+
+需要添加特性标记UIComponent 序号 
+
+```csharp
+    [UIPanelComponent(UiPanelComponentIndex.UILogin)]
+    public class UILoginComponent: Entity
+    {
+
+    }
+```
+
+
+### 数据集组件
+
+描述：
+
+通用的支持数据全量更新, 差异更新, 数据更新事件监听的数据集组件. 
+
+使用方法：
+
+添加数据集组件  参数为数据类型枚举
+
+```csharp
+self.AddComponent<DataSetComponent,DataType>(DataType.BagItem);
+```
+
+添加数据更新监听
+
+```csharp
+DataUpdateComponent.Instance.AddListener(DataType.BagItem, self);
+```
+
+移除数据更新监听
+
+```csharp
+DataUpdateComponent.Instance.RemoveListener(DataType.BagItem, self);
+```
+
+
+处理数据更新事件
+
+```csharp
+    public class DataUpdateEvent: AEvent<EventType.DataUpdate>
+    {
+        protected override async ETTask Run(EventType.DataUpdate args)
+        {
+            if (!DataUpdateComponent.Instance.DataUpdateComponents.TryGetDic(args.DataType, out var dic))
+            {
+                return;
+            }
+
+            if (args.DataType == DataType.BagItem)
+            {
+                foreach (var component in dic.Values)
+                {
+                    if (component is UIBagComponent uiBagComponent)
+                    {
+                        uiBagComponent.OnDataUpdate();
+                        continue;
+                    }
+                }
+                return;
+            }
+            await ETTask.CompletedTask;
+        }
+    }
+```
 
 
 ### 本地化
