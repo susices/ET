@@ -15,6 +15,7 @@ namespace ET
                 unitComponent.MyUnit = unitComponent.Get(g2CEnterMap.UnitId);
                 var bagComponent =  unitComponent.MyUnit.AddComponent<BagComponent>();
                 await bagComponent.GetAllBagItem();
+                unitComponent.MyUnit.AddComponent<BuffContainerComponent>();
                 Game.EventSystem.Publish(new EventType.EnterMapFinish() {ZoneScene = zoneScene}).Coroutine();
             }
             catch (Exception e)

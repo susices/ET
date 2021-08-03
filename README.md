@@ -148,9 +148,50 @@ DataUpdateComponent.Instance.RemoveListener(DataType.BagItem, self);
 
 ### Buff
 
+描述:
+
+包含完整生命周期的Buff组件. 支持不同Buff行为自由组合,同种Buff行为多套参数.
+
+相关对象: BuffEntity IBuffAction BaseBuffActionAttribute BaseBuffAction BuffContainer BuffActionDispatcher
+
+BuffEntity Buff实体类 记录了Buff实体的信息,  Buff生命周期逻辑
+
+IBuffAction: 定义了Buff行为Run方法的接口
+
+BaseBuffActionAttribute: 用于标记BuffAction类
+
+BaseBuffAction: 继承IBuffAction接口并标记BaseBuffActionAttribute的类  用于编写具体的基础Buff行为逻辑
+
+BuffContainer: Buff容器组件, 任何实体只要添加该容器组件就可以响应BuffEntity的生命周期逻辑  隔离了Buff与Buff影响的实体.
+
+BuffActionDispatcher Buff行为分发器 用于BuffEntity获取对应的BuffAction并执行
+
+使用方法：
+
+编写BaseBuffAction
+
+```csharp
+    [BaseBuffAction(1)]
+    public class TestAddBuffAction : IBuffAction
+    {
+        public void Run(BuffEntity buffEntity, int[] argsList)
+        {
+            
+        }
+    }
+```
 
 
+添加Buff
 
+```csharp
+   GetComponent<BuffContainerComponent>().TryAddBuff(1, sourceEntity);
+```
 
+移除Buff
+
+```csharp
+   GetComponent<BuffContainerComponent>().TryRemoveBuff(buffEntityId);
+```
 
 

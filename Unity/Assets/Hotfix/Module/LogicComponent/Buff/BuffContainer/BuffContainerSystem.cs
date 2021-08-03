@@ -7,7 +7,6 @@ namespace ET
     {
         public override void Awake(BuffContainerComponent self)
         {
-            self.idBuffEntities = new Dictionary<long, BuffEntity>();
             self.BuffState = BuffState.None;
         }
     }
@@ -25,11 +24,7 @@ namespace ET
     {
         public override void Destroy(BuffContainerComponent self)
         {
-            foreach (BuffEntity buffEntity in self.idBuffEntities.Values)
-            {
-                buffEntity.Dispose();
-            }
-            self.idBuffEntities.Clear();
+            
         }
     }
 
@@ -44,7 +39,7 @@ namespace ET
         public static bool TryAddBuff(this BuffContainerComponent self, int buffConfigId, Entity sourceEntity)
         {
             //检测是否存在冲突状态
-            if (!CheckBuffConflict(self, buffConfigId, sourceEntity))
+            if (CheckBuffConflict(self, buffConfigId, sourceEntity))
             {
                 return false;
             }
@@ -58,18 +53,17 @@ namespace ET
                 return true;
             }
 
-            // 判断是否存在同一来源 buff 并判断是否可刷新
+            // 判断是否存在同一来源 buff
             BuffConfig buffConfig = BuffConfigCategory.Instance.Get(buffConfigId);
             BuffEntity sameSourceBuffEntity = null;
             foreach (BuffEntity buffEntity in buffEntityList.List)
             {
-                if (buffEntity.SourceEntity == sourceEntity)
+                if (buffEntity.SourceEntity.Id == sourceEntity.Id)
                 {
                     sameSourceBuffEntity = buffEntity;
                 }
             }
-
-            //检测是否可以刷新Buff
+            //检测是否可以刷新该同来源Buff
             if (sameSourceBuffEntity != null)
             {
                 if (buffConfig.IsEnableRefresh)
@@ -79,7 +73,7 @@ namespace ET
                 }
                 return false;
             }
-
+            
             //检测是否可以添加新Buff
             if (buffEntityList.List.Count < buffConfig.MaxSourceCount)
             {
@@ -117,16 +111,23 @@ namespace ET
         {
             BuffConfig buffConfig = BuffConfigCategory.Instance.Get(buffConfigId);
             // 检测BuffState 冲突
+            if (!BuffStateConfigCategory.Instance.Contain(buffConfig.State))
+            {
+                return false;
+            }
             int[] conflictStates = BuffStateConfigCategory.Instance.Get(buffConfig.State).ConflictStates;
+            if (conflictStates==null)
+            {
+                return false;
+            }
             foreach (int conflictState in conflictStates)
             {
                 if ((self.BuffState & (BuffState) conflictState) == (BuffState) conflictState)
                 {
-                    return false;
+                    return true;
                 }
             }
-
-            return true;
+            return false;
         }
 
         /// <summary>
