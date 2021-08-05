@@ -8,17 +8,19 @@ namespace ET
     {
         public override void Awake(RecastPathComponent self)
         {
-            self.Awake();
+            MapNavMeshConfig navConfig = null;
+            MapNavMeshConfigCategory.Instance.Maps.TryGetValue(self.DomainScene().Name, out navConfig);
+            if (navConfig==null)
+            {
+                Log.Warning($"当前Map无NavData MapName: {self.DomainScene().Name}");
+                return;
+            }
+            self.Awake(navConfig.Id, navConfig.NavMeshPath);
         }
     }
 
     public class RecastPathComponent: Entity
     {
-        /// <summary>
-        /// 5v5地图的Nav数据路径
-        /// </summary>
-        public const string Moba5V5MapNavDataPath = "../Config/RecastNavData/solo_navmesh.bin";
-
         /// <summary>
         /// 寻路处理者（可用于拓展多线程，参考A*插件）
         /// key为地图id，value为具体处理者
@@ -28,13 +30,10 @@ namespace ET
         /// <summary>
         /// 初始化寻路引擎
         /// </summary>
-        public void Awake()
+        public void Awake(int mapId, string navDataPath)
         {
             RecastInterface.Init();
-            //TODO 先直接在这里强行初始化地图
-            LoadMapNavData(10001, Moba5V5MapNavDataPath.ToCharArray());
-            // // 读取体素数据
-            // VoxelFile = new VoxelFile();
+            LoadMapNavData(mapId, navDataPath.ToCharArray());
         }
 
         /// <summary>
