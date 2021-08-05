@@ -7,7 +7,7 @@
     {
         public static void UnloadSceneBundle(int sceneIndex)
         {
-            var sceneConfig = SceneConfigCategory.Instance.Get(sceneIndex);
+            var sceneConfig = UnitySceneConfigCategory.Instance.Get(sceneIndex);
             if (!AssetBundleHelper.GetBundlePrefabNameByPath(sceneConfig.AssetPath.LocalizedAssetPath(), out var bundleName, out var prefabName))
             {
                 Log.Error($"sceneIndex:{sceneIndex.ToString()}对应的场景Bundle：{sceneConfig.AssetPath.LocalizedAssetPath()}未找到！");
@@ -18,7 +18,7 @@
 
         public static async ETTask<bool> LoadSceneBundle(int sceneIndex)
         {
-            var sceneConfig = SceneConfigCategory.Instance.Get(sceneIndex);
+            var sceneConfig = UnitySceneConfigCategory.Instance.Get(sceneIndex);
             if (!AssetBundleHelper.GetBundlePrefabNameByPath(sceneConfig.AssetPath.LocalizedAssetPath(), out var bundleName, out var prefabName))
             {
                 Log.Error($"sceneIndex:{sceneIndex.ToString()}对应的场景Bundle：{sceneConfig.AssetPath.LocalizedAssetPath()}未找到！");

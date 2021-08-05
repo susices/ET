@@ -1,0 +1,22 @@
+syntax = "proto3";
+package ET;
+
+/// <summary>
+/// 传送unit
+/// </summary>
+//ResponseType M2M_TrasferUnitResponse
+message M2M_TrasferUnitRequest // IActorLocationRequest
+{
+    int32 RpcId = 90;
+    int64 ActorId = 93;
+    Unit Unit = 1;
+}
+
+message M2M_TrasferUnitResponse // IActorLocationResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+
+    int64 InstanceId = 1;
+}

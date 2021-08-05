@@ -7,19 +7,19 @@ namespace ET
 {
     [ProtoContract]
     [Config]
-    public partial class SceneConfigCategory : ProtoObject
+    public partial class UnitySceneConfigCategory : ProtoObject
     {
-        public static SceneConfigCategory Instance;
+        public static UnitySceneConfigCategory Instance;
 		
         [ProtoIgnore]
         [BsonIgnore]
-        private Dictionary<int, SceneConfig> dict = new Dictionary<int, SceneConfig>();
+        private Dictionary<int, UnitySceneConfig> dict = new Dictionary<int, UnitySceneConfig>();
 		
         [BsonElement]
         [ProtoMember(1)]
-        private List<SceneConfig> list = new List<SceneConfig>();
+        private List<UnitySceneConfig> list = new List<UnitySceneConfig>();
 		
-        public SceneConfigCategory()
+        public UnitySceneConfigCategory()
         {
             Instance = this;
         }
@@ -27,7 +27,7 @@ namespace ET
 		[ProtoAfterDeserialization]
         public void AfterDeserialization()
         {
-            foreach (SceneConfig config in list)
+            foreach (UnitySceneConfig config in list)
             {
                 this.dict.Add(config.Id, config);
             }
@@ -35,13 +35,13 @@ namespace ET
             this.EndInit();
         }
 		
-        public SceneConfig Get(int id)
+        public UnitySceneConfig Get(int id)
         {
-            this.dict.TryGetValue(id, out SceneConfig item);
+            this.dict.TryGetValue(id, out UnitySceneConfig item);
 
             if (item == null)
             {
-                throw new Exception($"配置找不到，配置表名: {nameof (SceneConfig)}，配置id: {id}");
+                throw new Exception($"配置找不到，配置表名: {nameof (UnitySceneConfig)}，配置id: {id}");
             }
 
             return item;
@@ -52,12 +52,12 @@ namespace ET
             return this.dict.ContainsKey(id);
         }
 
-        public Dictionary<int, SceneConfig> GetAll()
+        public Dictionary<int, UnitySceneConfig> GetAll()
         {
             return this.dict;
         }
 
-        public SceneConfig GetOne()
+        public UnitySceneConfig GetOne()
         {
             if (this.dict == null || this.dict.Count <= 0)
             {
@@ -68,7 +68,7 @@ namespace ET
     }
 
     [ProtoContract]
-	public partial class SceneConfig: ProtoObject, IConfig
+	public partial class UnitySceneConfig: ProtoObject, IConfig
 	{
 		[ProtoMember(1, IsRequired  = true)]
 		public int Id { get; set; }

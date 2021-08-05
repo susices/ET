@@ -36,6 +36,9 @@ namespace ET
             Proto2CS("ET", "../../../Proto/InnerMessage.proto", serverMessagePath, "InnerOpcode", 10000);
             GenerateOpcode("ET", "InnerOpcode", serverMessagePath);
             
+            Proto2CS("ET", "../../../Proto/InnerEntityMessage.proto", serverMessagePath, "InnerEntityOpcode", 40000);
+            GenerateOpcode("ET", "InnerEntityOpcode", serverMessagePath);
+            
             Proto2CS("ET", "../../../Proto/OuterMessage.proto", serverMessagePath, "OuterOpcode", 20000);
             GenerateOpcode("ET", "OuterOpcode", serverMessagePath);
             

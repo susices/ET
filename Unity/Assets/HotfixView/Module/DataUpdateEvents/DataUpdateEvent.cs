@@ -4,14 +4,14 @@
     {
         protected override async ETTask Run(EventType.DataUpdate args)
         {
-            if (!DataUpdateComponent.Instance.DataUpdateComponents.TryGetDic(args.DataType, out var dic))
+            if (!DataUpdateComponent.Instance.DataUpdateComponents.TryGetDic(args.DataType, out var dataUpdateComponentDic))
             {
                 return;
             }
 
             if (args.DataType == DataType.BagItem)
             {
-                foreach (var component in dic.Values)
+                foreach (var component in dataUpdateComponentDic.Values)
                 {
                     if (component is UIBagComponent uiBagComponent)
                     {

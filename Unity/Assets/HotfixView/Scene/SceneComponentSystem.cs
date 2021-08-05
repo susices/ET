@@ -17,7 +17,7 @@
             
             using (SceneChangeComponent sceneChangeComponent = Game.Scene.AddComponent<SceneChangeComponent>())
             {
-                await sceneChangeComponent.ChangeSceneAsync(SceneConfigCategory.Instance.Get(sceneIndex).SceneName);
+                await sceneChangeComponent.ChangeSceneAsync(UnitySceneConfigCategory.Instance.Get(sceneIndex).SceneName);
             }
 
             if (self.activeSceneIndex!=null)
