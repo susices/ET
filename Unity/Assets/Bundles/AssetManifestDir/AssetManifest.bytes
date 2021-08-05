@@ -19,8 +19,8 @@ i
 5Assets/Bundles/Config/LocalizationAudioCategory.bytesLocalizationAudioCategoryassets/bundles/config
 g
 4Assets/Bundles/Config/LocalizationTextCategory.bytesLocalizationTextCategoryassets/bundles/config
-]
-/Assets/Bundles/Config/SceneConfigCategory.bytesSceneConfigCategoryassets/bundles/config
+g
+4Assets/Bundles/Config/MapNavMeshConfigCategory.bytesMapNavMeshConfigCategoryassets/bundles/config
 k
 6Assets/Bundles/Config/StartMachineConfigCategory.bytesStartMachineConfigCategoryassets/bundles/config
 k
@@ -35,6 +35,8 @@ a
 1Assets/Bundles/Config/UIPanelConfigCategory.bytesUIPanelConfigCategoryassets/bundles/config
 [
 .Assets/Bundles/Config/UnitConfigCategory.bytesUnitConfigCategoryassets/bundles/config
+g
+4Assets/Bundles/Config/UnitySceneConfigCategory.bytesUnitySceneConfigCategoryassets/bundles/config
 F
 $Assets/Bundles/UI/UIBag/UIBag.prefabUIBagassets/bundles/ui/uibag
 b
@@ -47,5 +49,5 @@ N
 (Assets/Bundles/UI/UILogin/UILogin.prefabUILoginassets/bundles/ui/uilogin
 <
 Assets/Bundles/Unit/Unit.prefabUnitassets/bundles/unit
-7
-Assets/Scenes/Map.unityMapassets/scenes/map.unity
+:
+Assets/Scenes/Map1.unityMap1assets/scenes/map1.unity
