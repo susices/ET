@@ -37,10 +37,10 @@ namespace ET
 
 	}
 
-	[ResponseType(typeof(Actor_TransferResponse))]
-	[Message(OuterOpcode.Actor_TransferRequest)]
+	[ResponseType(typeof(M2C_Transfer))]
+	[Message(OuterOpcode.C2M_Transfer)]
 	[ProtoContract]
-	public partial class Actor_TransferRequest: Object, IActorLocationRequest
+	public partial class C2M_Transfer: Object, IActorLocationRequest
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
@@ -53,9 +53,9 @@ namespace ET
 
 	}
 
-	[Message(OuterOpcode.Actor_TransferResponse)]
+	[Message(OuterOpcode.M2C_Transfer)]
 	[ProtoContract]
-	public partial class Actor_TransferResponse: Object, IActorLocationResponse
+	public partial class M2C_Transfer: Object, IActorLocationResponse
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
@@ -608,6 +608,33 @@ namespace ET
 
 		[ProtoMember(92)]
 		public string Message { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_RemoveUnits)]
+	[ProtoContract]
+	public partial class M2C_RemoveUnits: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(93)]
+		public long ActorId { get; set; }
+
+		[ProtoMember(1)]
+		public List<long> UnitIds = new List<long>();
+
+	}
+
+	[Message(OuterOpcode.M2C_RemoveAllUnits)]
+	[ProtoContract]
+	public partial class M2C_RemoveAllUnits: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(93)]
+		public long ActorId { get; set; }
 
 	}
 

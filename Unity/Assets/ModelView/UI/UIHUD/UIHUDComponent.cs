@@ -11,5 +11,7 @@ namespace ET
     public class UIHUDComponent : Entity
     {
         public Button BagBtn;
+
+        public Button TransferBtn;
     }
 }

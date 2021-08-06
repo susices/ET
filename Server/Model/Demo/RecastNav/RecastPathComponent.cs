@@ -8,6 +8,15 @@ namespace ET
     {
         public override void Awake(RecastPathComponent self)
         {
+            RecastInterface.Init();
+            Log.Debug("RecastInterface 初始化成功");
+        }
+    }
+    
+    public class RecastPathStartSystem:StartSystem<RecastPathComponent>
+    {
+        public override void Start(RecastPathComponent self)
+        {
             MapNavMeshConfig navConfig = null;
             MapNavMeshConfigCategory.Instance.Maps.TryGetValue(self.DomainScene().Name, out navConfig);
             if (navConfig==null)
@@ -15,7 +24,7 @@ namespace ET
                 Log.Warning($"当前Map无NavData MapName: {self.DomainScene().Name}");
                 return;
             }
-            self.Awake(navConfig.Id, navConfig.NavMeshPath);
+            self.LoadMapNavData(navConfig.Id, navConfig.NavMeshPath.ToCharArray());
         }
     }
 
@@ -26,15 +35,6 @@ namespace ET
         /// key为地图id，value为具体处理者
         /// </summary>
         public Dictionary<int, RecastPathProcessor> m_RecastPathProcessorDic = new Dictionary<int, RecastPathProcessor>();
-
-        /// <summary>
-        /// 初始化寻路引擎
-        /// </summary>
-        public void Awake(int mapId, string navDataPath)
-        {
-            RecastInterface.Init();
-            LoadMapNavData(mapId, navDataPath.ToCharArray());
-        }
 
         /// <summary>
         /// 寻路

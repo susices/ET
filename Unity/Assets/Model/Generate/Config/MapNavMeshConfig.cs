@@ -75,6 +75,8 @@ namespace ET
 		[ProtoMember(3, IsRequired  = true)]
 		public string MapName { get; set; }
 		[ProtoMember(4, IsRequired  = true)]
+		public int UnitySceneAssetPath { get; set; }
+		[ProtoMember(5, IsRequired  = true)]
 		public string NavMeshPath { get; set; }
 
 

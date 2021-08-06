@@ -10,10 +10,25 @@ namespace ET
 		{
 			Unit unit = request.Unit;
 			// 将unit加入事件系统
-			Log.Debug(MongoHelper.ToJson(request.Unit));
 			// 这里不需要注册location，因为unlock会更新位置
-			unit.AddComponent<MailBoxComponent>();
+			//unit.AddComponent<MailBoxComponent>();
 			scene.GetComponent<UnitComponent>().Add(unit);
+			
+			//自己通知给周围人
+			M2C_CreateUnits createUnits = new M2C_CreateUnits();
+            			createUnits.Units.Add(UnitHelper.CreateUnitInfo(unit));
+			MessageHelper.Broadcast(unit, createUnits);
+			
+			// 把周围的人通知给自己
+			createUnits.Units.Clear();
+			Unit[] units = scene.GetComponent<UnitComponent>().GetAll();
+			foreach (Unit u in units)
+			{
+				createUnits.Units.Add(UnitHelper.CreateUnitInfo(u));
+			}
+			
+			MessageHelper.SendActor(unit.GetComponent<UnitGateComponent>().GateSessionActorId, createUnits);
+			
 			response.InstanceId = unit.InstanceId;
 			reply();
 			await ETTask.CompletedTask;

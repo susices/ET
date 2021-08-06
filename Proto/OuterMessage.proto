@@ -17,15 +17,15 @@ message M2C_TestResponse // IActorLocationResponse
 	string response = 1;
 }
 
-//ResponseType Actor_TransferResponse
-message Actor_TransferRequest // IActorLocationRequest
+//ResponseType M2C_Transfer
+message C2M_Transfer // IActorLocationRequest
 {
 	int32 RpcId = 90;
 	int64 ActorId = 93;
 	int32 MapIndex = 1;
 }
 
-message Actor_TransferResponse // IActorLocationResponse
+message M2C_Transfer // IActorLocationResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
@@ -52,7 +52,7 @@ message G2C_EnterMap // IResponse
 message UnitInfo
 {
 	int64 UnitId  = 1;
-    int32 ConfigId = 2;
+	int32 ConfigId = 2;
 	float X = 3;
 	float Y = 4;
 	float Z = 5;
@@ -64,7 +64,7 @@ message M2C_CreateUnits // IActorMessage
 {
 	int32 RpcId = 90;
 	int64 ActorId = 93;
-    repeated UnitInfo Units = 2;
+	repeated UnitInfo Units = 2;
 }
 
 message C2M_PathfindingResult // IActorLocationMessage
@@ -291,6 +291,21 @@ message G2C_OffLine // IResponse
 	int32 Error = 91;
 	string Message = 92;
 }
+
+message M2C_RemoveUnits // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	repeated int64 UnitIds = 1;
+}
+
+message M2C_RemoveAllUnits // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+}
+
+
 
 
 

@@ -99,6 +99,14 @@ namespace ET
         {
             
         }
+
+        /// <summary>
+        /// 服务器传送Unit完成后
+        /// </summary>
+        public struct AfterServerTransferUnit
+        {
+            public int TransferMapIndex;
+        }
         
     }
 }

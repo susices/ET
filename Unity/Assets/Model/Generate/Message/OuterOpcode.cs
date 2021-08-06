@@ -4,8 +4,8 @@ namespace ET
 	{
 		 public const ushort C2M_TestRequest = 20001;
 		 public const ushort M2C_TestResponse = 20002;
-		 public const ushort Actor_TransferRequest = 20003;
-		 public const ushort Actor_TransferResponse = 20004;
+		 public const ushort C2M_Transfer = 20003;
+		 public const ushort M2C_Transfer = 20004;
 		 public const ushort C2G_EnterMap = 20005;
 		 public const ushort G2C_EnterMap = 20006;
 		 public const ushort UnitInfo = 20007;
@@ -38,5 +38,7 @@ namespace ET
 		 public const ushort M2C_UseBagItem = 20034;
 		 public const ushort C2G_OffLine = 20035;
 		 public const ushort G2C_OffLine = 20036;
+		 public const ushort M2C_RemoveUnits = 20037;
+		 public const ushort M2C_RemoveAllUnits = 20038;
 	}
 }
