@@ -29,7 +29,7 @@ namespace ET
 			long mapInstanceId = StartSceneConfigCategory.Instance.GetBySceneName(unit.DomainZone(), mapName).SceneId;
 
 			// 只删除不disponse否则M2M_TrasferUnitRequest无法序列化Unit
-			Game.Scene.GetComponent<UnitComponent>().RemoveNoDispose(unitId);
+			unit.DomainScene().GetComponent<UnitComponent>().RemoveNoDispose(unitId);
 
 			//传送消息发给目标Map
 			M2M_TrasferUnitResponse m2m_TrasferUnitResponse = (M2M_TrasferUnitResponse)await ActorMessageSenderComponent.Instance.Call

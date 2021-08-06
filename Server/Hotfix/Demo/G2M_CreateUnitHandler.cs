@@ -9,7 +9,9 @@ namespace ET
 		protected override async ETTask Run(Scene scene, G2M_CreateUnit request, M2G_CreateUnit response, Action reply)
 		{
 			Unit unit = EntityFactory.CreateWithId<Unit, int>(scene, IdGenerater.Instance.GenerateId(), 1001);
-			unit.AddComponent<UnitInfoComponent, long>(request.PlayerId);
+			
+			var unitInfo =  unit.AddComponent<UnitInfoComponent, long>(request.PlayerId);
+			//unitInfo.MapIndex = MapNavMeshConfigCategory.Instance.Maps[scene.Name].Id;
 			unit.AddComponent<MoveComponent>();
 			unit.Position = new Vector3(-10, 0, -10);
 			NumericComponent numericComponent = unit.AddComponent<NumericComponent>();

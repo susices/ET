@@ -42,7 +42,7 @@ namespace ET
         }
     }
 
-    public class ObjectWait: Entity
+    public class ObjectWait: Entity,ISerializeToEntity
     {
         public interface IDestroyRun
         {

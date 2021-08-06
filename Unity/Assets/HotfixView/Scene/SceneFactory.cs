@@ -9,7 +9,7 @@ namespace ET
             zoneScene.AddComponent<NetKcpComponent>();
             zoneScene.AddComponent<UnitComponent>();
             //zoneScene.AddComponent<AIComponent, int>(1);
-            //zoneScene.AddComponent<TransferComponent>();
+            zoneScene.AddComponent<TransferComponent>();
             // UI层的初始化
             await Game.EventSystem.Publish(new EventType.AfterCreateZoneScene() {ZoneScene = zoneScene});
             

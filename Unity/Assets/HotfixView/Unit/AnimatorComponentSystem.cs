@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ET
@@ -33,6 +34,8 @@ namespace ET
 	{
 		public static void Awake(this AnimatorComponent self)
 		{
+			self.animationClips = new Dictionary<string, AnimationClip>();
+			self.Parameter = new HashSet<string>();
 			Animator animator = self.Parent.GetComponent<GameObjectComponent>().GameObject.GetComponent<Animator>();
 
 			if (animator == null)

@@ -2,7 +2,7 @@
 
 namespace ET
 {
-    public class BagComponent:Entity
+    public class BagComponent:Entity,ISerializeToEntity
     {
         public BagInfo BagInfo;
     }

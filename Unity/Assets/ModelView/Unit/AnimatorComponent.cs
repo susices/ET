@@ -12,8 +12,8 @@ namespace ET
 
 	public class AnimatorComponent : Entity
 	{
-		public Dictionary<string, AnimationClip> animationClips = new Dictionary<string, AnimationClip>();
-		public HashSet<string> Parameter = new HashSet<string>();
+		public Dictionary<string, AnimationClip> animationClips;
+		public HashSet<string> Parameter;
 
 		public MotionType MotionType;
 		public float MontionSpeed;

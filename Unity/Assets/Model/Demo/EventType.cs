@@ -105,7 +105,9 @@ namespace ET
         /// </summary>
         public struct AfterServerTransferUnit
         {
+            public Scene DomainScene;
             public int TransferMapIndex;
+            public long UnitId;
         }
         
     }

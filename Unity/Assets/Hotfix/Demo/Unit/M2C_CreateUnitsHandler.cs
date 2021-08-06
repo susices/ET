@@ -13,7 +13,8 @@ namespace ET
 			foreach (UnitInfo unitInfo in message.Units)
 			{
 				if (unitComponent.Get(unitInfo.UnitId) != null)
-				{
+				{// 处理传送unit 更新unit数据
+					unitComponent.Get(unitInfo.UnitId).Position = new Vector3(unitInfo.X, unitInfo.Y, unitInfo.Z);
 					continue;
 				}
 				Unit unit = UnitFactory.Create(session.Domain, unitInfo);

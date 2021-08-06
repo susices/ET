@@ -6,7 +6,7 @@ namespace ET
     {
         protected override async ETVoid Run(Session session, M2C_RemoveUnits message)
         {
-            UnitComponent unitComponent = session.GetParent<Scene>().GetComponent<UnitComponent>();
+            UnitComponent unitComponent = session.DomainScene().GetComponent<UnitComponent>();
             for (int i = 0; i < message.UnitIds.Count; i++)
             {
                 //处理移除其他玩家unit
@@ -14,13 +14,16 @@ namespace ET
                 {
                     unitComponent.Remove(message.UnitIds[i]);
                 }
-                //传送时移除自身unit
+                //传送时移除 除自身的所有unit
                 else
                 {
                     var allUnits = unitComponent.idUnits.Keys.ToList();
                     foreach (var unitId in allUnits)
                     {
-                        unitComponent.Remove(unitId);
+                        if (unitId!=unitComponent.MyUnit.Id)
+                        {
+                            unitComponent.Remove(unitId);
+                        }
                     }
                     break;
                 }
