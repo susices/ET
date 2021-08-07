@@ -35,8 +35,6 @@ a
 1Assets/Bundles/Config/UIPanelConfigCategory.bytesUIPanelConfigCategoryassets/bundles/config
 [
 .Assets/Bundles/Config/UnitConfigCategory.bytesUnitConfigCategoryassets/bundles/config
-g
-4Assets/Bundles/Config/UnitySceneConfigCategory.bytesUnitySceneConfigCategoryassets/bundles/config
 F
 $Assets/Bundles/UI/UIBag/UIBag.prefabUIBagassets/bundles/ui/uibag
 b
@@ -49,7 +47,7 @@ N
 (Assets/Bundles/UI/UILogin/UILogin.prefabUILoginassets/bundles/ui/uilogin
 <
 Assets/Bundles/Unit/Unit.prefabUnitassets/bundles/unit
-:
-Assets/Scenes/Map1.unityMap1assets/scenes/map1.unity
-:
-Assets/Scenes/Map2.unityMap2assets/scenes/map2.unity
+B
+Assets/Scenes/Map1.unityMap1 assets/scenes/map1.unity.unity3d
+B
+Assets/Scenes/Map2.unityMap2 assets/scenes/map2.unity.unity3d

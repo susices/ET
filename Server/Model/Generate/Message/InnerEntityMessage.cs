@@ -20,6 +20,15 @@ namespace ET
 		[ProtoMember(1)]
 		public Unit Unit { get; set; }
 
+		[ProtoMember(3)]
+		public float X { get; set; }
+
+		[ProtoMember(4)]
+		public float Y { get; set; }
+
+		[ProtoMember(5)]
+		public float Z { get; set; }
+
 	}
 
 	[Message(InnerEntityOpcode.M2M_TrasferUnitResponse)]

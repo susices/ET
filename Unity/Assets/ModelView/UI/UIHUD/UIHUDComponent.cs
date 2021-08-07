@@ -12,6 +12,8 @@ namespace ET
     {
         public Button BagBtn;
 
-        public Button TransferBtn;
+        public Button TransferMap1Btn;
+        
+        public Button TransferMap2Btn;
     }
 }

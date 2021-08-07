@@ -29,6 +29,7 @@ namespace ET
 			response.Key = g2RGetLoginKey.Key;
 			response.GateId = g2RGetLoginKey.GateId;
 			response.PlayerId = accountInfos[0].PlayerId;
+			response.Error = ErrorCode.ERR_Success;
 			reply();
 		}
 	}

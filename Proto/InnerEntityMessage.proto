@@ -10,6 +10,9 @@ message M2M_TrasferUnitRequest // IActorLocationRequest
     int32 RpcId = 90;
     int64 ActorId = 93;
     Unit Unit = 1;
+    float X = 3;
+    float Y = 4;
+    float Z = 5;
 }
 
 message M2M_TrasferUnitResponse // IActorLocationResponse

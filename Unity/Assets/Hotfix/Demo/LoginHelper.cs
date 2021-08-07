@@ -16,6 +16,12 @@ namespace ET
                     r2CLogin = (R2C_Login) await session.Call(new C2R_Login() { Account = account, Password = password });
                 }
 
+                if (r2CLogin.Error!=ErrorCode.ERR_Success)
+                {
+                    Log.Error($"登陆失败 ErrorCode: {r2CLogin.Error.ToString()}");
+                    return;
+                }
+
                 // 创建一个gate Session,并且保存到SessionComponent中
                 Session gateSession = zoneScene.GetComponent<NetKcpComponent>().Create(NetworkHelper.ToIPEndPoint(r2CLogin.Address));
                 

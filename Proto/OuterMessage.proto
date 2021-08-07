@@ -23,6 +23,9 @@ message C2M_Transfer // IActorLocationRequest
 	int32 RpcId = 90;
 	int64 ActorId = 93;
 	int32 MapIndex = 1;
+	float X = 3;
+	float Y = 4;
+	float Z = 5;
 }
 
 message M2C_Transfer // IActorLocationResponse

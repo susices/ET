@@ -127,12 +127,12 @@ namespace ET
             
             foreach (var assetPath in assetPaths)
             {
-                AssetImporter.GetAtPath(assetPath).assetBundleName = Path.GetDirectoryName(assetPath);
+                AssetImporter.GetAtPath(assetPath).assetBundleName = $"{Path.GetDirectoryName(assetPath)}";
             }
             
             foreach (var scenePath in ScenePaths)
             {
-                AssetImporter.GetAtPath(scenePath).assetBundleName = scenePath;
+                AssetImporter.GetAtPath(scenePath).assetBundleName = $"{scenePath}.unity3d";
             }
             Debug.Log("AssetBundle 标记成功！");
         }

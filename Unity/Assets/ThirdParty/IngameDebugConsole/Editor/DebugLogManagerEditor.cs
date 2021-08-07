@@ -1,5 +1,5 @@
-﻿using UnityEditor;
-
+﻿#if UNITY_EDITOR
+using UnityEditor;
 namespace IngameDebugConsole
 {
 	[CustomEditor( typeof( DebugLogManager ) )]
@@ -96,3 +96,5 @@ namespace IngameDebugConsole
 		}
 	}
 }
+#endif
+

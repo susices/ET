@@ -61,6 +61,10 @@ namespace ET
         public const int ERR_BagInfoError = 200003;
 
         public const int ERR_UseBagItemError = 200004;
+        
+        public const int ERR_TransferSameMapError = 200005;
+
+        public const int ERR_TransferFailError = 200006;
 
         public static bool IsRpcNeedThrowException(int error)
         {
