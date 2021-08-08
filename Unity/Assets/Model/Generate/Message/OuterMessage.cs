@@ -132,9 +132,21 @@ namespace ET
 		public float Z { get; set; }
 
 		[ProtoMember(6)]
-		public List<int> Ks = new List<int>();
+		public float A { get; set; }
 
 		[ProtoMember(7)]
+		public float B { get; set; }
+
+		[ProtoMember(8)]
+		public float C { get; set; }
+
+		[ProtoMember(9)]
+		public float W { get; set; }
+
+		[ProtoMember(10)]
+		public List<int> Ks = new List<int>();
+
+		[ProtoMember(11)]
 		public List<long> Vs = new List<long>();
 
 	}

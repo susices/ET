@@ -9,6 +9,10 @@
             unitInfo.X = unit.Position.x;
             unitInfo.Y = unit.Position.y;
             unitInfo.Z = unit.Position.z;
+            unitInfo.A = unit.Rotation.x;
+            unitInfo.B = unit.Rotation.y;
+            unitInfo.C = unit.Rotation.z;
+            unitInfo.W = unit.Rotation.w;
             unitInfo.UnitId = unit.Id;
             unitInfo.ConfigId = unit.ConfigId;
 

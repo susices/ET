@@ -13,6 +13,7 @@ namespace ET
 	        
             GameObject go = UnityEngine.Object.Instantiate(prefab, GlobalComponent.Instance.Unit, true);
             go.transform.position = args.Unit.Position;
+            go.transform.rotation = args.Unit.Rotation;
             args.Unit.AddComponent<GameObjectComponent>().GameObject = go;
             args.Unit.AddComponent<AnimatorComponent>();
             await ETTask.CompletedTask;

@@ -59,8 +59,12 @@ message UnitInfo
 	float X = 3;
 	float Y = 4;
 	float Z = 5;
-	repeated int32 Ks = 6;
-	repeated int64 Vs = 7;
+	float A = 6;
+	float B = 7;
+	float C = 8;
+	float W = 9;
+	repeated int32 Ks = 10;
+	repeated int64 Vs = 11;
 }
 
 message M2C_CreateUnits // IActorMessage

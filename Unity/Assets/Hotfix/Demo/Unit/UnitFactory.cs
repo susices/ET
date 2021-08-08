@@ -8,7 +8,8 @@ namespace ET
         {
 	        Unit unit = EntityFactory.CreateWithId<Unit, int>(domain, unitInfo.UnitId, unitInfo.ConfigId);
 	        unit.Position = new Vector3(unitInfo.X, unitInfo.Y, unitInfo.Z);
-	        
+	        unit.Rotation = new Quaternion(unitInfo.A, unitInfo.B, unitInfo.C, unitInfo.W);
+	        Log.Debug($"设置rotation: {unit.Rotation.ToString()}");
 	        unit.AddComponent<MoveComponent>();
 	        NumericComponent numericComponent = unit.AddComponent<NumericComponent>();
 	        for (int i = 0; i < unitInfo.Ks.Count; ++i)

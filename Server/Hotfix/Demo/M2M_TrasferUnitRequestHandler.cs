@@ -34,7 +34,28 @@ namespace ET
 			}
 			
 			MessageHelper.SendActor(unit.GetComponent<UnitGateComponent>().GateSessionActorId, createUnits);
-			
+			foreach (var u in units)
+			{
+				if (u.Id==unit.Id)
+				{
+					continue;
+				}
+
+				if (u.GetComponent<MoveComponent>().Targets.Count==0)
+				{
+					continue;
+				}
+
+				M2C_PathfindingResult m2CPathfindingResult = new M2C_PathfindingResult();
+				m2CPathfindingResult.Id = u.Id;
+				for (int i = u.GetComponent<MoveComponent>().N; i < u.GetComponent<MoveComponent>().Targets.Count; i++)
+				{
+					m2CPathfindingResult.Xs.Add(u.GetComponent<MoveComponent>().Targets[i].x);
+					m2CPathfindingResult.Ys.Add(u.GetComponent<MoveComponent>().Targets[i].y);
+					m2CPathfindingResult.Zs.Add(u.GetComponent<MoveComponent>().Targets[i].z);
+				}
+				MessageHelper.SendActor(unit.GetComponent<UnitGateComponent>().GateSessionActorId, m2CPathfindingResult);
+			}
 			response.InstanceId = unit.InstanceId;
 			response.Error = ErrorCode.ERR_Success;
 			reply();

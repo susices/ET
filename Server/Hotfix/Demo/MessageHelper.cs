@@ -16,6 +16,17 @@ namespace ET
                 SendActor(unitGateComponent.GateSessionActorId, message);
             }
         }
+        public static void Broadcast(Unit[] units, IActorMessage message)
+        {
+            if (units == null) return;
+
+            foreach (Unit u in units)
+            {
+                UnitGateComponent unitGateComponent = u.GetComponent<UnitGateComponent>();
+                SendActor(unitGateComponent.GateSessionActorId, message);
+            }
+        }
+        
 
         /// <summary>
         /// 发送协议给ActorLocation
