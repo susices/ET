@@ -37,14 +37,11 @@ namespace ET
 
             Game.Scene.AddComponent<SceneComponent>();
             
-
             // wenchao 修改load unit
             ResourcesComponent.Instance.LoadBundle("assets/bundles/unit");
 
             Scene zoneScene = await SceneFactory.CreateZoneScene(1, "Process");
-
-            zoneScene.AddComponent<ConsoleComponent>();
-
+            
             await Game.EventSystem.Publish(new EventType.AppStartInitFinish() { ZoneScene = zoneScene });
 
             Application.targetFrameRate = FrameworkConfigVar.DefaultFrameRate.IntVar();

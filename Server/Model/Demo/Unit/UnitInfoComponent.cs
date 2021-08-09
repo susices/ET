@@ -1,4 +1,7 @@
-﻿namespace ET
+﻿using System;
+using MongoDB.Bson.Serialization.Attributes;
+
+namespace ET
 {
     /// <summary>
     /// Unit信息组件
@@ -7,6 +10,5 @@
     public class UnitInfoComponent:Entity,ISerializeToEntity
     {
         public long PlayerId;
-        public int MapIndex;
     }
 }

@@ -7,6 +7,7 @@ namespace ET
             Scene zoneScene = EntitySceneFactory.CreateScene(Game.IdGenerater.GenerateId(), zone, SceneType.Zone, name, Game.Scene);
             zoneScene.AddComponent<ZoneSceneFlagComponent>();
             zoneScene.AddComponent<NetKcpComponent>();
+            zoneScene.AddComponent<ConsoleComponent>();
             zoneScene.AddComponent<UnitComponent>();
             //zoneScene.AddComponent<AIComponent, int>(1);
             zoneScene.AddComponent<TransferComponent>();

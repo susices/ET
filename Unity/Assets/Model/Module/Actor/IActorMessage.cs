@@ -12,4 +12,12 @@
     public interface IActorResponse: IResponse
     {
     }
+    
+    public interface IDBCacheActorRequest: IActorRequest
+    {
+    }
+    
+    public interface IDBCacheActorResponse: IActorResponse
+    {
+    }
 }

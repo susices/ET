@@ -312,6 +312,20 @@ message M2C_RemoveAllUnits // IActorMessage
 	int64 ActorId = 93;
 }
 
+//ResponseType D2C_Test
+message C2D_Test // IDBCacheActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+}
+
+message D2C_Test // IDBCacheActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
 
 
 

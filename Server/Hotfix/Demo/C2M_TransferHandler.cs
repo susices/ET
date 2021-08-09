@@ -27,7 +27,7 @@ namespace ET
 
 			// 删除unit,让其它进程发送过来的消息找不到actor，重发
 			Game.EventSystem.Remove(unitId);
-			
+			  
 			long instanceId = unit.InstanceId;
 			
 			string mapName = MapNavMeshConfigCategory.Instance.Get(request.MapIndex).MapName;
@@ -37,7 +37,7 @@ namespace ET
 
 			// 只删除不disponse否则M2M_TrasferUnitRequest无法序列化Unit
 			unit.DomainScene().GetComponent<UnitComponent>().RemoveNoDispose(unitId);
-
+			
 			//传送消息发给目标Map
 			M2M_TrasferUnitResponse m2m_TrasferUnitResponse = (M2M_TrasferUnitResponse)await ActorMessageSenderComponent.Instance.Call
 					(mapInstanceId,new M2M_TrasferUnitRequest() { Unit = unit,X = request.X,Y = request.Y,Z = request.Z});
@@ -56,5 +56,8 @@ namespace ET
 			reply();
 			await ETTask.CompletedTask;
 		}
+		
 	}
+	
+	
 }

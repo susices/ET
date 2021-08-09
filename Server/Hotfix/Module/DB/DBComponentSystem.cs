@@ -7,9 +7,9 @@ namespace ET
 {
 	public class DBComponentAwakeSystem : AwakeSystem<DBComponent, string, string>
 	{
-		public override void Awake(DBComponent self, string uiPanelType, string dbName)
+		public override void Awake(DBComponent self, string DBConnection, string dbName)
 		{
-			self.mongoClient = new MongoClient(uiPanelType);
+			self.mongoClient = new MongoClient(DBConnection);
 			self.database = self.mongoClient.GetDatabase(dbName);
 			
 			self.Transfers.Clear();

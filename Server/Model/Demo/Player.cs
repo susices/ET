@@ -14,6 +14,8 @@
 		
 		public long UnitId { get; set; }
 
+		public long DBCacheId { get; set; }
+
 		public void Awake(string account)
 		{
 			this.Account = account;

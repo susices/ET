@@ -1,5 +1,3 @@
-
-
 using System.Net;
 
 namespace ET
@@ -11,8 +9,9 @@ namespace ET
             long id = IdGenerater.Instance.GenerateId();
             return await Create(parent, id, parent.DomainZone(), name, sceneType);
         }
-        
-        public static async ETTask<Scene> Create(Entity parent, long id, int zone, string name, SceneType sceneType, StartSceneConfig startSceneConfig = null)
+
+        public static async ETTask<Scene> Create(Entity parent, long id, int zone, string name, SceneType sceneType,
+        StartSceneConfig startSceneConfig = null)
         {
             await ETTask.CompletedTask;
             Scene scene = EntitySceneFactory.CreateScene(id, zone, sceneType, name);
@@ -36,6 +35,9 @@ namespace ET
                     break;
                 case SceneType.Location:
                     scene.AddComponent<LocationComponent>();
+                    break;
+                case SceneType.UnitCache:
+                    scene.AddComponent<DBCacheComponent>();
                     break;
             }
 

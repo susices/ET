@@ -23,3 +23,5 @@ message M2M_TrasferUnitResponse // IActorLocationResponse
 
     int64 InstanceId = 1;
 }
+
+

@@ -40,5 +40,7 @@ namespace ET
 		 public const ushort G2C_OffLine = 20036;
 		 public const ushort M2C_RemoveUnits = 20037;
 		 public const ushort M2C_RemoveAllUnits = 20038;
+		 public const ushort C2D_Test = 20039;
+		 public const ushort D2C_Test = 20040;
 	}
 }
