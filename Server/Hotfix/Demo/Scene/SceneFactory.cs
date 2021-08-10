@@ -15,7 +15,7 @@ namespace ET
         {
             await ETTask.CompletedTask;
             var startZoneConfig = StartZoneConfigCategory.Instance.Get(zone);
-            Game.Scene.GetComponent<DBComponent>().InitDatabase(startZoneConfig.DBConnection,startZoneConfig.DBName);
+            Game.Scene.GetComponent<DBComponent>().InitDatabase(startZoneConfig);
             Scene scene = EntitySceneFactory.CreateScene(id, zone, sceneType, name);
             scene.Parent = parent;
 

@@ -35,13 +35,14 @@ namespace ET
 	
     public static class DBComponentSystem
     {
-	    public static void InitDatabase(this DBComponent self, string DBConnection, string dbName)
+	    public static void InitDatabase(this DBComponent self, StartZoneConfig startZoneConfig)
 	    {
-		    if (!self.ZoneDatabases.ContainsKey(self.DomainZone()))
+		    if (!self.ZoneDatabases.ContainsKey(startZoneConfig.Id))
 		    {
-			    var mongoClient = new MongoClient(DBConnection);
-			    var database = mongoClient.GetDatabase(dbName);
-			    self.ZoneDatabases.Add(self.DomainZone(),database);
+			    var mongoClient = new MongoClient(startZoneConfig.DBConnection);
+			    var database = mongoClient.GetDatabase(startZoneConfig.DBName);
+			    self.ZoneDatabases.Add(startZoneConfig.Id,database);
+			    Log.Info($"Init Database zone:{startZoneConfig.Id.ToString()}");
 		    }
 	    }
 	    
