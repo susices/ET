@@ -14,6 +14,8 @@ namespace ET
         StartSceneConfig startSceneConfig = null)
         {
             await ETTask.CompletedTask;
+            var startZoneConfig = StartZoneConfigCategory.Instance.Get(zone);
+            Game.Scene.GetComponent<DBComponent>().InitDatabase(startZoneConfig.DBConnection,startZoneConfig.DBName);
             Scene scene = EntitySceneFactory.CreateScene(id, zone, sceneType, name);
             scene.Parent = parent;
 
@@ -36,8 +38,11 @@ namespace ET
                 case SceneType.Location:
                     scene.AddComponent<LocationComponent>();
                     break;
-                case SceneType.UnitCache:
+                case SceneType.DBCache:
                     scene.AddComponent<DBCacheComponent>();
+                    break;
+                case SceneType.Chat:
+                    scene.AddComponent<ChatComponent>();
                     break;
             }
 

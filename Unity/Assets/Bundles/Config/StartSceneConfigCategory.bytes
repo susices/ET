@@ -3,6 +3,7 @@
 "Gate*Gate10“N
 "Gate*Gate20”N
 "Location*Location0•N
-"	UnitCache*	UnitCache0–N
-"Map*Map10—N
-"Map*Map20˜N
+"DBCache*DBCache0–N
+"Chat*Chat0—N
+"Map*Map10˜N
+"Map*Map20™N

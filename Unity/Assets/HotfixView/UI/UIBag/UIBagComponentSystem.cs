@@ -55,6 +55,7 @@ namespace ET
         public static void OnCloseBagPanel(this UIBagComponent self)
         {
             self.DomainScene().RemoveUIPanel(UIPanelType.UIBag).Coroutine();
+            
         }
         
         public static void OnUseBagItem(this UIBagComponent self, int bagItemId)

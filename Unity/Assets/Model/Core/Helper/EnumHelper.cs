@@ -26,5 +26,6 @@ namespace ET
             }
             return (T)Enum.Parse(typeof(T), str);
         }
+		
     }
 }

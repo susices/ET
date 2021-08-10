@@ -18,7 +18,7 @@ namespace ET
                 return;
             }
 
-            var accountList = await Game.Scene.GetComponent<DBComponent>().Query<AccountInfo>(d =>d.AccountName == account);
+            var accountList = await Game.Scene.GetComponent<DBComponent>().Query<AccountInfo>(session.DomainZone(),d =>d.AccountName == account);
             if (accountList.Count > 0)
             {
                 response.Error = ErrorCode.ERR_AccountPassWordError;
@@ -33,7 +33,7 @@ namespace ET
                 accountInfo.AccountName = account;
                 accountInfo.Password = password;
                 accountInfo.PlayerId = IdGenerater.Instance.GenerateId();
-                await Game.Scene.GetComponent<DBComponent>().Save(accountInfo);
+                await Game.Scene.GetComponent<DBComponent>().Save(session.DomainZone(), accountInfo);
 
                 BagInfo bagInfo = EntityFactory.CreateWithId<BagInfo>(session.Domain, IdGenerater.Instance.GenerateId());
                 bagInfo.PlayerId = accountInfo.PlayerId;
@@ -41,7 +41,7 @@ namespace ET
                 bagInfo.BagItems.Add(new BagItem{DataId = 1,DataValue = 1});
                 bagInfo.BagItems.Add(new BagItem{DataId = 2,DataValue = 2});
                 bagInfo.BagItems.Add(new BagItem{DataId = 3,DataValue = 3});
-                await Game.Scene.GetComponent<DBComponent>().Save(bagInfo);
+                await Game.Scene.GetComponent<DBComponent>().Save(session.DomainZone(),bagInfo);
             }
             catch (Exception e)
             {

@@ -20,6 +20,10 @@ namespace ET
         /// </summary>
         DB,
         /// <summary>
+        /// 数据缓存
+        /// </summary>
+        DBCache,
+        /// <summary>
         /// 资源
         /// </summary>
         Resources,

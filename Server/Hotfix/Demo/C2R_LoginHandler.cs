@@ -10,7 +10,7 @@ namespace ET
 	{
 		protected override async ETTask Run(Session session, C2R_Login request, R2C_Login response, Action reply)
 		{
-			var accountInfos = await Game.Scene.GetComponent<DBComponent>().Query<AccountInfo>(d=>d.AccountName==request.Account && d.Password==request.Password);
+			var accountInfos = await Game.Scene.GetComponent<DBComponent>().Query<AccountInfo>(session.DomainZone(),d=>d.AccountName==request.Account && d.Password==request.Password);
 			if (accountInfos.Count!=1)
 			{
 				response.Error = ErrorCode.ERR_AccountPassWordError;

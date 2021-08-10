@@ -5,6 +5,8 @@
         AssetPoolRecycleMillSeconds =1,
         
         DefaultFrameRate =2,
+        
+        LRUCapacity = 3,
     }
 
     public static class FrameworkConfigVarExtension

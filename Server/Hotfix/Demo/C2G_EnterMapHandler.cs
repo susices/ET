@@ -14,7 +14,7 @@ namespace ET
 			M2G_CreateUnit createUnit = (M2G_CreateUnit)await ActorMessageSenderComponent.Instance.Call(
 				mapInstanceId, new G2M_CreateUnit() { PlayerId = player.Id, GateSessionId = session.InstanceId });
 			player.UnitId = createUnit.UnitId;
-			// wenchao 扩展player 添加 dbcacheId
+			player.DBCacheId = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), Enum.GetName(SceneType.DBCache)).SceneId;
 			response.UnitId = createUnit.UnitId;
 			reply();
 		}

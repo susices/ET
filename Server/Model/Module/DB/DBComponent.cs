@@ -9,22 +9,19 @@ namespace ET
 	/// </summary>
 	public class DBComponent : Entity
 	{
-		public static DBComponent Instance;
-		
 		public List<string> Transfers = new List<string>();
-		
 		public const int TaskCount = 32;
-		public MongoClient mongoClient;
-		public IMongoDatabase database;
-		
-		public IMongoCollection<T> GetCollection<T>(string collection=null)
+		public Dictionary<int, IMongoDatabase> ZoneDatabases = new Dictionary<int, IMongoDatabase>();
+
+
+		public IMongoCollection<T> GetCollection<T>(int zone, string collection=null)
 		{
-			return this.database.GetCollection<T>(collection ?? typeof (T).Name);
-		} 
+			return this.ZoneDatabases[zone].GetCollection<T>(collection ?? typeof (T).Name);
+		}
 		
-		public IMongoCollection<Entity> GetCollection(string name)
+		public IMongoCollection<Entity> GetCollection(int zone, string name)
 		{
-			return this.database.GetCollection<Entity>(name);
+			return this.ZoneDatabases[zone].GetCollection<Entity>(name);
 		}
 	}
 }

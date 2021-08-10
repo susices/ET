@@ -670,6 +670,9 @@ namespace ET
 		[ProtoMember(93)]
 		public long ActorId { get; set; }
 
+		[ProtoMember(1)]
+		public string TestMsg { get; set; }
+
 	}
 
 	[Message(OuterOpcode.D2C_Test)]

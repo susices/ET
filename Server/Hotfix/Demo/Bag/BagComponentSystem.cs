@@ -35,7 +35,7 @@ namespace ET
                     return false;
                 }
                 bagItem.DataValue -= itemCount;
-                await Game.Scene.GetComponent<DBComponent>().Save(self.BagInfo);
+                await Game.Scene.GetComponent<DBComponent>().Save(self.DomainZone(),self.BagInfo);
             }
             return true;
         }
@@ -57,7 +57,7 @@ namespace ET
                 {
                     bagItem.DataValue += ItemCount;
                 }
-                await Game.Scene.GetComponent<DBComponent>().Save(self.BagInfo);
+                await Game.Scene.GetComponent<DBComponent>().Save(self.DomainZone(),self.BagInfo);
                 return true;
             }
         }
@@ -72,7 +72,7 @@ namespace ET
                     return false;
                 }
                 bagItem.DataValue -= ItemCount;
-                await Game.Scene.GetComponent<DBComponent>().Save(self.BagInfo);
+                await Game.Scene.GetComponent<DBComponent>().Save(self.DomainZone(),self.BagInfo);
                 return true;
             }
         }

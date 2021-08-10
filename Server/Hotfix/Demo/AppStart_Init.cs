@@ -14,8 +14,7 @@ namespace ET
             await ConfigComponent.Instance.LoadAsync();
 
             StartProcessConfig processConfig = StartProcessConfigCategory.Instance.Get(Game.Options.Process);
-            var zoneConfig = StartZoneConfigCategory.Instance.Get(1);
-            
+
             Game.Scene.AddComponent<TimerComponent>();
             Game.Scene.AddComponent<OpcodeTypeComponent>();
             Game.Scene.AddComponent<MessageDispatcherComponent>();
@@ -33,7 +32,7 @@ namespace ET
             Game.Scene.AddComponent<NetThreadComponent>();
             Game.Scene.AddComponent<NetInnerComponent, IPEndPoint>(processConfig.InnerIPPort);
             
-            Game.Scene.AddComponent<DBComponent,string,string>(zoneConfig.DBConnection,zoneConfig.DBName);
+            Game.Scene.AddComponent<DBComponent>();
             
             var processScenes = StartSceneConfigCategory.Instance.GetByProcess(Game.Options.Process);
             foreach (StartSceneConfig startConfig in processScenes)

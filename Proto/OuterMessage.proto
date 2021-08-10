@@ -317,6 +317,7 @@ message C2D_Test // IDBCacheActorRequest
 {
 	int32 RpcId = 90;
 	int64 ActorId = 93;
+	string TestMsg = 1;
 }
 
 message D2C_Test // IDBCacheActorResponse
