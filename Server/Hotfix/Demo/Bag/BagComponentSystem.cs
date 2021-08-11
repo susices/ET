@@ -27,7 +27,7 @@ namespace ET
                 return false;
             }
             
-            using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.Bag, self.BagInfo.PlayerId))
+            using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.Bag, self.BagInfo.Id))
             {
                 var bagItem = self.GetBagItem(bagItemId);
                 if (bagItem==null || bagItem.DataValue< itemCount)

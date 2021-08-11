@@ -12,6 +12,8 @@ namespace ET
         public Dictionary<long, LRUCacheNode> LruCacheNodes = new Dictionary<long, LRUCacheNode>();
         public LRUCacheNode HeadCacheNode;
         public LRUCacheNode TailCacheNode;
-        public MultiDictionary<long, Type, Entity> UnitCaches = new MultiDictionary<long, Type, Entity>();
+        public Dictionary<long, Dictionary<Type, Entity>> UnitCaches = new Dictionary<long, Dictionary<Type, Entity>>();
+        public Pool<Dictionary<Type, Entity>> UnitCachePool = new Pool<Dictionary<Type, Entity>>();
+        public Pool<LRUCacheNode> CacheNodePool = new Pool<LRUCacheNode>();
     }
 }

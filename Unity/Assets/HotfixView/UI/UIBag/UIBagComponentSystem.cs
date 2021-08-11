@@ -61,6 +61,7 @@ namespace ET
         public static void OnUseBagItem(this UIBagComponent self, int bagItemId)
         {
             self.PlayerBagComponent.UseItem(bagItemId,1).Coroutine();
+            self.DomainScene().GetComponent<SessionComponent>().Session.Call(new C2D_Test(){TestMsg = "测试数据缓存服"}).Coroutine();
         }
 
         public static void OnDataUpdate(this UIBagComponent self)

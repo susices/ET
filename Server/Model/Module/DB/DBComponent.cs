@@ -12,7 +12,7 @@ namespace ET
 		public List<string> Transfers = new List<string>();
 		public const int TaskCount = 32;
 		public Dictionary<int, IMongoDatabase> ZoneDatabases = new Dictionary<int, IMongoDatabase>();
-
+		
 
 		public IMongoCollection<T> GetCollection<T>(int zone, string collection=null)
 		{

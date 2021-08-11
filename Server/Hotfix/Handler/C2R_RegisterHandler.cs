@@ -35,8 +35,7 @@ namespace ET
                 accountInfo.PlayerId = IdGenerater.Instance.GenerateId();
                 await Game.Scene.GetComponent<DBComponent>().Save(session.DomainZone(), accountInfo);
 
-                BagInfo bagInfo = EntityFactory.CreateWithId<BagInfo>(session.Domain, IdGenerater.Instance.GenerateId());
-                bagInfo.PlayerId = accountInfo.PlayerId;
+                BagInfo bagInfo = EntityFactory.CreateWithId<BagInfo>(session.Domain, accountInfo.PlayerId);
                 bagInfo.BagItems = new List<BagItem>();
                 bagInfo.BagItems.Add(new BagItem{DataId = 1,DataValue = 1});
                 bagInfo.BagItems.Add(new BagItem{DataId = 2,DataValue = 2});
