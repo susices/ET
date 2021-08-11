@@ -74,7 +74,14 @@ namespace ET
         {
             try
             {
-                DeleteOldFiles();
+                if (args.Length!=0)
+                {
+                    if (args[0] == "Clear")
+                    {
+                        DeleteOldFiles();
+                    }
+                }
+                
                 template = File.ReadAllText("Template.txt");
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
                 foreach (string path in Directory.GetFiles(excelDir, "*.xlsx",SearchOption.AllDirectories))

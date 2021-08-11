@@ -9,8 +9,8 @@ namespace ETEditor
 {
     public class ExcelExportEditor : Editor
     {
-        [MenuItem("/Tools/导出Excel")]
-        public static void ExcelExport()
+        [MenuItem("/Tools/快速导表")]
+        public static void QuickExcelExport()
         {
             var process =  ProcessHelper.Run("ExcelExporter.exe", $"", "../Tools/ExcelExporter/Bin/");
             Debug.Log("导出开始");
@@ -23,6 +23,23 @@ namespace ETEditor
                     ("Assets/EditorRes/LocalizationTextAsset.asset");
             textAsset.LoadTextAsset();
         }
+        
+        [MenuItem("/Tools/清理后导表")]
+        public static void ExcelExportAndCleanFile()
+        {
+            var process =  ProcessHelper.Run("ExcelExporter.exe", $"Clear", "../Tools/ExcelExporter/Bin/");
+            Debug.Log("导出开始");
+            while (!process.HasExited)
+            {
+                Thread.Sleep(1000);
+            }
+            Debug.Log("导出完成");
+            var textAsset = AssetDatabase.LoadAssetAtPath<LocalizationTextAsset>
+                    ("Assets/EditorRes/LocalizationTextAsset.asset");
+            textAsset.LoadTextAsset();
+        }
+        
+        
     }
 }
 
