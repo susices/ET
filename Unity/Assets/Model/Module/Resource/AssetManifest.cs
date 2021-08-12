@@ -46,6 +46,11 @@ namespace ET
                 return null;
             }
         }
+
+        public Dictionary<string, AssetInfo> GetAll()
+        {
+            return this.dict;
+        }
     }
 
 

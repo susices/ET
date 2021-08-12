@@ -119,24 +119,15 @@ namespace ET
                 BuildHelper.CreateAssetManifest();
             }
             
-            // GUILayout.Space(5);
-            //
-            // if (GUILayout.Button("解析AssetManifest", GUILayout.ExpandHeight(true)))
-            // {
-            //     var bytes =  File.ReadAllBytes(Path.Combine("Assets/Bundles/AssetManifest/", $"AssetManifest.bytes"));
-            //
-            //     AssetManifest assetManifest =  ProtobufHelper.FromBytes(typeof (AssetManifest), bytes, 0, bytes.Length) as AssetManifest;
-            // }
-            
             GUILayout.Space(5);
 
             if (GUILayout.Button("检查循环依赖", GUILayout.ExpandHeight(true)))
             {
-                BuildHelper.CheckLoopByAssetDatabase();
-                Debug.Log("检查完成！");
+                Debug.Log("循环依赖检查开始");
+                BuildHelper.LoopDependencyCheck();
             }
-
-
+            
+            
             GUILayout.Space(5);
             
             if (GUILayout.Button("开始打包", GUILayout.ExpandHeight(true)))

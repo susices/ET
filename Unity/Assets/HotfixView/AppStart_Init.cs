@@ -13,7 +13,6 @@ namespace ET
             // 加载配置
             Game.Scene.AddComponent<ResourcesComponent>();
             
-            
             ResourcesComponent.Instance.LoadBundle(AssetBundleHelper.ConfigDirPath);
             Game.Scene.AddComponent<ConfigComponent>();
             ConfigComponent.GetAllConfigBytes = LoadConfigHelper.LoadAllConfigBytes;

@@ -77,15 +77,32 @@ namespace ET
         }
 
         /// <summary>
-        /// 获取本地化美术资源路径
+        /// 获取本地化资源路径
         /// </summary>
         /// <param name="self"></param>
         /// <param name="localizationArtAssetId"></param>
         /// <returns></returns>
-        public static string GetArtAssetPath(this LocalizationComponent self, int localizationArtAssetId)
+        public static string GetAssetPath(this LocalizationComponent self, int localizationArtAssetId)
+        {
+            switch (localizationArtAssetId)
+            {
+                case var id when id<=10000:
+                    return self.GetUIAssetPath(id);
+                case var id when id<=20000:
+                    return self.GetSceneAssetPath(id);
+                case var id when id<=40000:
+                    return self.GetModelAssetPath(id);
+                case var id when id<50000:
+                    return self.GetAudioAssetPath(id);
+                default:
+                    return null;
+            }
+        }
+
+        public static string GetUIAssetPath(this LocalizationComponent self, int localizationAudioAssetId)
         {
             string path = null;
-            LocalizationArtAsset config = LocalizationArtAssetCategory.Instance.Get(localizationArtAssetId);
+            var config = LocalizationUICategory.Instance.Get(localizationAudioAssetId);
             switch (self.LanguageTextArt)
             {
                 case SystemLanguage.Chinese:
@@ -96,21 +113,58 @@ namespace ET
                     path = config.EN;
                     break;
             }
-
             if (string.IsNullOrEmpty(path))
             {
                 path = config.Default;
             }
-
             return path;
         }
-
+        
+        public static string GetSceneAssetPath(this LocalizationComponent self, int localizationSceneAssetId)
+        {
+            string path = null;
+            var config = LocalizationSceneCategory.Instance.Get(localizationSceneAssetId);
+            switch (self.LanguageTextArt)
+            {
+                case SystemLanguage.Chinese:
+                case SystemLanguage.ChineseSimplified:
+                    path = config.CN;
+                    break;
+                case SystemLanguage.English:
+                    path = config.EN;
+                    break;
+            }
+            if (string.IsNullOrEmpty(path))
+            {
+                path = config.Default;
+            }
+            return path;
+        }
+        
+        public static string GetModelAssetPath(this LocalizationComponent self, int localizationModelAssetId)
+        {
+            string path = null;
+            var config = LocalizationModelCategory.Instance.Get(localizationModelAssetId);
+            switch (self.LanguageTextArt)
+            {
+                case SystemLanguage.Chinese:
+                case SystemLanguage.ChineseSimplified:
+                    path = config.CN;
+                    break;
+                case SystemLanguage.English:
+                    path = config.EN;
+                    break;
+            }
+            if (string.IsNullOrEmpty(path))
+            {
+                path = config.Default;
+            }
+            return path;
+        }
+        
         /// <summary>
         /// 获取本地化音频资源路径
         /// </summary>
-        /// <param name="self"></param>
-        /// <param name="localizationAudioAssetId"></param>
-        /// <returns></returns>
         public static string GetAudioAssetPath(this LocalizationComponent self, int localizationAudioAssetId)
         {
             string path = null;
@@ -125,12 +179,10 @@ namespace ET
                     path = config.EN;
                     break;
             }
-
             if (string.IsNullOrEmpty(path))
             {
                 path = config.Default;
             }
-
             return path;
         }
         
@@ -141,8 +193,22 @@ namespace ET
         /// <returns></returns>
         public static string LocalizedAssetPath(this int localizationAssetId)
         {
-            return LocalizationComponent.Instance.GetArtAssetPath(localizationAssetId);
+            return LocalizationComponent.Instance.GetAssetPath(localizationAssetId);
         }
-        
+
+        public static int CachePoolMillSeconds(this LocalizationComponent self, int localizationAssetId)
+        {
+            switch (localizationAssetId)
+            {
+                case var id when id<=10000:
+                    return LocalizationUICategory.Instance.Get(localizationAssetId).CachePoolMillSeconds;
+                case var id when id<=20000:
+                    return LocalizationSceneCategory.Instance.Get(localizationAssetId).CachePoolMillSeconds;
+                case var id when id<=40000:
+                    return LocalizationModelCategory.Instance.Get(localizationAssetId).CachePoolMillSeconds;
+                default:
+                    return 0;
+            }
+        }
     }
 }

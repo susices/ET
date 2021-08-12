@@ -132,137 +132,89 @@ namespace ET
             
             foreach (var scenePath in ScenePaths)
             {
-                AssetImporter.GetAtPath(scenePath).assetBundleName = $"{scenePath}.unity3d";
+                AssetImporter.GetAtPath(scenePath).assetBundleName = $"{scenePath}3d";
             }
             Debug.Log("AssetBundle 标记成功！");
         }
+
+        private static Dictionary<string, string[]> SortedDepCache;
+        private static Dictionary<string, string[]> DependenciesCache;
         
-        
-        //使用深度遍历检查环
-        public static void CheckLoopByAssetDatabase()
+
+        public static void LoopDependencyCheck()
         {
-            //dependenceMap保存bundle的直接依赖关系
-            var dependenceMap = new Dictionary<string, HashSet<string>>();
-            //string[] abs = manifest.GetAllAssetBundles();
-            string[] abs = AssetDatabase.GetAllAssetBundleNames();//.Where(name=>!name.EndsWith("Assets/Bundles/AssetManifestDir".ToLower())).ToArray();
-
-            for (int i = 0; i < abs.Length; i++)
+            string path = Path.Combine("Assets/Bundles/AssetManifestDir/", $"AssetManifest.bytes");
+            var data = File.OpenRead(path);
+            var assetManifist = Serializer.Deserialize<AssetManifest>(data);
+            SortedDepCache = new Dictionary<string, string[]>();
+            DependenciesCache = new Dictionary<string, string[]>();
+            try
             {
-                string abName = abs[i];
-                //string[] directDependencies = manifest.GetDirectDependencies(abName);
-                string[] directDependencies = AssetDatabase.GetDependencies(abName);
-                dependenceMap.Add(abName, new HashSet<string>(directDependencies));
-            }
-
-            //q保存需要检查环的bundle名字
-            var q = new LinkedList<string>();
-            foreach (var entry in dependenceMap)
-            {
-                q.AddLast(entry.Key);
-            }
-
-            //searchedNodeSet保存遍历过的bundle，避免重复遍历
-            var searchedNodeSet = new HashSet<string>();
-
-            //loopSet记录检查到的环
-            var loopSet = new HashSet<string[]>();
-            while (q.Count > 0)
-            {
-                string bundleName = q.First.Value;
-                q.RemoveFirst();
-
-                //stack记录深度遍历时遍历到的bundle
-                var stack = new List<string>();
-
-                //开始通过遍历检查
-                SearchLoopByManifest(bundleName, stack, searchedNodeSet, dependenceMap, loopSet);
-
-                //把遍历过的bundle从q删除
-                foreach (string node in searchedNodeSet)
+                foreach (var assetInfo in assetManifist.GetAll().Values)
                 {
-                    q.Remove(node);
+                    GetSortedDependencies(assetInfo.BundleName, SortedDepCache);
                 }
             }
-
-            //以抛出异常的方式，打印所有环信息
-            int maxPrintLoopNum = 100;
-            if (loopSet.Count > 0)
+            catch (Exception e)
             {
-                int i = 0;
-                string log = "bundle loops:";
-                foreach (string[] bundles in loopSet)
-                {
-                    if (i >= maxPrintLoopNum)
-                    {
-                        break;
-                    }
-
-                    log += i + ":";
-                    for (int j = 0; j < bundles.Length + 1; j++)
-                    {
-                        string bundleName = bundles[j % bundles.Length];
-                        log += bundleName;
-                        if (j != bundles.Length)
-                        {
-                            log += " -> ";
-                        }
-                    }
-
-                    log += "\n";
-                    i++;
-                }
-
-                Debug.LogError(log);
-                //throw new Exception(log);
+                Debug.LogError(e);
             }
+            Debug.Log("循环依赖检查完毕");
+            SortedDepCache = null;
+            DependenciesCache = null;
         }
-
-        private static void SearchLoopByManifest(string bundleName, List<string> stack, HashSet<string> searchedNodeSet,
-        Dictionary<string, HashSet<string>> dependenceMap, HashSet<string[]> loopSet)
+        
+        private static void GetSortedDependencies(string assetBundleName, Dictionary<string, string[]> SortedDepCache)
         {
-            if (string.IsNullOrEmpty(bundleName))
+            if (SortedDepCache.TryGetValue(assetBundleName, out var SorteDeps))
             {
-                return;
+                return ;
             }
-
-            int index = stack.IndexOf(bundleName);
-            if (index < 0) //bundleName不在stack里，没形成环
+            var info = new Dictionary<string, int>();
+            using var list = ListComponent<string>.Create();
+            CollectDependencies(list.List, assetBundleName, info);
+            // wenchao 替换linq写法
+            string[] ss = info.OrderBy(x => x.Value).Select(x => x.Key).ToArray();
+            SortedDepCache[assetBundleName] = ss;
+        }
+        
+        private static void CollectDependencies(List<string> parents, string assetBundleName, Dictionary<string, int> info)
+        {
+            parents.Add(assetBundleName);
+            string[] deps = GetDependencies(assetBundleName);
+            foreach (string parent in parents)
             {
-                if (!searchedNodeSet.Contains(bundleName)) //必须之前没遍历过这个结点
+                if (!info.ContainsKey(parent))
                 {
-                    searchedNodeSet.Add(bundleName);
-                    stack.Add(bundleName);
-                    HashSet<string> dependencies = null;
-                    dependenceMap.TryGetValue(bundleName, out dependencies);
-
-                    if (dependencies == null)
-                    {
-                        //Debug.Log("dependencies is null: " + bundleName);
-                        //throw new Exception("dependencies is null: " + bundleName);
-                    }
-                    else
-                    {
-                        //遍历更深的结点
-                        foreach (string d in dependencies)
-                        {
-                            SearchLoopByManifest(d, stack, searchedNodeSet, dependenceMap, loopSet);
-                        }
-                    }
-
-                    //这里一定要移除，stack记录当前遍历到的结点，当前的bundleName已经遍历过了，所以要移除
-                    stack.Remove(bundleName);
-                }
-            }
-            else //存在环，记录到loopSet里
-            {
-                string[] loop = new string[stack.Count - index];
-                for (int i = index; i < stack.Count; i++)
-                {
-                    loop[i - index] = stack[i];
+                    info[parent] = 0;
                 }
 
-                loopSet.Add(loop);
+                info[parent] += deps.Length;
             }
+
+            foreach (string dep in deps)
+            {
+                if (parents.Contains(dep))
+                {
+                    Debug.LogError($"发现循环依赖: BundleName: {assetBundleName}  Dependency：{dep}");
+                    break;
+                }
+                CollectDependencies(parents, dep, info);
+            }
+
+            parents.RemoveAt(parents.Count - 1);
+        }
+        
+        private static string[] GetDependencies(string assetBundleName)
+        {
+            string[] dependencies = null;
+            if (DependenciesCache.TryGetValue(assetBundleName, out dependencies))
+            {
+                return dependencies;
+            }
+            dependencies = AssetDatabase.GetAssetBundleDependencies(assetBundleName, true);
+            DependenciesCache.Add(assetBundleName, dependencies);
+            return dependencies;
         }
     }
 }

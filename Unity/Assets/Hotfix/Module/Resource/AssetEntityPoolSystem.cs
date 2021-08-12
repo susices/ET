@@ -41,7 +41,7 @@ namespace ET
             self.Pool.Enqueue(gameObject);
             if (self.RefCount==0)
             {
-                int assetPoolRecycleMillsoconds = LocalizationArtAssetCategory.Instance.Get(self.AssetPathIndex).CachePoolMillSeconds;
+                int assetPoolRecycleMillsoconds = LocalizationComponent.Instance.CachePoolMillSeconds(self.AssetPathIndex);
                 if (assetPoolRecycleMillsoconds<=0)
                 {
                     assetPoolRecycleMillsoconds = FrameworkConfigVar.AssetPoolRecycleMillSeconds.IntVar();

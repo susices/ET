@@ -7,19 +7,19 @@ namespace ET
 {
     [ProtoContract]
     [Config]
-    public partial class LocalizationArtAssetCategory : ProtoObject
+    public partial class LocalizationModelCategory : ProtoObject
     {
-        public static LocalizationArtAssetCategory Instance;
+        public static LocalizationModelCategory Instance;
 		
         [ProtoIgnore]
         [BsonIgnore]
-        private Dictionary<int, LocalizationArtAsset> dict = new Dictionary<int, LocalizationArtAsset>();
+        private Dictionary<int, LocalizationModel> dict = new Dictionary<int, LocalizationModel>();
 		
         [BsonElement]
         [ProtoMember(1)]
-        private List<LocalizationArtAsset> list = new List<LocalizationArtAsset>();
+        private List<LocalizationModel> list = new List<LocalizationModel>();
 		
-        public LocalizationArtAssetCategory()
+        public LocalizationModelCategory()
         {
             Instance = this;
         }
@@ -27,7 +27,7 @@ namespace ET
 		[ProtoAfterDeserialization]
         public void AfterDeserialization()
         {
-            foreach (LocalizationArtAsset config in list)
+            foreach (LocalizationModel config in list)
             {
                 this.dict.Add(config.Id, config);
             }
@@ -35,13 +35,13 @@ namespace ET
             this.EndInit();
         }
 		
-        public LocalizationArtAsset Get(int id)
+        public LocalizationModel Get(int id)
         {
-            this.dict.TryGetValue(id, out LocalizationArtAsset item);
+            this.dict.TryGetValue(id, out LocalizationModel item);
 
             if (item == null)
             {
-                throw new Exception($"配置找不到，配置表名: {nameof (LocalizationArtAsset)}，配置id: {id}");
+                throw new Exception($"配置找不到，配置表名: {nameof (LocalizationModel)}，配置id: {id}");
             }
 
             return item;
@@ -52,12 +52,12 @@ namespace ET
             return this.dict.ContainsKey(id);
         }
 
-        public Dictionary<int, LocalizationArtAsset> GetAll()
+        public Dictionary<int, LocalizationModel> GetAll()
         {
             return this.dict;
         }
 
-        public LocalizationArtAsset GetOne()
+        public LocalizationModel GetOne()
         {
             if (this.dict == null || this.dict.Count <= 0)
             {
@@ -68,7 +68,7 @@ namespace ET
     }
 
     [ProtoContract]
-	public partial class LocalizationArtAsset: ProtoObject, IConfig
+	public partial class LocalizationModel: ProtoObject, IConfig
 	{
 		[ProtoMember(1, IsRequired  = true)]
 		public int Id { get; set; }

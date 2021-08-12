@@ -13,28 +13,8 @@ e
 3Assets/Bundles/Config/BuffStateConfigCategory.bytesBuffStateConfigCategoryassets/bundles/config
 e
 3Assets/Bundles/Config/FrameworkConfigCategory.bytesFrameworkConfigCategoryassets/bundles/config
-o
-8Assets/Bundles/Config/LocalizationArtAssetCategory.bytesLocalizationArtAssetCategoryassets/bundles/config
 i
 5Assets/Bundles/Config/LocalizationAudioCategory.bytesLocalizationAudioCategoryassets/bundles/config
-g
-4Assets/Bundles/Config/LocalizationTextCategory.bytesLocalizationTextCategoryassets/bundles/config
-g
-4Assets/Bundles/Config/MapNavMeshConfigCategory.bytesMapNavMeshConfigCategoryassets/bundles/config
-k
-6Assets/Bundles/Config/StartMachineConfigCategory.bytesStartMachineConfigCategoryassets/bundles/config
-k
-6Assets/Bundles/Config/StartProcessConfigCategory.bytesStartProcessConfigCategoryassets/bundles/config
-g
-4Assets/Bundles/Config/StartSceneConfigCategory.bytesStartSceneConfigCategoryassets/bundles/config
-e
-3Assets/Bundles/Config/StartZoneConfigCategory.bytesStartZoneConfigCategoryassets/bundles/config
-_
-0Assets/Bundles/Config/UIItemConfigCategory.bytesUIItemConfigCategoryassets/bundles/config
-a
-1Assets/Bundles/Config/UIPanelConfigCategory.bytesUIPanelConfigCategoryassets/bundles/config
-[
-.Assets/Bundles/Config/UnitConfigCategory.bytesUnitConfigCategoryassets/bundles/config
 F
 $Assets/Bundles/UI/UIBag/UIBag.prefabUIBagassets/bundles/ui/uibag
 b
@@ -47,7 +27,7 @@ N
 (Assets/Bundles/UI/UILogin/UILogin.prefabUILoginassets/bundles/ui/uilogin
 <
 Assets/Bundles/Unit/Unit.prefabUnitassets/bundles/unit
-B
-Assets/Scenes/Map1.unityMap1 assets/scenes/map1.unity.unity3d
-B
-Assets/Scenes/Map2.unityMap2 assets/scenes/map2.unity.unity3d
+<
+Assets/Scenes/Map1.unityMap1assets/scenes/map1.unity3d
+<
+Assets/Scenes/Map2.unityMap2assets/scenes/map2.unity3d
