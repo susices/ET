@@ -37,17 +37,20 @@ namespace ET
             }
         }
 
-        public static async ETTask Save<T>(this DBCacheComponent self, long playerId, T entity) where T : Entity
+        public static async ETTask Save<T>(this DBCacheComponent self, T entity) where T : Entity
         {
-            using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.DBCache, playerId))
+            using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.DBCache, entity.Id))
             {
-                if (!self.UnitCaches.ContainsKey(playerId))
+                if (!self.UnitCaches.ContainsKey(entity.Id))
                 {
-                    self.AddCacheData(playerId, entity);
-                    return;
+                    self.AddCacheData(entity.Id, entity);
                 }
-                
-                self.UpdateCacheData(playerId,entity);
+                else
+                {
+                    self.UpdateCacheData(entity.Id,entity);
+                }
+
+                await Game.Scene.GetComponent<DBComponent>().Save(self.DomainZone(), entity);
             }
         }
 
@@ -55,6 +58,18 @@ namespace ET
         {
             using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.DBCache, playerId))
             {
+                foreach (var entity in entities)
+                {
+                    if (!self.UnitCaches.ContainsKey(entity.Id))
+                    {
+                        self.AddCacheData(entity.Id, entity);
+                    }
+                    else
+                    {
+                        self.UpdateCacheData(entity.Id,entity);
+                    }
+                }
+                await Game.Scene.GetComponent<DBComponent>().Save(self.DomainZone(), playerId, entities);
             }
         }
 
@@ -70,7 +85,7 @@ namespace ET
             self.UnitCaches.Add(playerId, dic);
             self.AddCacheNode(playerId);
         }
-
+        
         public static void UpdateCacheData<T>(this DBCacheComponent self, long playerId, T entity) where T : Entity
         {
             if (!self.UnitCaches[playerId].ContainsKey(typeof (T)))
@@ -83,7 +98,7 @@ namespace ET
             }
             self.MoveCacheToHead(playerId);
         }
-
+        
         /// <summary>
         /// 添加缓存节点
         /// 会添加至节点链表头

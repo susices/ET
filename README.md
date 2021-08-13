@@ -1,9 +1,33 @@
 # SJET Framework
 本项目是基于[ET6.0框架](https://github.com/egametang/ET) 的个人修改版框架
 
-项目目标是提供更完善的客户端功能以及分享在ET框架下的一些组件编写思路
+项目目标是提供更完善的框架功能以及分享在ET框架下的一些组件编写思路
+## 服务器框架层
 
-## 框架层
+### 数据缓存
+
+描述：
+
+根据[ET论坛这个帖子](https://et-framework.cn/d/180-dbproxycomponent) 的思路编写的玩家数据缓存组件,基于LRU策略缓存玩家的数据库数据。
+
+提供了查询和保存数据方法，可以调用该组件代替DBComponent组件使用。
+
+使用方法：
+
+查询玩家某个类型的数据：
+
+```csharp
+var bag =  await scene.GetComponent<DBCacheComponent>().Query<BagInfo>(bagInfo.Id);
+```
+
+保存玩家某个类型的数据：
+
+```csharp
+await scene.GetComponent<DBCacheComponent>().Save(bag);
+```
+
+
+## 客户端框架层
 
 ### 资源管理
 

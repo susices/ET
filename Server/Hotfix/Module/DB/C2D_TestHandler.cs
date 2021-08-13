@@ -11,6 +11,7 @@ namespace ET
             List<BagInfo> bagInfos = await Game.Scene.GetComponent<DBComponent>().Query<BagInfo>(scene.DomainZone(), d => d.Id != 0);
             Log.Info($"baginfos count:{bagInfos.Count.ToString()}");
 
+            //await RunTestCache(scene, bagInfos);
             long time = TimeHelper.ServerNow();
             using var list = ListComponent<ETTask>.Create();
             for (int i = 0; i < 1000; i++)
@@ -25,48 +26,14 @@ namespace ET
 
         public static async ETTask RunTestCache(Scene scene, List<BagInfo> bagInfos)
         {
-            foreach (var bagInfo in bagInfos)
-            {
-                var bag =  await scene.GetComponent<DBCacheComponent>().Query<BagInfo>(bagInfo.Id);
-                if (bag==null)
-                {
-                    continue;
-                }
-                //Log.Info($"测试数据缓存查询: playerId:{bag.Id.ToString()}");
-            }
-
-            for (int i = bagInfos.Count-1; i >=0 ; i--)
-            {
-                var bag =  await scene.GetComponent<DBCacheComponent>().Query<BagInfo>(bagInfos[i].Id);
-                if (bag==null)
-                {
-                    continue;
-                }
-                //Log.Info($"测试数据缓存查询: playerId:{bag.Id.ToString()}");
-            }
+            int index = RandomHelper.RandomNumber(0, 50);
+            var bag =  await scene.GetComponent<DBCacheComponent>().Query<BagInfo>(bagInfos[index].Id);
         }
         
         public static async ETTask RunTestDB(Scene scene, List<BagInfo> bagInfos)
         {
-            foreach (var bagInfo in bagInfos)
-            {
-                var bag =  await Game.Scene.GetComponent<DBComponent>().Query<BagInfo>(scene.DomainZone(),bagInfo.Id);
-                if (bag==null)
-                {
-                    continue;
-                }
-                //Log.Info($"测试数据缓存查询: playerId:{bag.Id.ToString()}");
-            }
-
-            for (int i = bagInfos.Count-1; i >=0 ; i--)
-            {
-                var bag =  await Game.Scene.GetComponent<DBComponent>().Query<BagInfo>(scene.DomainZone() ,bagInfos[i].Id);
-                if (bag==null)
-                {
-                    continue;
-                }
-                //Log.Info($"测试数据缓存查询: playerId:{bag.Id.ToString()}");
-            }
+            int index = RandomHelper.RandomNumber(0, bagInfos.Count);
+            var bag =  await Game.Scene.GetComponent<DBComponent>().Query<BagInfo>(scene.DomainZone(),bagInfos[index].Id);
         }
     }
 }
