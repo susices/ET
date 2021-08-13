@@ -59,6 +59,8 @@
                 BuffActionDispatcher.Instance.RunBuffRemoveAction(self);
                 Log.Debug($"BuffRemoved BuffConfigId: {self.BuffConfigId.ToString()}  BuffEntityId: {self.Id.ToString()}");
             }
+            
+            self.SetContainerBuffStateOnRemove();
 
             self.Clear();
         }
@@ -132,6 +134,23 @@
             self.BuffContainer = null;
             self.BuffTickTimerId = null;
             self.State = BuffState.None;
+        }
+
+
+        public static void SetContainerBuffStateOnRemove(this BuffEntity self)
+        {
+            foreach (var child in self.GetParent<BuffContainerComponent>().Children.Values)
+            {
+                if (child is BuffEntity buffEntity && buffEntity.Id!= self.Id)
+                {
+                    if (buffEntity.State == self.State)
+                    {
+                        return;
+                    }
+                }
+            }
+            var buffContainer = self.GetParent<BuffContainerComponent>();
+            buffContainer.BuffState = buffContainer.BuffState & (~self.State);
         }
     }
 }

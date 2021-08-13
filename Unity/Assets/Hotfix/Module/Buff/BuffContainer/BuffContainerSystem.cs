@@ -24,7 +24,7 @@ namespace ET
     {
         public override void Destroy(BuffContainerComponent self)
         {
-            
+            self.BuffState = BuffState.None;
         }
     }
 
@@ -100,7 +100,8 @@ namespace ET
 
         private static void AddBuff(this BuffContainerComponent self, int buffConfigId, Entity sourceEntity)
         {
-            BuffFactory.Create(self, sourceEntity, buffConfigId);
+            var buffENtity =  BuffFactory.Create(self, sourceEntity, buffConfigId);
+            self.BuffState = self.BuffState | buffENtity.State;
         }
 
         /// <summary>
