@@ -6,13 +6,13 @@
 
         public LRUCacheNode Next;
 
-        public long PlayerId;
+        public long Id;
 
         public void Clear()
         {
             this.Pre = null;
             this.Next = null;
-            this.PlayerId = 0;
+            this.Id = 0;
         }
     }
 }

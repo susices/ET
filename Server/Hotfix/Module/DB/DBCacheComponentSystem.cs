@@ -16,21 +16,11 @@ namespace ET
         {
             using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.DBCache, playerId))
             {
+                
                 if (!self.UnitCaches.ContainsKey(playerId))
                 {
-                    if (self.UnitCaches.Count >= self.LRUCapacity)
-                    {
-                        self.ClearPlayerCache(self.TailCacheNode.PlayerId);
-                    }
-
-                    Log.Info($"当前节点数： {self.UnitCaches.Count.ToString()} 总容量： {self.LRUCapacity.ToString()}");
-
                     T entity = await Game.Scene.GetComponent<DBComponent>().Query<T>(self.DomainZone(), playerId);
-                    var dic = self.UnitCachePool.Fetch();
-                    dic.Add(typeof (T), entity);
-                    self.UnitCaches.Add(playerId, dic);
-                    self.AddCacheNode(playerId);
-                    Log.Info($"查询playerId:{playerId.ToString()} 数据类型：{typeof (T).Name} 添加缓存节点");
+                    self.AddCacheData(playerId, entity);
                     return entity;
                 }
 
@@ -38,46 +28,26 @@ namespace ET
                 {
                     T entity = await Game.Scene.GetComponent<DBComponent>().Query<T>(self.DomainZone(), playerId);
                     self.UnitCaches[playerId].Add(typeof (T), entity);
-                    await self.MoveCacheToHead(playerId);
-                    Log.Info($"查询playerId:{playerId.ToString()} 数据类型：{typeof (T).Name} 缓存节点添加类型 移位至头节点");
+                    self.MoveCacheToHead(playerId);
                     return entity;
                 }
-
+                self.MoveCacheToHead(playerId);
                 Entity cacheEntity = self.UnitCaches[playerId][typeof (T)];
-                await self.MoveCacheToHead(playerId);
-                Log.Info($"查询playerId:{playerId.ToString()} 数据类型：{typeof (T).Name} 缓存节点找到类型 移位至头节点");
                 return cacheEntity as T;
             }
         }
 
-        public static async ETTask Save<T>(this DBCacheComponent self, long playerId, T Entity) where T : Entity
+        public static async ETTask Save<T>(this DBCacheComponent self, long playerId, T entity) where T : Entity
         {
             using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.DBCache, playerId))
             {
                 if (!self.UnitCaches.ContainsKey(playerId))
                 {
-                    if (self.UnitCaches.Count >= self.LRUCapacity)
-                    {
-                        self.ClearPlayerCache(self.TailCacheNode.PlayerId);
-                    }
-
-                    var dic = self.UnitCachePool.Fetch();
-                    dic.Add(typeof (T), Entity);
-                    self.UnitCaches.Add(playerId, dic);
-                    self.AddCacheNode(playerId);
+                    self.AddCacheData(playerId, entity);
                     return;
                 }
-
-                if (!self.UnitCaches[playerId].ContainsKey(typeof (T)))
-                {
-                    self.UnitCaches[playerId].Add(typeof (T), Entity);
-                }
-                else
-                {
-                    self.UnitCaches[playerId][typeof (T)] = Entity;
-                }
-
-                await self.MoveCacheToHead(playerId);
+                
+                self.UpdateCacheData(playerId,entity);
             }
         }
 
@@ -88,14 +58,41 @@ namespace ET
             }
         }
 
+        public static void AddCacheData<T>(this DBCacheComponent self, long playerId, T entity) where T : Entity
+        {
+            if (self.UnitCaches.Count >= self.LRUCapacity)
+            {
+                self.ClearPlayerCache(self.TailCacheNode.Id);
+            }
+
+            var dic = self.UnitCachePool.Fetch();
+            dic.Add(typeof (T), entity);
+            self.UnitCaches.Add(playerId, dic);
+            self.AddCacheNode(playerId);
+        }
+
+        public static void UpdateCacheData<T>(this DBCacheComponent self, long playerId, T entity) where T : Entity
+        {
+            if (!self.UnitCaches[playerId].ContainsKey(typeof (T)))
+            {
+                self.UnitCaches[playerId].Add(typeof (T), entity);
+            }
+            else
+            {
+                self.UnitCaches[playerId][typeof (T)] = entity;
+            }
+            self.MoveCacheToHead(playerId);
+        }
+
         /// <summary>
-        /// 添加缓存节点到最前
+        /// 添加缓存节点
+        /// 会添加至节点链表头
         /// </summary>
         public static void AddCacheNode(this DBCacheComponent self, long playerId)
         {
             LRUCacheNode cacheNode = self.CacheNodePool.Fetch();
-            cacheNode.PlayerId = playerId;
-            self.LruCacheNodes.Add(playerId,cacheNode);
+            cacheNode.Id = playerId;
+            self.LruCacheNodes.Add(playerId, cacheNode);
             LRUCacheNode headCacheNode = self.HeadCacheNode;
             if (headCacheNode != null)
             {
@@ -106,55 +103,53 @@ namespace ET
             {
                 self.TailCacheNode = cacheNode;
             }
-
             self.HeadCacheNode = cacheNode;
+            //Log.Info($"添加节点  playerId:{playerId.ToString()}");
         }
 
         /// <summary>
         /// 移动缓存节点到最前
         /// </summary>
-        public static async ETTask MoveCacheToHead(this DBCacheComponent self, long playerId)
+        public static void MoveCacheToHead(this DBCacheComponent self, long playerId)
         {
-            using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.DBCache, playerId))
+            if (!self.LruCacheNodes.ContainsKey(playerId))
             {
-                if (!self.LruCacheNodes.ContainsKey(playerId))
-                {
-                    Log.Error($"DBCache 未找到 cacheNode playerId:{playerId.ToString()}");
-                    return;
-                }
-
-                // 已经是头节点 跳过
-                if (self.HeadCacheNode.PlayerId == playerId)
-                {
-                    return;
-                }
-
-                LRUCacheNode cacheNode = self.LruCacheNodes[playerId];
-                //尾节点 
-                if (self.TailCacheNode.PlayerId == playerId)
-                {
-                    self.TailCacheNode = cacheNode.Pre;
-                    self.TailCacheNode.Next = null;
-                    LRUCacheNode oldHeadNode = self.HeadCacheNode;
-                    self.HeadCacheNode = cacheNode;
-                    self.HeadCacheNode.Pre = null;
-                    self.HeadCacheNode.Next = oldHeadNode;
-                    oldHeadNode.Pre = self.HeadCacheNode;
-                }
-                //中间节点
-                else
-                {
-                    LRUCacheNode preNode = cacheNode.Pre;
-                    LRUCacheNode nextNode = cacheNode.Next;
-                    preNode.Next = nextNode;
-                    nextNode.Pre = preNode;
-                    LRUCacheNode oldHeadNode = self.HeadCacheNode;
-                    self.HeadCacheNode = cacheNode;
-                    self.HeadCacheNode.Pre = null;
-                    self.HeadCacheNode.Next = oldHeadNode;
-                    oldHeadNode.Pre = self.HeadCacheNode;
-                }
+                Log.Error($"DBCache 未找到 cacheNode playerId:{playerId.ToString()}");
+                return;
             }
+
+            // 已经是头节点 跳过
+            if (self.HeadCacheNode.Id == playerId)
+            {
+                return;
+            }
+
+            LRUCacheNode cacheNode = self.LruCacheNodes[playerId];
+            //尾节点 
+            if (self.TailCacheNode.Id == playerId)
+            {
+                self.TailCacheNode = cacheNode.Pre;
+                self.TailCacheNode.Next = null;
+                LRUCacheNode oldHeadNode = self.HeadCacheNode;
+                self.HeadCacheNode = cacheNode;
+                self.HeadCacheNode.Pre = null;
+                self.HeadCacheNode.Next = oldHeadNode;
+                oldHeadNode.Pre = self.HeadCacheNode;
+            }
+            //中间节点
+            else
+            {
+                LRUCacheNode preNode = cacheNode.Pre;
+                LRUCacheNode nextNode = cacheNode.Next;
+                preNode.Next = nextNode;
+                nextNode.Pre = preNode;
+                LRUCacheNode oldHeadNode = self.HeadCacheNode;
+                self.HeadCacheNode = cacheNode;
+                self.HeadCacheNode.Pre = null;
+                self.HeadCacheNode.Next = oldHeadNode;
+                oldHeadNode.Pre = self.HeadCacheNode;
+            }
+            //Log.Info($"移动至头节点  playerId:{playerId.ToString()}");
         }
 
         /// <summary>
@@ -205,7 +200,7 @@ namespace ET
             self.UnitCaches.Remove(playerId);
             dic.Clear();
             self.UnitCachePool.Recycle(dic);
-            Log.Info($"清除缓存  playerId:{playerId.ToString()}");
+            //Log.Info($"清除节点  playerId:{playerId.ToString()}");
         }
     }
 }
