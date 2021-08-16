@@ -5,6 +5,7 @@
         public override void Awake(BuffTickComponent self, int buffConfigId)
         {
             self.BuffConfigId = buffConfigId;
+            self.BuffTickTimeSpan = BuffConfigCategory.Instance.Get(buffConfigId).BuffTickTimeSpan;
             self.ParentBuffEntity = self.GetParent<BuffEntity>();
             self.TickBuffActions = ListComponent<IBuffAction>.Create();
             self.TickBuffActionsArgs = ListComponent<int[]>.Create();
@@ -12,7 +13,7 @@
             {
                 self.Dispose();
             }
-            self.Tick();
+            self.StartTick();
         }
     }
 
@@ -22,23 +23,26 @@
         {
             TimerComponent.Instance.Remove(self.BuffTickTimerId);
             self.BuffTickTimerId = 0;
+            self.BuffTickTimeSpan = 0;
             self.TickBuffActions.Dispose();
             self.TickBuffActions = null;
             self.TickBuffActionsArgs.Dispose();
             self.TickBuffActionsArgs = null;
         }
     }
-    
-    public class BuffTickComponentUpdateSystem:UpdateSystem<BuffTickComponent>
-    {
-        public override void Update(BuffTickComponent self)
-        {
-            
-        }
-    }
 
     public static class BuffTickComponentSystem
     {
+        public static void StartTick(this BuffTickComponent self)
+        {
+            self.Tick();
+            self.BuffTickTimerId = TimerComponent.Instance.NewRepeatedTimer(self.BuffTickTimeSpan, () =>
+            {
+                self.Tick();
+                Log.Debug($"BuffTicked BuffConfigId: {self.BuffConfigId.ToString()}  BuffEntityId: {self.Id.ToString()}");
+            });
+        }
+        
         public static void Tick(this BuffTickComponent self)
         {
             for (int i = 0; i < self.TickBuffActions.List.Count; i++)

@@ -9,12 +9,17 @@
         /// buff配置表Id
         /// </summary>
         public int BuffConfigId;
-        
+
         /// <summary>
-        /// buff轮询计时器Id
+        /// buff轮询间隔时间
+        /// </summary>
+        public long BuffTickTimeSpan;
+
+        /// <summary>
+        /// buffTick计时器Id
         /// </summary>
         public long BuffTickTimerId;
-        
+
         /// <summary>
         /// 轮询BuffAction列表组件
         /// </summary>
