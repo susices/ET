@@ -50,12 +50,20 @@
       <Link>Module\Buff\BuffContainer\BuffContainerComponent.cs</Link>
     </Compile>
 
+    <Compile Include="..\..\Unity\Assets\Model\Module\Buff\BuffEntity\BuffCountDownComponent.cs">
+      <Link>Module\Buff\BuffEntity\BuffCountDownComponent.cs</Link>
+    </Compile>
+
     <Compile Include="..\..\Unity\Assets\Model\Module\Buff\BuffEntity\BuffEntity.cs">
       <Link>Module\Buff\BuffEntity\BuffEntity.cs</Link>
     </Compile>
 
     <Compile Include="..\..\Unity\Assets\Model\Module\Buff\BuffEntity\BuffState.cs">
       <Link>Module\Buff\BuffEntity\BuffState.cs</Link>
+    </Compile>
+
+    <Compile Include="..\..\Unity\Assets\Model\Module\Buff\BuffEntity\BuffTickComponent.cs">
+      <Link>Module\Buff\BuffEntity\BuffTickComponent.cs</Link>
     </Compile>
 
     <Compile Include="..\..\Unity\Assets\Model\Module\Config\**\*.cs">

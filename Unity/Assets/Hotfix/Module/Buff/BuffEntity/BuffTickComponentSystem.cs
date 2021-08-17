@@ -1,12 +1,12 @@
 ﻿namespace ET
 {
-    public class BuffTickComponentAwakeSystem:AwakeSystem<BuffTickComponent,int>
+    public class BuffTickComponentAwakeSystem:AwakeSystem<BuffTickComponent>
     {
-        public override void Awake(BuffTickComponent self, int buffConfigId)
+        public override void Awake(BuffTickComponent self)
         {
-            self.BuffConfigId = buffConfigId;
-            self.BuffTickTimeSpan = BuffConfigCategory.Instance.Get(buffConfigId).BuffTickTimeSpan;
             self.ParentBuffEntity = self.GetParent<BuffEntity>();
+            self.BuffConfigId = self.ParentBuffEntity.BuffConfigId;
+            self.BuffTickTimeSpan = BuffConfigCategory.Instance.Get(self.BuffConfigId).BuffTickTimeSpan;
             self.TickBuffActions = ListComponent<IBuffAction>.Create();
             self.TickBuffActionsArgs = ListComponent<int[]>.Create();
             if (!BuffActionDispatcher.Instance.GetBuffTickActions(self.GetParent<BuffEntity>(), self.TickBuffActions.List, self.TickBuffActionsArgs.List))
@@ -31,6 +31,7 @@
         }
     }
 
+    
     public static class BuffTickComponentSystem
     {
         public static void StartTick(this BuffTickComponent self)

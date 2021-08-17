@@ -37,20 +37,5 @@ namespace ET
         /// </summary>
         public long BuffEndTime;
 
-        /// <summary>
-        /// Buff轮询计时器Id
-        /// </summary>
-        public long? BuffTickTimerId;
-
-        /// <summary>
-        /// 轮询BuffAction列表组件
-        /// </summary>
-        public ListComponent<IBuffAction> TickBuffActions;
-
-        /// <summary>
-        /// 轮询BuffAction 参数列表组件
-        /// </summary>
-        public ListComponent<int[]> TickBuffActionsArgs;
-
     }
 }

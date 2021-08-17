@@ -8,7 +8,6 @@
             self.SourceEntity = sourceEntity;
             self.BuffContainer = self.Parent as BuffContainerComponent;
             self.BuffConfigId = buffConfigId;
-            self.BuffEndTime = TimeHelper.ServerNow() + buffConfig.DurationMillsecond;
             self.CurrentLayer++;
             self.State = (BuffState) buffConfig.State;
             Log.Debug($"BuffAwaked BuffConfigId: {self.BuffConfigId.ToString()}  BuffEntityId: {self.Id.ToString()}");
@@ -20,19 +19,9 @@
         public override void Start(BuffEntity self)
         {
             BuffActionDispatcher.Instance.RunBuffAddAction(self);
-            self.RunTickAction(BuffConfigCategory.Instance.Get(self.BuffConfigId).BuffTickTimeSpan);
             Log.Debug($"BuffAdded BuffConfigId: {self.BuffConfigId.ToString()}  BuffEntityId: {self.Id.ToString()}");
-        }
-    }
-
-    public class BuffEntityUpdateSystem: UpdateSystem<BuffEntity>
-    {
-        public override void Update(BuffEntity self)
-        {
-            if (TimeHelper.ServerNow() >= self.BuffEndTime)
-            {
-                self.Dispose();
-            }
+            self.TryRunTick();
+            self.TryRunCountDown();
         }
     }
 
@@ -40,21 +29,13 @@
     {
         public override void Destroy(BuffEntity self)
         {
-            if (self.BuffTickTimerId != null)
-            {
-                TimerComponent.Instance.Remove(self.BuffTickTimerId.Value);
-                self.TickBuffActions.Dispose();
-                self.TickBuffActions = null;
-                self.TickBuffActionsArgs.Dispose();
-                self.TickBuffActionsArgs = null;
-            }
-
             if (TimeHelper.ServerNow() >= self.BuffEndTime)
             {
                 BuffActionDispatcher.Instance.RunBuffTimeOutAction(self);
                 Log.Debug($"BuffTimeOuted BuffConfigId: {self.BuffConfigId.ToString()}  BuffEntityId: {self.Id.ToString()}");
             }
-            else
+
+            if (self.GetComponent<BuffCountDownComponent>()==null)
             {
                 BuffActionDispatcher.Instance.RunBuffRemoveAction(self);
                 Log.Debug($"BuffRemoved BuffConfigId: {self.BuffConfigId.ToString()}  BuffEntityId: {self.Id.ToString()}");
@@ -69,6 +50,35 @@
     public static class BuffEntitySystem
     {
         /// <summary>
+        /// 尝试运行Buff轮询
+        /// </summary>
+        /// <param name="self"></param>
+        public static void TryRunTick(this BuffEntity self)
+        {
+            if (BuffConfigCategory.Instance.Get(self.BuffConfigId).BuffTickActions == null)
+            {
+                return;
+            }
+
+            if (BuffConfigCategory.Instance.Get(self.BuffConfigId).BuffTickTimeSpan<=0)
+            {
+                Log.Error($"BuffConfig Tick间隔时间配置错误！ BuffConfigId: {self.BuffConfigId.ToString()}");
+                return;
+            }
+            self.AddComponent<BuffTickComponent>();
+        }
+
+        public static void TryRunCountDown(this BuffEntity self)
+        {
+            if (BuffConfigCategory.Instance.Get(self.BuffConfigId).DurationMillsecond<=0)
+            {
+                return;
+            }
+            
+            
+        }
+        
+        /// <summary>
         /// 执行Buff刷新
         /// </summary>
         /// <param name="self"></param>
@@ -78,53 +88,6 @@
             Log.Debug($"BuffRefreshed BuffConfigId: {self.BuffConfigId.ToString()}  BuffEntityId: {self.Id.ToString()}");
         }
 
-        /// <summary>
-        /// 执行Buff 定时Tick
-        /// </summary>
-        /// <param name="self"></param>
-        /// <param name="timeSpan"></param>
-        public static void RunTickAction(this BuffEntity self, int timeSpan)
-        {
-            if (timeSpan <= 0)
-            {
-                self.BuffTickTimerId = null;
-                return;
-            }
-
-            if (BuffConfigCategory.Instance.Get(self.BuffConfigId).BuffTickActions == null)
-            {
-                return;
-            }
-
-            self.TickBuffActions = ListComponent<IBuffAction>.Create();
-            self.TickBuffActionsArgs = ListComponent<int[]>.Create();
-            if (!BuffActionDispatcher.Instance.GetBuffTickActions(self, self.TickBuffActions.List, self.TickBuffActionsArgs.List))
-            {
-                self.TickBuffActions.Dispose();
-                self.TickBuffActions = null;
-                self.TickBuffActionsArgs.Dispose();
-                self.TickBuffActionsArgs = null;
-                return;
-            }
-            //立即执行一次
-            Tick();
-            
-            //间隔指定时间执行
-            self.BuffTickTimerId = TimerComponent.Instance.NewRepeatedTimer(timeSpan, () =>
-            {
-                Tick();
-                Log.Debug($"BuffTicked BuffConfigId: {self.BuffConfigId.ToString()}  BuffEntityId: {self.Id.ToString()}");
-            });
-
-            void Tick()
-            {
-                for (int i = 0; i < self.TickBuffActions.List.Count; i++)
-                {
-                    self.TickBuffActions.List[i].Run(self, self.TickBuffActionsArgs.List[i]);
-                }
-            }
-        }
-
         public static void Clear(this BuffEntity self)
         {
             self.CurrentLayer = 0;
@@ -132,11 +95,9 @@
             self.BuffConfigId = 0;
             self.BuffEndTime = 0;
             self.BuffContainer = null;
-            self.BuffTickTimerId = null;
             self.State = BuffState.None;
         }
-
-
+        
         public static void SetContainerBuffStateOnRemove(this BuffEntity self)
         {
             foreach (var child in self.GetParent<BuffContainerComponent>().Children.Values)
