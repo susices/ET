@@ -94,11 +94,11 @@ namespace ET
         /// <param name="self"></param>
         /// <param name="buffEntity"></param>
         /// <param name="buffActionIds"></param>
-        public static void RunBuffActions(this BuffActionDispatcher self, BuffEntity buffEntity, int[] buffActionIds)
+        public static bool RunBuffActions(this BuffActionDispatcher self, BuffEntity buffEntity, int[] buffActionIds)
         {
             if (buffActionIds==null)
             {
-                return;
+                return false;
             }
             
             foreach (int buffActionId in buffActionIds)
@@ -108,6 +108,9 @@ namespace ET
                 int[] args = buffActionConfig.actionArgs;
                 self.RunBuffAction(buffEntity, baseBuffActionId, args);
             }
+
+            return true;
+
         }
 
         /// <summary>
@@ -118,7 +121,10 @@ namespace ET
         public static void RunBuffAddAction(this BuffActionDispatcher self, BuffEntity buffEntity)
         {
             int[] buffAddActionIds = BuffConfigCategory.Instance.Get(buffEntity.BuffConfigId).BuffAddActions;
-            self.RunBuffActions(buffEntity, buffAddActionIds);
+            if (self.RunBuffActions(buffEntity, buffAddActionIds))
+            {
+                Log.Debug($"BuffAdded BuffConfigId: {buffEntity.BuffConfigId.ToString()}  BuffEntityId: {buffEntity.Id.ToString()}");
+            }
         }
 
         /// <summary>
@@ -129,7 +135,10 @@ namespace ET
         public static void RunBuffRemoveAction(this BuffActionDispatcher self, BuffEntity buffEntity)
         {
             int[] buffRemoveActionIds = BuffConfigCategory.Instance.Get(buffEntity.BuffConfigId).BuffRemoveActions;
-            self.RunBuffActions(buffEntity, buffRemoveActionIds);
+            if (self.RunBuffActions(buffEntity, buffRemoveActionIds))
+            {
+                Log.Debug($"BuffRemoveed BuffConfigId: {buffEntity.BuffConfigId.ToString()}  BuffEntityId: {buffEntity.Id.ToString()}");
+            }
         }
 
         /// <summary>
@@ -139,8 +148,12 @@ namespace ET
         /// <param name="buffEntity"></param>
         public static void RunBuffRefreshAction(this BuffActionDispatcher self, BuffEntity buffEntity)
         {
+            
             int[] buffRefreshActionIds = BuffConfigCategory.Instance.Get(buffEntity.BuffConfigId).BuffRefreshActions;
-            self.RunBuffActions(buffEntity, buffRefreshActionIds);
+            if (self.RunBuffActions(buffEntity, buffRefreshActionIds))
+            {
+                Log.Debug($"BuffRefreshed BuffConfigId: {buffEntity.BuffConfigId.ToString()}  BuffEntityId: {self.Id.ToString()}");
+            }
         }
 
         /// <summary>
@@ -150,8 +163,17 @@ namespace ET
         /// <param name="buffEntity"></param>
         public static void RunBuffTickAction(this BuffActionDispatcher self, BuffEntity buffEntity)
         {
-            int[] buffTickActionIds = BuffConfigCategory.Instance.Get(buffEntity.BuffConfigId).BuffTickActions;
-            self.RunBuffActions(buffEntity, buffTickActionIds);
+            if (BuffConfigCategory.Instance.Get(buffEntity.BuffConfigId).BuffTickActions == null)
+            {
+                return;
+            }                                          
+
+            if (BuffConfigCategory.Instance.Get(buffEntity.BuffConfigId).BuffTickTimeSpan<=0)
+            {
+                Log.Error($"BuffConfig Tick间隔时间配置错误！ BuffConfigId: {buffEntity.BuffConfigId.ToString()}");
+                return;
+            }
+            buffEntity.AddComponent<BuffTickComponent>();
         }
 
         /// <summary>
@@ -191,7 +213,10 @@ namespace ET
         public static void RunBuffTimeOutAction(this BuffActionDispatcher self, BuffEntity buffEntity)
         {
             int[] buffTimeOutActionIds = BuffConfigCategory.Instance.Get(buffEntity.BuffConfigId).BuffTimeOutActions;
-            self.RunBuffActions(buffEntity, buffTimeOutActionIds);
+            if (self.RunBuffActions(buffEntity, buffTimeOutActionIds))
+            {
+                Log.Debug($"BuffTimeOut BuffConfigId: {buffEntity.BuffConfigId.ToString()}  BuffEntityId: {self.Id.ToString()}");
+            }
         }
     }
 }

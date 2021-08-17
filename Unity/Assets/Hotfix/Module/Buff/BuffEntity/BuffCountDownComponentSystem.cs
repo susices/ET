@@ -15,7 +15,13 @@
     {
         public override void Destroy(BuffCountDownComponent self)
         {
-            
+            if (!self.IsCountDownEnd)
+            {
+                self.BuffCountDownCancellationToken.Cancel();
+            }
+
+            self.BuffConfigId = 0;
+            self.ParentBuffEntity = null;
         }
     }
 

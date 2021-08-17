@@ -12,14 +12,6 @@ namespace ET
     }
 
     [ObjectSystem]
-    public class BuffContainerUpdateSystem: UpdateSystem<BuffContainerComponent>
-    {
-        public override void Update(BuffContainerComponent self)
-        {
-        }
-    }
-
-    [ObjectSystem]
     public class BuffContainerDestroySystem: DestroySystem<BuffContainerComponent>
     {
         public override void Destroy(BuffContainerComponent self)
@@ -61,17 +53,22 @@ namespace ET
                 if (buffEntity.SourceEntity.Id == sourceEntity.Id)
                 {
                     sameSourceBuffEntity = buffEntity;
+                    break;
                 }
             }
             //检测是否可以刷新该同来源Buff
             if (sameSourceBuffEntity != null)
             {
-                if (buffConfig.IsEnableRefresh)
+                if (!buffConfig.IsEnableRefresh)
                 {
-                    sameSourceBuffEntity.RunRefreshAction();
-                    return true;
+                    return false;
                 }
-                return false;
+                if (sameSourceBuffEntity.CurrentLayer < buffConfig.MaxLayerCount)
+                {
+                    sameSourceBuffEntity.CurrentLayer++;
+                }
+                BuffActionDispatcher.Instance.RunBuffRefreshAction(sameSourceBuffEntity);
+                return true;
             }
             
             //检测是否可以添加新Buff
@@ -93,7 +90,8 @@ namespace ET
             {
                 return false;
             }
-
+            BuffActionDispatcher.Instance.RunBuffRemoveAction(buffEntity);
+            Log.Debug($"BuffRemoved BuffConfigId: {buffEntity.BuffConfigId.ToString()}  BuffEntityId: {self.Id.ToString()}");
             buffEntity.Dispose();
             return true;
         }

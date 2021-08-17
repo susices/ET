@@ -40,7 +40,6 @@
             self.BuffTickTimerId = TimerComponent.Instance.NewRepeatedTimer(self.BuffTickTimeSpan, () =>
             {
                 self.Tick();
-                Log.Debug($"BuffTicked BuffConfigId: {self.BuffConfigId.ToString()}  BuffEntityId: {self.Id.ToString()}");
             });
         }
         
@@ -50,6 +49,7 @@
             {
                 self.TickBuffActions.List[i].Run(self.ParentBuffEntity, self.TickBuffActionsArgs.List[i]);
             }
+            Log.Debug($"BuffTicked BuffConfigId: {self.BuffConfigId.ToString()}  BuffEntityId: {self.Id.ToString()}");
         }
     }
 }

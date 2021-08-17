@@ -31,11 +31,5 @@ namespace ET
         /// 被添加到的Buff容器
         /// </summary>
         public BuffContainerComponent BuffContainer;
-
-        /// <summary>
-        /// Buff结束时间 单位毫秒
-        /// </summary>
-        public long BuffEndTime;
-
     }
 }
