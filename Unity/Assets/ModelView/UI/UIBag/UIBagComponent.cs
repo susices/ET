@@ -11,7 +11,7 @@ namespace ET
     [UIPanelComponent(UIPanelType.UIBag)]
     public class UIBagComponent :Entity
     {
-        /// <summary>
+        /// <summary>  
         /// 背包物品列表
         /// </summary>
         public EnhancedScroller ScrollView;

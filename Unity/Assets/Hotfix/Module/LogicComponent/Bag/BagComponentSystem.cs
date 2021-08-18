@@ -40,7 +40,14 @@ namespace ET
                 return;
             }
             await self.GetComponent<DataSetComponent>().UpdateData(DataUpdateMode.Difference, m2cUseBatItem.BagItems);
-            self.GetParent<Unit>().GetComponent<BuffContainerComponent>().TryAddBuff(1, self);
+            if (itemId==1)
+            {
+                self.GetParent<Unit>().GetComponent<BuffContainerComponent>().TryAddBuff(1, self);
+            }
+            else
+            {
+                self.GetParent<Unit>().GetComponent<BuffContainerComponent>().TryRemoveBuff(1);
+            }
         }
 
         public static async ETTask SwitchBagTab(this BagComponent self, int tab)

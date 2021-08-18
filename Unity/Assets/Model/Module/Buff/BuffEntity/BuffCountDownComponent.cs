@@ -23,6 +23,6 @@
         /// <summary>
         /// buff倒计时取消Token
         /// </summary>
-        public ETCancellationToken BuffCountDownCancellationToken = new ETCancellationToken();
+        public ETCancellationToken BuffCountDownCancellationToken;
     }
 }

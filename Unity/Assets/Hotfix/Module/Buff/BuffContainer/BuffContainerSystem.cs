@@ -39,7 +39,7 @@ namespace ET
             using var buffEntityList = ListComponent<BuffEntity>.Create();
 
             //检测是否含有该种Buff
-            if (!CheckBuffByConfigId(self, buffConfigId, buffEntityList.List))
+            if (!GetBuffByConfigId(self, buffConfigId, buffEntityList.List))
             {
                 AddBuff(self, buffConfigId, sourceEntity);
                 return true;
@@ -132,7 +132,7 @@ namespace ET
         /// <summary>
         /// 检查是否存在指定configId的Buff  并返回符合的buffEntity列表
         /// </summary>
-        private static bool CheckBuffByConfigId(this BuffContainerComponent self, int buffConfigId, List<BuffEntity> buffEntities)
+        public static bool GetBuffByConfigId(this BuffContainerComponent self, int buffConfigId, List<BuffEntity> buffEntities)
         {
             
             bool value = false;
@@ -145,6 +145,34 @@ namespace ET
                 }
             }
             return value;
+        }
+        
+        public static void RemoveBuffs(this BuffContainerComponent self, List<BuffEntity> buffEntities)
+        {
+            for (int i = 0; i < buffEntities.Count; i++)
+            {
+                if (!self.TryRemoveBuff(buffEntities[i].Id))
+                {
+                    Log.Info($"Remove Buff failed buffConfigId:{buffEntities[i].BuffConfigId.ToString()} buffEntityId:{buffEntities[i].Id.ToString()}");
+                }
+            }
+        }
+        
+        /// <summary>
+        /// 移除指定buff配置Id的所有buff实体
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="buffConfigId"></param>
+        /// <returns></returns>
+        public static bool TryRemoveBuff(this BuffContainerComponent self, int buffConfigId)
+        {
+            using var buffEntityList = ListComponent<BuffEntity>.Create();
+            if (self.GetBuffByConfigId(buffConfigId, buffEntityList.List))
+            {
+                self.RemoveBuffs(buffEntityList.List);
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -7,6 +7,7 @@
             self.ParentBuffEntity = self.GetParent<BuffEntity>();
             self.BuffConfigId = self.ParentBuffEntity.BuffConfigId;
             self.IsCountDownEnd = false;
+            self.BuffCountDownCancellationToken = new ETCancellationToken();
             self.CountDown().Coroutine();
         }
     }
@@ -18,8 +19,8 @@
             if (!self.IsCountDownEnd)
             {
                 self.BuffCountDownCancellationToken.Cancel();
+                self.BuffCountDownCancellationToken = null;
             }
-
             self.BuffConfigId = 0;
             self.ParentBuffEntity = null;
         }

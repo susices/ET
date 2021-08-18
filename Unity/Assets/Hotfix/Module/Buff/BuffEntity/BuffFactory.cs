@@ -5,9 +5,9 @@
     /// </summary>
     public static class BuffFactory
     {
-        public static BuffEntity Create(BuffContainerComponent buffManagerComponent,Entity sourceEntity, int buffConfigId)
+        public static BuffEntity Create(BuffContainerComponent buffContainer,Entity sourceEntity, int buffConfigId)
         {
-            var buffEntity = EntityFactory.CreateWithParent<BuffEntity, Entity, int>(buffManagerComponent, sourceEntity, buffConfigId, true);
+            var buffEntity = EntityFactory.CreateWithParent<BuffEntity, Entity, int>(buffContainer, sourceEntity, buffConfigId, true);
             BuffActionDispatcher.Instance.RunBuffAddAction(buffEntity);
             BuffActionDispatcher.Instance.RunBuffTickAction(buffEntity);
             if (BuffConfigCategory.Instance.Get(buffConfigId).DurationMillsecond>0)
