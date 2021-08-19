@@ -1522,6 +1522,7 @@ namespace Slate
                     group.isCollapsed = anyExpanded;
                 }
             }
+            
             GUI.color = Color.white;
             searchString = EditorGUI.TextField(searchRect, searchString, (GUIStyle)"ToolbarSeachTextField");
             if ( GUI.Button(searchCancelRect, string.Empty, (GUIStyle)"ToolbarSeachCancelButton") ) {
@@ -1548,7 +1549,7 @@ namespace Slate
                 var newGroup = cutscene.AddGroup<ActorGroup>(null).AddTrack<ActorActionTrack>();
                 CutsceneUtility.selectedObject = newGroup;
             }
-
+            
             //clear picks
             if ( e.rawType == EventType.MouseUp ) {
                 pickedGroup = null;

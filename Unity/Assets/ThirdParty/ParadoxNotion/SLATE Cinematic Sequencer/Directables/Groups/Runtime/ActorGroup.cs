@@ -35,7 +35,10 @@ namespace Slate
         }
 
         public override GameObject actor {
-            get { return base.ResolveActor(_actor); }
+            get
+            {
+                return base.ResolveActor(_actor);
+            }
             set
             {
                 if ( _actor != value ) {
@@ -46,11 +49,9 @@ namespace Slate
                         if ( UnityEditor.EditorUtility.IsPersistent(value) ) {
                             referenceMode = ActorReferenceMode.UseInstanceHideOriginal;
                             initialTransformation = ActorInitialTransformation.UseLocal;
-
                         }
                     }
 #endif
-
                 }
             }
         }

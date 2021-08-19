@@ -208,7 +208,7 @@ namespace Slate
                     DirectorGUI.UpdateFade(color);
                 } else if ( time < length - blendOut ) {
                     DirectorGUI.UpdateFade(Color.clear);
-                }
+                }   
             }
 
             if ( blendOutEffect == BlendOutEffectType.FadeToColor ) {

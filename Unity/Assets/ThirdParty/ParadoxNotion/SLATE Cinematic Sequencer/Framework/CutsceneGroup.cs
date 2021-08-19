@@ -421,7 +421,16 @@ namespace Slate
 
         ///Resolve final actor used. Returns ref clone if exists, or original.
         protected GameObject ResolveActor(GameObject original) {
-            return refDuplicateActor != null ? refDuplicateActor : original;
+            if (refDuplicateActor != null)
+            {
+                //Debug.Log("ResolveActor Ref");
+                return refDuplicateActor;
+            }
+            else
+            {
+                //Debug.Log("ResolveActor original");
+                return original;
+            }
         }
 
 
