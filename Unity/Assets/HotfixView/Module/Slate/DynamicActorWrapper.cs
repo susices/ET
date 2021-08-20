@@ -1,15 +1,25 @@
 ﻿using System;
+using Sirenix.OdinInspector;
+using Slate;
+using UnityEditor;
 using UnityEngine;
 
 namespace ET
 {
-    public class DynamicActorWrapper:MonoBehaviour
+    [DynamicActor]
+    public class DynamicActorWrapper:MonoBehaviour, IDynamicActor
     {
-        public string ActorName;
-
+        [OnValueChanged("SetName")]
+        public int ActorId;
+        
         public GameObject GetActor()
         {
-            return GameObject.Find(this.ActorName);
+            return GameObject.Find(this.ActorId.ToString());
+        }
+
+        private void SetName()
+        {
+            this.gameObject.name = $"Dynamic Actor:{this.ActorId.ToString()}";
         }
     }
 }

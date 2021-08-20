@@ -88,6 +88,24 @@ namespace Slate
                 CutsceneEditor.ShowWindow(cutscene);
             }
             GUILayout.Space(5);
+            if ( GUILayout.Button("Create Dynamic Actor ") )
+            {
+                var dynamicActorRoot = cutscene.transform.Find("[ Dynamic Actor ]");
+                if (dynamicActorRoot==null)
+                {
+                    var rootGo = new GameObject("[ Dynamic Actor ]");
+                    rootGo.transform.SetParent(cutscene.transform);
+                    dynamicActorRoot = rootGo.transform;
+                }
+                //var types =  ReflectionTools.GetImplementationsOf(typeof (IDynamicActor));
+                var type = ReflectionTools.GetType("DynamicActorWrapper");
+                GameObject dynamicActor = new GameObject();
+                dynamicActor.name = type.Name;
+                dynamicActor.transform.SetParent(dynamicActorRoot);
+                dynamicActor.AddComponent(type);
+                Selection.activeObject = dynamicActor;
+            }
+            GUILayout.Space(5);
 
             DoCutsceneInspector();
             DoSelectionInspector();

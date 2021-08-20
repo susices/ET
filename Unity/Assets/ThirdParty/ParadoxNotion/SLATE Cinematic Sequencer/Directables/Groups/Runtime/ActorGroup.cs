@@ -55,7 +55,7 @@ namespace Slate
                 }
             }
         }
-
+ 
         public override ActorReferenceMode referenceMode {
             get { return _referenceMode; }
             set { _referenceMode = value; }
