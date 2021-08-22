@@ -21,7 +21,7 @@ namespace Slate
 
         public IDirector root { get { return parent != null ? parent.root : null; } }
         public IDirectable parent { get; private set; }
-        public GameObject actor { get { return parent != null ? parent.actor : null; } }
+        public virtual GameObject actor { get { return parent != null ? parent.actor : null; } }
         IEnumerable<IDirectable> IDirectable.children { get { return null; } }
 
         ///All animated parameters are stored within this collection object
