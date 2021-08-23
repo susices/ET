@@ -9,6 +9,5 @@ namespace ET
             var assetEntity = EntityFactory.Create<AssetEntity, string, Transform>(pool.Domain, assetPath, parent, true);
             return assetEntity;
         }
-        
     }
 }

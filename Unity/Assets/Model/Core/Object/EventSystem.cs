@@ -195,7 +195,7 @@ namespace ET
 			Type type = component.GetType();
 
 			if (this.loadSystems.ContainsKey(type))
-			{ 
+			{
 				this.loaders.Enqueue(component.InstanceId);
 			}
 
