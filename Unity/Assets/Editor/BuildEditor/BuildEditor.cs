@@ -127,6 +127,20 @@ namespace ET
                 BuildHelper.LoopDependencyCheck();
             }
             
+            GUILayout.Space(5);
+
+            if (GUILayout.Button("测试动态实体", GUILayout.ExpandHeight(true)))
+            {
+                BuildHelper.TestEntity();
+            }
+            
+            GUILayout.Space(5);
+
+            if (GUILayout.Button("测试动态实体读取", GUILayout.ExpandHeight(true)))
+            {
+                BuildHelper.TestEntityRead();
+            }
+            
             
             GUILayout.Space(5);
             

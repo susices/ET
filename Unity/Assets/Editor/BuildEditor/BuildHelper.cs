@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ProtoBuf;
+using ProtoBuf.Meta;
 using UnityEditor;
 using UnityEngine;
 
@@ -216,5 +217,32 @@ namespace ET
             DependenciesCache.Add(assetBundleName, dependencies);
             return dependencies;
         }
+
+        public static void TestEntity()
+        {
+            
+            SceneEntityManifest manifest = new SceneEntityManifest();
+            
+            
+            string path = Path.Combine("Assets/Bundles/AssetManifestDir/", $"EntityManifest.bytes");
+            using FileStream file = File.Create(path);
+            Serializer.Serialize(file, manifest);
+            AssetDatabase.SaveAssets();
+        }
+        
+        public static void TestEntityRead()
+        {
+            RuntimeTypeModel.Default
+                    .Add(typeof(Vector3), false)
+                    .Add("x", "y", "z");
+            RuntimeTypeModel.Default
+                    .Add(typeof(Quaternion), false)
+                    .Add("x", "y", "z","w");
+            string path = Path.Combine("Assets/Bundles/AssetManifestDir/", $"EntityManifest.bytes");
+            var data = File.OpenRead(path);
+            var newManifist = Serializer.Deserialize<SceneEntityManifest>(data);
+            var infolist = newManifist.list;
+        }
+        
     }
 }
