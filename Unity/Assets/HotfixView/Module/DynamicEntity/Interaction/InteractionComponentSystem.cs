@@ -1,6 +1,6 @@
 ﻿namespace ET
 {
-    public class InteractionComponentSystem
+    public static class InteractionComponentSystem
     {
         
     }

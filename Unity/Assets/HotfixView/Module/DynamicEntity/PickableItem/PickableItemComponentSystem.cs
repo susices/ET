@@ -1,6 +1,6 @@
-﻿namespace ET.PickableItem
+﻿namespace ET
 {
-    public class PickableItemComponentSystem
+    public static class PickableItemComponentSystem
     {
         
     }

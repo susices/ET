@@ -3,7 +3,7 @@
     /// <summary>
     /// 交互组件
     /// </summary>
-    public class InteractionComponent
+    public class InteractionComponent:Entity
     {
         
     }

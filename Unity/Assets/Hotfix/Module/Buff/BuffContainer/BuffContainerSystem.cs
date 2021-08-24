@@ -98,8 +98,12 @@ namespace ET
 
         private static void AddBuff(this BuffContainerComponent self, int buffConfigId, Entity sourceEntity)
         {
-            var buffENtity =  BuffFactory.Create(self, sourceEntity, buffConfigId);
-            self.BuffState = self.BuffState | buffENtity.State;
+            var buffEntity =  BuffFactory.Create(self, sourceEntity, buffConfigId);
+            if (buffEntity ==null)
+            {
+                return;
+            }
+            self.BuffState = self.BuffState | buffEntity.State;
         }
 
         /// <summary>

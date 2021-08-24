@@ -9,6 +9,7 @@
             {
                 Log.Debug(args.ToString());
             }
+            buffEntity.Dispose();
         }
     }
     

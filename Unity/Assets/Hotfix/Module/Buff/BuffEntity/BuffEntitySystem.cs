@@ -18,8 +18,8 @@
     {
         public override void Destroy(BuffEntity self)
         {
+            Log.Info($"BuffEntity Destroyed BuffConfigId: {self.BuffConfigId.ToString()}  BuffEntityId: {self.Id.ToString()}");
             self.SetContainerBuffStateOnRemove();
-
             self.Clear();
         }
     }

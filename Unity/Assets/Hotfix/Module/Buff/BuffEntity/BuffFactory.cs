@@ -9,6 +9,10 @@
         {
             var buffEntity = EntityFactory.CreateWithParent<BuffEntity, Entity, int>(buffContainer, sourceEntity, buffConfigId, true);
             BuffActionDispatcher.Instance.RunBuffAddAction(buffEntity);
+            if (buffEntity.IsDisposed)
+            {
+                return null;
+            }
             BuffActionDispatcher.Instance.RunBuffTickAction(buffEntity);
             if (BuffConfigCategory.Instance.Get(buffConfigId).DurationMillsecond>0)
             {

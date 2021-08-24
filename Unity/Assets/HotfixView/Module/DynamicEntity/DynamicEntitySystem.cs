@@ -1,6 +1,6 @@
 ﻿namespace ET
 {
-    public class DynamicEntitySystem
+    public static class DynamicEntitySystem
     {
         
     }

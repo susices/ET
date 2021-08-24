@@ -1,6 +1,9 @@
 ﻿namespace ET
 {
-    public class DynamicEntity
+    /// <summary>
+    /// 动态实体
+    /// </summary>
+    public class DynamicEntity:Entity
     {
         
     }

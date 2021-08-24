@@ -1,6 +1,9 @@
-﻿namespace ET.Character
+﻿namespace ET
 {
-    public class CharacterComponent
+    /// <summary>
+    /// 角色组件
+    /// </summary>
+    public class CharacterComponent:Entity
     {
         
     }

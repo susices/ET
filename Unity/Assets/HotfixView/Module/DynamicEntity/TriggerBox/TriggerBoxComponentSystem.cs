@@ -1,6 +1,6 @@
-﻿namespace ET.TriggerBox
+﻿namespace ET
 {
-    public class TriggerBoxComponentSystem
+    public static class TriggerBoxComponentSystem
     {
         
     }

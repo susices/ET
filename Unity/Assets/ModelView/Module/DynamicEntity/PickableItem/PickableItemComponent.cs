@@ -1,6 +1,9 @@
-﻿namespace ET.Pickable
+﻿namespace ET
 {
-    public class PickableComponent:Entity
+    /// <summary>
+    /// 可拾取物品组件
+    /// </summary>
+    public class PickableItemComponent:Entity
     {
         
     }
