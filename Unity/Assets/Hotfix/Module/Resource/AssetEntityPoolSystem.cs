@@ -41,7 +41,7 @@ namespace ET
             self.Pool.Enqueue(gameObject);
             if (self.RefCount==0)
             {
-                int assetPoolRecycleMillsoconds = LocalizationComponent.Instance.CachePoolMillSeconds(self.AssetPathIndex);
+                int assetPoolRecycleMillsoconds = self.CachePoolMillSeconds;
                 if (assetPoolRecycleMillsoconds<=0)
                 {
                     assetPoolRecycleMillsoconds = FrameworkConfigVar.AssetPoolRecycleMillSeconds.IntVar();
@@ -52,13 +52,14 @@ namespace ET
     }
     
     
-    public class AssetEntityPoolAwakeSystem : AwakeSystem<AssetEntityPool, GameObject, string, int>
+    public class AssetEntityPoolAwakeSystem : AwakeSystem<AssetEntityPool, GameObject, string, string ,int>
     {
-        public override void Awake(AssetEntityPool self, GameObject gameObjectRes, string bundleName, int assetPathIndex)
+        public override void Awake(AssetEntityPool self, GameObject gameObjectRes, string bundleName, string assetPath, int cachePoolMillSeconds)
         {
             self.GameObjectRes = gameObjectRes;
             self.BundleName = bundleName;
-            self.AssetPathIndex = assetPathIndex;
+            self.AssetPath = assetPath;
+            self.CachePoolMillSeconds = cachePoolMillSeconds;
         }
     }
     
@@ -91,14 +92,15 @@ namespace ET
             ResourcesComponent.Instance.UnloadBundle(self.BundleName);
             if (self.Parent is PoolingAssetComponent poolingAssetComponent)
             {
-                var value =  poolingAssetComponent.PathAssetEntityPools.Remove(self.AssetPathIndex.LocalizedAssetPath());
-                Log.Debug($"{self.AssetPathIndex.LocalizedAssetPath()} 卸载结果 {value.ToString()}");
+                var value =  poolingAssetComponent.PathAssetEntityPools.Remove(self.AssetPath);
+                Log.Debug($"{self.AssetPath} 卸载结果 {value.ToString()}");
             }
             else
             {
                 Log.Error($"AssetEntityPool的父节点不是PoolingAssetComponent！");
             }
-            self.AssetPathIndex = 0;
+            self.AssetPath = null;
+            self.CachePoolMillSeconds = 0;
         }
     }
 }

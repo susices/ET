@@ -1,7 +1,10 @@
 ﻿namespace ET
 {
-    public class DynamicEntityType
+    public enum DynamicEntityType
     {
-        
+        Character,
+        Interaction,
+        Pickable,
+        TriggerBox,
     }
 }

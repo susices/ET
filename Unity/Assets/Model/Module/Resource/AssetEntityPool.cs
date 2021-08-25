@@ -11,8 +11,10 @@ namespace ET
         public Queue<GameObject> Pool = new Queue<GameObject>();
 
         public GameObject GameObjectRes;
+        
+        public string AssetPath;
 
-        public int AssetPathIndex;
+        public int CachePoolMillSeconds;
         
         public string BundleName;
 
@@ -20,6 +22,5 @@ namespace ET
 
         public long DisposeTime;
     }
-
     
 }
