@@ -220,28 +220,16 @@ namespace ET
 
         public static void TestEntity()
         {
-            
             SceneEntityManifest manifest = new SceneEntityManifest();
-            
-            
-            string path = Path.Combine("Assets/Bundles/AssetManifestDir/", $"EntityManifest.bytes");
-            using FileStream file = File.Create(path);
-            Serializer.Serialize(file, manifest);
-            AssetDatabase.SaveAssets();
+            manifest.list.Add(new SceneEntityInfo(){DynamicEntityInfo = new CharacterInfo(){Name = "Test"}, Position = new float[]{1,2,3}});
+            var bytes =  ProtobufHelper.ToBytes(manifest);
+            manifest = ProtobufHelper.FromBytes(typeof(SceneEntityManifest), bytes,0,bytes.Length) as SceneEntityManifest;
+            var test = manifest.list;
         }
         
         public static void TestEntityRead()
         {
-            RuntimeTypeModel.Default
-                    .Add(typeof(Vector3), false)
-                    .Add("x", "y", "z");
-            RuntimeTypeModel.Default
-                    .Add(typeof(Quaternion), false)
-                    .Add("x", "y", "z","w");
-            string path = Path.Combine("Assets/Bundles/AssetManifestDir/", $"EntityManifest.bytes");
-            var data = File.OpenRead(path);
-            var newManifist = Serializer.Deserialize<SceneEntityManifest>(data);
-            var infolist = newManifist.list;
+            
         }
         
     }
