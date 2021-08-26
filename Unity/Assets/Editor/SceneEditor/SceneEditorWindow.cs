@@ -14,32 +14,18 @@ namespace ETEditor
 {
     public class SceneEditorWindow: OdinEditorWindow
     {
-        [TableList(ShowIndexLabels = true, AlwaysExpanded = true)]
+        [TableList(ShowIndexLabels = true, AlwaysExpanded = true, IsReadOnly = true)]
         public List<SceneEditItem> SceneEditItems = new List<SceneEditItem>();
 
-        [ButtonGroup("Load")]
-        [Button("加载动态实体")]
-        public void LoadDynamicEntity()
-        {
-            foreach (var sceneEditItem in this.GetSelectSceneEditItems())
-            {
-                
-            }
-        }
+        [ToggleLeft]
+        [OnValueChanged("OnSelectAllClick")]
+        public bool SelectAll;
+        
+        [EnumToggleButtons]
+        public SceneEntityType sceneEntityType;
 
-        [ButtonGroup("Load")]
-        [Button("加载静态实体")]
-        public void LoadStaticEntity()
-        {
-            foreach (var sceneEditItem in this.GetSelectSceneEditItems())
-            {
-                
-            }
-        }
-
-        [ButtonGroup("Load")]
-        [Button("加载全部实体")]
-        public void LoadAllEntity()
+        [ButtonGroup("SceneEdit")]
+        public void Load()
         {
             foreach (var sceneEditItem in this.GetSelectSceneEditItems())
             {
@@ -47,29 +33,8 @@ namespace ETEditor
             }
         }
         
-        [ButtonGroup("UnLoad")]
-        [Button("卸载动态实体")]
-        public void UnLoadDynamicEntity()
-        {
-            foreach (var sceneEditItem in this.GetSelectSceneEditItems())
-            {
-                
-            }
-        }
-
-        [ButtonGroup("UnLoad")]
-        [Button("卸载静态实体")]
-        public void UnLoadStaticEntity()
-        {
-            foreach (var sceneEditItem in this.GetSelectSceneEditItems())
-            {
-                
-            }
-        }
-
-        [ButtonGroup("UnLoad")]
-        [Button("卸载全部实体")]
-        public void UnLoadAllEntity()
+        [ButtonGroup("SceneEdit")]
+        public void UnLoad()
         {
             foreach (var sceneEditItem in this.GetSelectSceneEditItems())
             {
@@ -77,6 +42,23 @@ namespace ETEditor
             }
         }
         
+        [ButtonGroup("SceneEdit")]
+        public void Save()
+        {
+            foreach (var sceneEditItem in this.GetSelectSceneEditItems())
+            {
+                
+            }
+        }
+        
+        [ButtonGroup("SceneEdit")]
+        public void Delete()
+        {
+            foreach (var sceneEditItem in this.GetSelectSceneEditItems())
+            {
+                
+            }
+        }
         
         
 
@@ -84,6 +66,18 @@ namespace ETEditor
         public static void PopUp()
         {
             SceneEditorWindow sceneEditorWindow = GetWindow<SceneEditorWindow>();
+            sceneEditorWindow.SceneEditItems.Add(new SceneEditItem());
+            sceneEditorWindow.SceneEditItems.Add(new SceneEditItem());
+            sceneEditorWindow.SceneEditItems.Add(new SceneEditItem());
+            sceneEditorWindow.SceneEditItems.Add(new SceneEditItem());
+            sceneEditorWindow.SceneEditItems.Add(new SceneEditItem());
+            sceneEditorWindow.SceneEditItems.Add(new SceneEditItem());
+            sceneEditorWindow.SceneEditItems.Add(new SceneEditItem());
+            sceneEditorWindow.SceneEditItems.Add(new SceneEditItem());
+            sceneEditorWindow.SceneEditItems.Add(new SceneEditItem());
+            sceneEditorWindow.SceneEditItems.Add(new SceneEditItem());
+            sceneEditorWindow.SceneEditItems.Add(new SceneEditItem());
+            sceneEditorWindow.SceneEditItems.Add(new SceneEditItem());
             sceneEditorWindow.SceneEditItems.Add(new SceneEditItem());
             sceneEditorWindow.SceneEditItems.Add(new SceneEditItem());
             sceneEditorWindow.SceneEditItems.Add(new SceneEditItem());
@@ -106,6 +100,14 @@ namespace ETEditor
         public static void LoadSceneData()
         {
             
+        }
+
+        public void OnSelectAllClick()
+        {
+            foreach (var sceneEditItem in SceneEditItems)
+            {
+                sceneEditItem.IsSelect = SelectAll;
+            }
         }
 
 

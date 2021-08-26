@@ -11,9 +11,13 @@ namespace ETEditor
     {
         [ToggleLeft]
         [LabelText("")]
+        [TableColumnWidth(70,false)]
         public bool IsSelect;
         
+        [ReadOnly]
         public int SceneId = 0;
+        
+        
     }
 }
 
