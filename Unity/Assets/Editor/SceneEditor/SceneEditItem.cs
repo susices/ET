@@ -1,18 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class SceneEditItem : MonoBehaviour
+namespace ETEditor
 {
-    // Start is called before the first frame update
-    void Start()
+    [Serializable]
+    public class SceneEditItem
     {
+        [ToggleLeft]
+        [LabelText("")]
+        public bool IsSelect;
         
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public int SceneId = 0;
     }
 }
+
