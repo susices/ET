@@ -3,13 +3,21 @@ using System.Collections.Generic;
 using System.IO;
 using ET;
 using ProtoBuf;
+using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
 
 namespace ETEditor
 {
-    public class SceneEditor
+    public class SceneEditor: OdinEditorWindow
     {
+        public int a;
+
+        public static void PopUp()
+        {
+            
+        }
+
         [MenuItem("Tools/保存场景")]
         public static void SaveSceneData()
         {
