@@ -16,8 +16,10 @@ namespace ETEditor
         
         [ReadOnly]
         public int SceneId = 0;
-        
-        
+
+        [ReadOnly]
+        public bool IsLoaded;
+
     }
 }
 

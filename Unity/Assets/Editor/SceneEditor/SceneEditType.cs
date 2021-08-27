@@ -4,7 +4,7 @@ using System;
 namespace ETEditor
 {
     
-    public enum SceneEntityType 
+    public enum SceneEditType 
     {
         All,
         Dynamic,

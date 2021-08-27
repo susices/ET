@@ -221,7 +221,7 @@ namespace ET
         public static void TestEntity()
         {
             SceneEntityManifest manifest = new SceneEntityManifest();
-            manifest.list.Add(new SceneEntityInfo(){DynamicEntityInfo = new CharacterInfo(){Name = "Test"}, Position = new float[]{1,2,3}});
+            manifest.list.Add(new SceneEntityBuildInfo(){SceneEntityInfo = new CharacterInfo(){Name = "Test"}, Position = new float[]{1,2,3}});
             var bytes =  ProtobufHelper.ToBytes(manifest);
             manifest = ProtobufHelper.FromBytes(typeof(SceneEntityManifest), bytes,0,bytes.Length) as SceneEntityManifest;
             var test = manifest.list;

@@ -7,7 +7,7 @@ namespace ET
     public class DynamicEntityMonoInfo : MonoBehaviour
     {
         [ReadOnly]
-        public DynamicEntityType DynamicEntityType;
+        public SceneEntityType sceneEntityType;
         
         [ReadOnly]
         public int DynamicEntityConfigId;

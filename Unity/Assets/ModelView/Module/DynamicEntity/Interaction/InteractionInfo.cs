@@ -5,7 +5,7 @@ namespace ET
 {
     [Serializable]
     [ProtoContract]
-    public class InteractionInfo:IDynamicEntityInfo
+    public class InteractionInfo:ISceneEntityInfo
     {
         
     }

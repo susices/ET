@@ -8,7 +8,8 @@ namespace ET
     [ProtoInclude(21,typeof(InteractionInfo))]
     [ProtoInclude(22,typeof(PickableInfo))]
     [ProtoInclude(23,typeof(TriggerBoxInfo))]
-    public interface IDynamicEntityInfo
+    [ProtoInclude(24,typeof(BuildingInfo))]
+    public interface ISceneEntityInfo
     {
         
     }

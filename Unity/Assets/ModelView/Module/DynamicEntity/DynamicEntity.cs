@@ -9,7 +9,5 @@
         /// 动态实体实体配置表Id
         /// </summary>
         public int DynamicEntityConfigId;
-        
-        
     }
 }

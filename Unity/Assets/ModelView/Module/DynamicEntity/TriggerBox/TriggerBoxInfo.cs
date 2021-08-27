@@ -5,7 +5,7 @@ namespace ET
 {
     
     [ProtoContract]
-    public class TriggerBoxInfo:IDynamicEntityInfo
+    public class TriggerBoxInfo:ISceneEntityInfo
     {
         [ProtoMember(1)]
         public float X;

@@ -5,7 +5,7 @@ namespace ET
 {
     [Serializable]
     [ProtoContract]
-    public class CharacterInfo:IDynamicEntityInfo
+    public class CharacterInfo:ISceneEntityInfo
     {
         [ProtoMember(1)]
         public string Name;

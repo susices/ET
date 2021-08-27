@@ -5,8 +5,9 @@ namespace ET
 {
     [Serializable]
     [ProtoContract]
-    public class PickableInfo:ISceneEntityInfo
+    public class BuildingInfo:ISceneEntityInfo
     {
-        
+        [ProtoMember(1)]
+        public string path;
     }
 }
