@@ -1,5 +1,6 @@
 ﻿using System;
 using ProtoBuf;
+using UnityEngine;
 
 namespace ET
 {
@@ -9,5 +10,6 @@ namespace ET
     {
         [ProtoMember(1)]
         public string path;
+        
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using ProtoBuf;
+using UnityEngine;
 
 namespace ET
 {
@@ -13,5 +14,6 @@ namespace ET
         public float Y;
         [ProtoMember(3)]
         public float Z;
+        
     }
 }

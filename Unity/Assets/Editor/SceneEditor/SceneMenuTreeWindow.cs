@@ -20,8 +20,23 @@ public class SceneMenuTreeWindow : OdinMenuEditorWindow
     protected override OdinMenuTree BuildMenuTree()
     {
         var tree = new OdinMenuTree();
-        OdinMenuItem sceneEditMenuItem = new OdinMenuItem(tree, "场景管理",  CreateInstance<SceneEditorWindow>());
-        tree.AddMenuItemAtPath(null, sceneEditMenuItem);
+        // tree.Add("场景管理",CreateInstance<SceneEditorWindow>());
+        OdinMenuItem sceneCreateEditMenuItem = new OdinMenuItem(tree, "创建场景",  CreateInstance<SceneCreateEditorWindow>());
+        tree.AddMenuItemAtPath("场景管理", sceneCreateEditMenuItem);
+        OdinMenuItem sceneEditMenuItem = new OdinMenuItem(tree, "加载场景",  CreateInstance<SceneEditorWindow>());
+        tree.AddMenuItemAtPath("场景管理", sceneEditMenuItem);
+
+        tree.Selection.SelectionChanged += this.OnTreeSelection;
         return tree;
+    }
+
+    private void OnTreeSelection(SelectionChangedType selectionChangedType)
+    {
+        switch (this.MenuTree.Selection.SelectedValue)
+        {
+            case SceneEditorWindow sceneEditorWindow:
+                sceneEditorWindow.RefreshSceneDataItems();
+                break;
+        }
     }
 }

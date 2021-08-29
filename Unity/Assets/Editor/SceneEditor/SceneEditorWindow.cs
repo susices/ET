@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using ET;
 using ProtoBuf;
 using Sirenix.OdinInspector;
@@ -12,28 +13,22 @@ using UnityEditor.Search;
 using UnityEngine;
 using CharacterInfo = ET.CharacterInfo;
 using Object = UnityEngine.Object;
+using Unity.EditorCoroutines.Editor;
 
 namespace ETEditor
 {
     public class SceneEditorWindow:OdinEditorWindow
     {
-        private const string SceneDataDir = "Assets/Bundles/SceneConfigData/";
-        private const string SceneDataItemDirPre = "SceneData";
-        [InlineButton("CreateNewScene")]
-        
-        public int SceneId;
-        
         [TableList(ShowIndexLabels = false, AlwaysExpanded = true, IsReadOnly = true, DrawScrollView = true, HideToolbar = true)]
         public List<SceneEditItem> SceneEditItems = new List<SceneEditItem>();
-        private GameObject sceneRoot;
 
-        private void OnBecameVisible()
+        private GameObject sceneRoot
         {
-            this.sceneRoot = GameObject.Find("SceneRoot");
-            this.RefreshSceneDataItems();
+            get
+            {
+                return GameObject.Find("SceneRoot");
+            }
         }
-        
-        
 
         [ButtonGroup("SceneSelect")]
         public void SelectAll()
@@ -81,6 +76,7 @@ namespace ETEditor
                 }
                 LoadSceneData(sceneEditItem);
             }
+            this.RefreshSceneDataItems();
         }
         
         
@@ -95,6 +91,7 @@ namespace ETEditor
                     UnLoadSceneData(sceneEditItem);
                 }
             }
+            this.RefreshSceneDataItems();
         }
         
         [ButtonGroup("SceneEdit")]
@@ -120,40 +117,6 @@ namespace ETEditor
                 }
                 DeleteSceneData(sceneEditItem);
             }
-        }
-        
-        
-        public void CreateNewScene()
-        {
-            string SceneDataItemDir = $"{SceneDataDir}SceneData{this.SceneId.ToString()}/";
-            if (Directory.Exists(SceneDataItemDir))
-            {
-                Directory.Delete(SceneDataItemDir, true);
-            }
-            Directory.CreateDirectory(SceneDataItemDir);
-            
-            foreach (Type type in new Type[]
-            {
-                typeof(CharacterInfo),
-                typeof(InteractionInfo),
-                typeof(PickableInfo),
-                typeof(TriggerBoxInfo),
-                typeof(BuildingInfo),
-            })
-            {
-                string path = Path.Combine(SceneDataItemDir, $"{type.Name}.bytes");
-                SceneEntityManifest manifest = new SceneEntityManifest();
-                manifest.SceneId = this.SceneId;
-                if (type == typeof(BuildingInfo))
-                {
-                    manifest.list.Add(new SceneEntityBuildInfo(){Position = new float[]{1,2,3}, Scale = new float[]{2,2,2}, Rotation = new float[]{0,0,0,0},  SceneEntityInfo = new BuildingInfo(){path = "Assets/Bundles/Cube.prefab"}});
-                    manifest.list.Add(new SceneEntityBuildInfo(){Position = new float[]{10,20,30}, Scale = new float[]{1,1,1}, Rotation = new float[]{0,0,0,0}, SceneEntityInfo = new BuildingInfo(){path = "Assets/Bundles/Cube.prefab"}});
-                }
-                using (FileStream file = File.Create(path))
-                {
-                    Serializer.Serialize(file, manifest);
-                }
-            }
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
             this.RefreshSceneDataItems();
@@ -163,7 +126,7 @@ namespace ETEditor
         {
             List<SceneEntityManifest> sceneEntityManifests = new List<SceneEntityManifest>();
             string sceneName = sceneEditItem.SceneId.ToString();
-            string path = $"{SceneDataDir}{SceneDataItemDirPre}{sceneName}/";
+            string path = $"{SceneEditorHelper.SceneDataDir}{SceneEditorHelper.SceneDataItemDirPre}{sceneName}/";
             var files = Directory.GetFiles(path).Where(x => !x.EndsWith("meta")).ToList();
             foreach (var filePath in files)
             {
@@ -182,21 +145,46 @@ namespace ETEditor
         
         public void UnLoadSceneData(SceneEditItem sceneEditItem)
         {
-            GameObject sceneObject =  this.sceneRoot.transform.Find($"Scene : {sceneEditItem.SceneId.ToString()}").gameObject;
-            if (sceneObject!=null)
+            if (this.sceneRoot==null)
             {
-                Object.Destroy(sceneObject);
+                return;
+            }
+            
+            Transform sceneObjectTrans =  this.sceneRoot.transform.Find(sceneEditItem.SceneId.ToString());
+            if (sceneObjectTrans!=null)
+            {
+                Editor.DestroyImmediate(sceneObjectTrans.gameObject);
             }
         }
         
         public void SaveSceneData(SceneEditItem sceneEditItem)
         {
+            if (this.sceneRoot!=null)
+            {
+                var sceneDataTypes = ReflectionTools.GetImplementationsOf(typeof (ISceneEntityInfo));
+                switch (sceneEditType)
+                {
+                    case SceneEditType.All:
+                        foreach (var sceneDataType in sceneDataTypes)
+                        {
+                            SceneEditorHelper.SaveSceneData(sceneEditItem.SceneId, sceneDataType, this.sceneRoot.transform);
+                        }
+                        break;
+                }
+                
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+            }
             
         }
 
         public void DeleteSceneData(SceneEditItem sceneEditItem)
         {
-            
+            string SceneDataItemDir = $"{SceneEditorHelper.SceneDataDir}SceneData{sceneEditItem.SceneId.ToString()}/";
+            if (Directory.Exists(SceneDataItemDir))
+            {
+                AssetDatabase.DeleteAsset(SceneDataItemDir);
+            }
         }
 
         public List<SceneEditItem> GetSelectSceneEditItems()
@@ -204,12 +192,10 @@ namespace ETEditor
             return SceneEditItems.Where(x => x.IsSelect == true).ToList();
         }
         
-        
-
-        private void RefreshSceneDataItems()
+        public void RefreshSceneDataItems()
         {
             this.SceneEditItems.Clear();
-            string[] dirs = Directory.GetDirectories(SceneDataDir);
+            string[] dirs = Directory.GetDirectories(SceneEditorHelper.SceneDataDir);
             if ( dirs.Length == 0)
             {
                 return;
@@ -217,16 +203,23 @@ namespace ETEditor
 
             foreach (var dir in dirs)
             {
-                string subDir = dir.Substring(SceneDataDir.Length);
-                Debug.Log(subDir);
-                if (subDir.StartsWith(SceneDataItemDirPre))
+                string subDir = dir.Substring(SceneEditorHelper.SceneDataDir.Length);
+                if (subDir.StartsWith(SceneEditorHelper.SceneDataItemDirPre))
                 {
                     try
                     {
-                        int sceneId = int.Parse(subDir.Substring(SceneDataItemDirPre.Length));
+                        int sceneId = int.Parse(subDir.Substring(SceneEditorHelper.SceneDataItemDirPre.Length));
                         SceneEditItem sceneEditItem = new SceneEditItem();
                         sceneEditItem.SceneId = sceneId;
                         this.SceneEditItems.Add(sceneEditItem);
+                        if (this.sceneRoot!=null && this.sceneRoot.transform.Find(sceneEditItem.SceneId.ToString())!=null)
+                        {
+                            sceneEditItem.IsLoaded = true;
+                        }
+                        else
+                        {
+                            sceneEditItem.IsLoaded = false;
+                        }
                     }
                     catch (Exception e)
                     {
@@ -239,6 +232,7 @@ namespace ETEditor
                 }
             }
         }
+        
     }
 }
 

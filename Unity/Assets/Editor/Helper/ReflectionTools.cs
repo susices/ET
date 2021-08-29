@@ -4,10 +4,9 @@ using System.Reflection;
 using System;
 using System.Reflection.Emit;
 
-namespace Slate
+namespace ETEditor
 {
-
-    ///A collection of helper tools relevant to runtime
+    
     public static class ReflectionTools
     {
 
