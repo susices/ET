@@ -6,6 +6,7 @@ namespace ET
 {
     
     [ProtoContract]
+    [SceneEntityInfo]
     public class TriggerBoxInfo:ISceneEntityInfo
     {
         [ProtoMember(1)]

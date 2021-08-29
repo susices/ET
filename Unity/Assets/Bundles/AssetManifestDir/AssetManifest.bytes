@@ -47,6 +47,16 @@ a
 1Assets/Bundles/Config/UIPanelConfigCategory.bytesUIPanelConfigCategoryassets/bundles/config
 [
 .Assets/Bundles/Config/UnitConfigCategory.bytesUnitConfigCategoryassets/bundles/config
+}
+?Assets/Bundles/SceneConfigData/SceneData1001/BuildingInfo.bytesBuildingInfo,assets/bundles/sceneconfigdata/scenedata1001
+
+@Assets/Bundles/SceneConfigData/SceneData1001/CharacterInfo.bytesCharacterInfo,assets/bundles/sceneconfigdata/scenedata1001
+É
+BAssets/Bundles/SceneConfigData/SceneData1001/InteractionInfo.bytesInteractionInfo,assets/bundles/sceneconfigdata/scenedata1001
+}
+?Assets/Bundles/SceneConfigData/SceneData1001/PickableInfo.bytesPickableInfo,assets/bundles/sceneconfigdata/scenedata1001
+Å
+AAssets/Bundles/SceneConfigData/SceneData1001/TriggerBoxInfo.bytesTriggerBoxInfo,assets/bundles/sceneconfigdata/scenedata1001
 F
 $Assets/Bundles/UI/UIBag/UIBag.prefabUIBagassets/bundles/ui/uibag
 b
@@ -57,6 +67,8 @@ N
 (Assets/Bundles/UI/UILobby/UILobby.prefabUILobbyassets/bundles/ui/uilobby
 N
 (Assets/Bundles/UI/UILogin/UILogin.prefabUILoginassets/bundles/ui/uilogin
+<
+Assets/Bundles/Unit/Cube.prefabCubeassets/bundles/unit
 <
 Assets/Bundles/Unit/Unit.prefabUnitassets/bundles/unit
 <

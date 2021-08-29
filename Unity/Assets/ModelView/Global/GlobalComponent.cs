@@ -9,5 +9,6 @@ namespace ET
         public Transform Global;
         public Transform Unit;
         public Transform UI;
+        public Transform SceneEntity;
     }
 }

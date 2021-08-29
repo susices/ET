@@ -13,7 +13,7 @@ namespace ET
             // 加载配置
             Game.Scene.AddComponent<ResourcesComponent>();
             
-            ResourcesComponent.Instance.LoadBundle(AssetBundleHelper.ConfigDirPath);
+            await ResourcesComponent.Instance.LoadBundleAsync(AssetBundleHelper.ConfigDirPath);
             Game.Scene.AddComponent<ConfigComponent>();
             ConfigComponent.GetAllConfigBytes = LoadConfigHelper.LoadAllConfigBytes;
             await ConfigComponent.Instance.LoadAsync();
@@ -29,6 +29,8 @@ namespace ET
             Game.Scene.AddComponent<GlobalComponent>();
 
             Game.Scene.AddComponent<AIDispatcherComponent>();
+
+            Game.Scene.AddComponent<SceneEntityConfigDataComponent>();
 
             Game.Scene.AddComponent<DataUpdateComponent>();
 

@@ -6,6 +6,7 @@ namespace ET
 {
     [Serializable]
     [ProtoContract]
+    [SceneEntityInfo]
     public class CharacterInfo:ISceneEntityInfo
     {
         [ProtoMember(1)]

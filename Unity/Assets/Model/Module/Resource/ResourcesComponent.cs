@@ -510,6 +510,16 @@ namespace ET
 
             return sb.ToString();
         }
+        
+        public T GetAssetByPath<T>(string assetPath) where T: UnityEngine.Object
+        {
+            if (!AssetBundleHelper.GetBundlePrefabNameByPath(assetPath, out string bundleName, out string prefabName))
+            {
+                Log.Error($"解析资源路径失败 资源路径:{assetPath}");
+                return null;
+            }
+            return GetAsset(bundleName, prefabName) as T;
+        }
 
 
         /// <summary>
@@ -523,7 +533,7 @@ namespace ET
                 return null;
             }
             await LoadBundleAsync(bundleName);
-            return GetAsset(assetPath, prefabName) as T;
+            return GetAsset(bundleName, prefabName) as T;
         }
 
         /// <summary>

@@ -174,7 +174,6 @@ namespace ET
             var info = new Dictionary<string, int>();
             using var list = ListComponent<string>.Create();
             CollectDependencies(list.List, assetBundleName, info);
-            // wenchao 替换linq写法
             string[] ss = info.OrderBy(x => x.Value).Select(x => x.Key).ToArray();
             SortedDepCache[assetBundleName] = ss;
         }

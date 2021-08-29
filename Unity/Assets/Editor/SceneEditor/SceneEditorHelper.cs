@@ -1,17 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using ET;
+using ProtoBuf;
 using UnityEditor;
 using UnityEngine;
 using CharacterInfo = ET.CharacterInfo;
-using Object = UnityEngine.Object;
+
 
 namespace ETEditor
 {
     public static class SceneEditorHelper
     {
-        public const string SceneDataDir = "Assets/Bundles/SceneConfigData/";
-        public const string SceneDataItemDirPre = "SceneData";
+        
 
         public static Vector3 GetSceneViewCenterPos ()
         {
@@ -19,7 +20,26 @@ namespace ETEditor
             return sceneView.pivot;
         }
 
-        public static void LoadManifestBySceneType(List<SceneEntityManifest> sceneEntityManifests, SceneEditType sceneEditType, Transform sceneRoot)
+        public static void SaveSceneEntityManifestFile(SceneEntityManifest sceneEntityManifest, Type sceneDataType)
+        {
+            string SceneDataItemDir = $"{SceneEntityHelper.SceneDataDir}/SceneData{sceneEntityManifest.SceneId.ToString()}/";
+            if (!Directory.Exists(SceneDataItemDir))
+            {
+                AssetDatabase.CreateFolder(SceneEntityHelper.SceneDataDir, $"SceneData{sceneEntityManifest.SceneId.ToString()}");
+            }
+            
+            string path = Path.Combine(SceneDataItemDir, $"{sceneDataType.Name}.bytes");
+            
+            using (FileStream file = File.Create(path))
+            {
+                Serializer.Serialize(file, sceneEntityManifest);
+            }
+            
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
+
+        public static void LoadManifestBySceneEditType(List<SceneEntityManifest> sceneEntityManifests, SceneEditType sceneEditType, Transform sceneRoot)
         {
             switch (sceneEditType)
             {
@@ -53,6 +73,15 @@ namespace ETEditor
                 entityParentTrans = buildingObj.transform;
             }
             return entityParentTrans;
+        }
+
+        public static void LoadAllSceneEntityTypeParentTransform(int sceneId, Transform sceneRoot)
+        {
+            var sceneDataTypes = ReflectionTools.GetImplementationsOf(typeof (ISceneEntityInfo));
+            foreach (var sceneDataType in sceneDataTypes)
+            {
+                GetEntityParentTransform(sceneRoot, sceneId, sceneDataType);
+            }
         }
 
         public static void LoadSceneEntityByManifest(SceneEntityManifest sceneEntityManifest, Transform sceneRoot)
@@ -90,6 +119,20 @@ namespace ETEditor
             }
         }
 
+        public static void SaveSceneDataBySceneEditType(int sceneId, SceneEditType sceneEditType, Transform sceneRoot)
+        {
+            var sceneDataTypes = ReflectionTools.GetImplementationsOf(typeof (ISceneEntityInfo));
+            switch (sceneEditType)
+            {
+                case SceneEditType.All:
+                    foreach (var sceneDataType in sceneDataTypes)
+                    {
+                        SaveSceneData(sceneId, sceneDataType, sceneRoot);
+                    }
+                    break;
+            }
+        }
+
         public static void SaveSceneData(int sceneId,Type sceneDataType ,Transform sceneRoot)
         {
             var sceneDataRoot = sceneRoot.Find(sceneDataType.Name);
@@ -99,16 +142,44 @@ namespace ETEditor
                 return;
             }
 
+            SceneEntityManifest sceneEntityManifest = new SceneEntityManifest();
+            sceneEntityManifest.SceneId = sceneId;
+
             int childCount = sceneDataRoot.transform.childCount;
             
             for (int i = 0; i < childCount; i++)
             {
                 var childTransform =  sceneDataRoot.transform.GetChild(i);
+                SceneEntityBuildInfo sceneEntityBuildInfo = new SceneEntityBuildInfo();
                 if (sceneDataType == typeof(CharacterInfo))
                 {
                     
+                }else if (sceneDataType == typeof(InteractionInfo))
+                {
+                    
+                }else if (sceneDataType == typeof(PickableInfo))
+                {
+                    
+                }else if (sceneDataType == typeof(TriggerBoxInfo))
+                {
+                    
+                }else if (sceneDataType == typeof(BuildingInfo))
+                {
+                    BuildingInfo buildingInfo = new BuildingInfo();
+                    sceneEntityBuildInfo.SceneEntityInfo = buildingInfo;
+                    buildingInfo.path = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(childTransform.gameObject);
+                    Debug.Log($"Save buildingInfo name:{childTransform.name} path: {buildingInfo.path}");
                 }
+
+                var position = childTransform.position;
+                sceneEntityBuildInfo.Position = new float[] { position.x, position.y, position.z };
+                var localScale = childTransform.localScale;
+                sceneEntityBuildInfo.Scale = new float[] { localScale.x, localScale.y, localScale.z };
+                var rotation = childTransform.rotation;
+                sceneEntityBuildInfo.Rotation = new float[] { rotation.x, rotation.y, rotation.z, rotation.w};
+                sceneEntityManifest.list.Add(sceneEntityBuildInfo);
             }
+            SaveSceneEntityManifestFile(sceneEntityManifest, sceneDataType);
         }
     }
 }

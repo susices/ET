@@ -5,8 +5,7 @@ namespace ET
         protected override async ETTask Run(EventType.AfterCreateZoneScene args)
         {
             Scene zoneScene = args.ZoneScene;
-            zoneScene.AddComponent<UIEventComponent>();
-            zoneScene.AddComponent<UIPanelComponent>();
+            
             await ETTask.CompletedTask;
         }
     }

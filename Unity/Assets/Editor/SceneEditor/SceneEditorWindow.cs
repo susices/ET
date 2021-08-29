@@ -13,7 +13,6 @@ using UnityEditor.Search;
 using UnityEngine;
 using CharacterInfo = ET.CharacterInfo;
 using Object = UnityEngine.Object;
-using Unity.EditorCoroutines.Editor;
 
 namespace ETEditor
 {
@@ -126,7 +125,7 @@ namespace ETEditor
         {
             List<SceneEntityManifest> sceneEntityManifests = new List<SceneEntityManifest>();
             string sceneName = sceneEditItem.SceneId.ToString();
-            string path = $"{SceneEditorHelper.SceneDataDir}{SceneEditorHelper.SceneDataItemDirPre}{sceneName}/";
+            string path = $"{SceneEntityHelper.SceneDataDir}/{SceneEntityHelper.SceneDataItemDirPre}{sceneName}/";
             var files = Directory.GetFiles(path).Where(x => !x.EndsWith("meta")).ToList();
             foreach (var filePath in files)
             {
@@ -140,7 +139,8 @@ namespace ETEditor
                     sceneEntityManifests.Add(manifest);
                 }
             }
-            SceneEditorHelper.LoadManifestBySceneType(sceneEntityManifests, this.sceneEditType, GameObject.Find("SceneRoot").transform);
+            SceneEditorHelper.LoadAllSceneEntityTypeParentTransform(sceneEditItem.SceneId, this.sceneRoot.transform);
+            SceneEditorHelper.LoadManifestBySceneEditType(sceneEntityManifests, this.sceneEditType, GameObject.Find("SceneRoot").transform);
         }
         
         public void UnLoadSceneData(SceneEditItem sceneEditItem)
@@ -161,26 +161,20 @@ namespace ETEditor
         {
             if (this.sceneRoot!=null)
             {
-                var sceneDataTypes = ReflectionTools.GetImplementationsOf(typeof (ISceneEntityInfo));
-                switch (sceneEditType)
+                var sceneIdTransform = this.sceneRoot.transform.Find(sceneEditItem.SceneId.ToString());
+                if (sceneIdTransform==null)
                 {
-                    case SceneEditType.All:
-                        foreach (var sceneDataType in sceneDataTypes)
-                        {
-                            SceneEditorHelper.SaveSceneData(sceneEditItem.SceneId, sceneDataType, this.sceneRoot.transform);
-                        }
-                        break;
+                    return;
                 }
-                
+                SceneEditorHelper.SaveSceneDataBySceneEditType(sceneEditItem.SceneId, this.sceneEditType, sceneIdTransform);
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
             }
-            
         }
 
         public void DeleteSceneData(SceneEditItem sceneEditItem)
         {
-            string SceneDataItemDir = $"{SceneEditorHelper.SceneDataDir}SceneData{sceneEditItem.SceneId.ToString()}/";
+            string SceneDataItemDir = $"{SceneEntityHelper.SceneDataDir}/SceneData{sceneEditItem.SceneId.ToString()}/";
             if (Directory.Exists(SceneDataItemDir))
             {
                 AssetDatabase.DeleteAsset(SceneDataItemDir);
@@ -195,7 +189,7 @@ namespace ETEditor
         public void RefreshSceneDataItems()
         {
             this.SceneEditItems.Clear();
-            string[] dirs = Directory.GetDirectories(SceneEditorHelper.SceneDataDir);
+            string[] dirs = Directory.GetDirectories($"{SceneEntityHelper.SceneDataDir}/");
             if ( dirs.Length == 0)
             {
                 return;
@@ -203,12 +197,12 @@ namespace ETEditor
 
             foreach (var dir in dirs)
             {
-                string subDir = dir.Substring(SceneEditorHelper.SceneDataDir.Length);
-                if (subDir.StartsWith(SceneEditorHelper.SceneDataItemDirPre))
+                string subDir = dir.Substring($"{SceneEntityHelper.SceneDataDir}/".Length);
+                if (subDir.StartsWith(SceneEntityHelper.SceneDataItemDirPre))
                 {
                     try
                     {
-                        int sceneId = int.Parse(subDir.Substring(SceneEditorHelper.SceneDataItemDirPre.Length));
+                        int sceneId = int.Parse(subDir.Substring(SceneEntityHelper.SceneDataItemDirPre.Length));
                         SceneEditItem sceneEditItem = new SceneEditItem();
                         sceneEditItem.SceneId = sceneId;
                         this.SceneEditItems.Add(sceneEditItem);

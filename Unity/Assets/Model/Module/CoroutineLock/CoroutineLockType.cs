@@ -31,6 +31,14 @@ namespace ET
         /// 背包
         /// </summary>
         Bag,
+        /// <summary>
+        /// 场景实体数据
+        /// </summary>
+        SceneEntityData,
+        /// <summary>
+        /// 场景实体字典
+        /// </summary>
+        SceneEntityDic,
         //必须放最后
         Max,
     }
