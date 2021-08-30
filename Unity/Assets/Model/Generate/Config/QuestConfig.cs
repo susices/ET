@@ -7,19 +7,19 @@ namespace ET
 {
     [ProtoContract]
     [Config]
-    public partial class InteractableObjectConfigCategory : ProtoObject
+    public partial class QuestConfigCategory : ProtoObject
     {
-        public static InteractableObjectConfigCategory Instance;
+        public static QuestConfigCategory Instance;
 		
         [ProtoIgnore]
         [BsonIgnore]
-        private Dictionary<int, InteractableObjectConfig> dict = new Dictionary<int, InteractableObjectConfig>();
+        private Dictionary<int, QuestConfig> dict = new Dictionary<int, QuestConfig>();
 		
         [BsonElement]
         [ProtoMember(1)]
-        private List<InteractableObjectConfig> list = new List<InteractableObjectConfig>();
+        private List<QuestConfig> list = new List<QuestConfig>();
 		
-        public InteractableObjectConfigCategory()
+        public QuestConfigCategory()
         {
             Instance = this;
         }
@@ -27,7 +27,7 @@ namespace ET
 		[ProtoAfterDeserialization]
         public void AfterDeserialization()
         {
-            foreach (InteractableObjectConfig config in list)
+            foreach (QuestConfig config in list)
             {
                 this.dict.Add(config.Id, config);
             }
@@ -35,13 +35,13 @@ namespace ET
             this.EndInit();
         }
 		
-        public InteractableObjectConfig Get(int id)
+        public QuestConfig Get(int id)
         {
-            this.dict.TryGetValue(id, out InteractableObjectConfig item);
+            this.dict.TryGetValue(id, out QuestConfig item);
 
             if (item == null)
             {
-                throw new Exception($"配置找不到，配置表名: {nameof (InteractableObjectConfig)}，配置id: {id}");
+                throw new Exception($"配置找不到，配置表名: {nameof (QuestConfig)}，配置id: {id}");
             }
 
             return item;
@@ -52,12 +52,12 @@ namespace ET
             return this.dict.ContainsKey(id);
         }
 
-        public Dictionary<int, InteractableObjectConfig> GetAll()
+        public Dictionary<int, QuestConfig> GetAll()
         {
             return this.dict;
         }
 
-        public InteractableObjectConfig GetOne()
+        public QuestConfig GetOne()
         {
             if (this.dict == null || this.dict.Count <= 0)
             {
@@ -68,13 +68,22 @@ namespace ET
     }
 
     [ProtoContract]
-	public partial class InteractableObjectConfig: ProtoObject, IConfig
+	public partial class QuestConfig: ProtoObject, IConfig
 	{
 		[ProtoMember(1, IsRequired  = true)]
 		public int Id { get; set; }
 		[ProtoMember(2, IsRequired  = true)]
-		public int AssetIndex { get; set; }
-        
+		public int Title { get; set; }
+		[ProtoMember(3, IsRequired  = true)]
+		public int Descript { get; set; }
+		[ProtoMember(4, IsRequired  = true)]
+		public int[] QuestTargets { get; set; }
+		[ProtoMember(5, IsRequired  = true)]
+		public int[] ReceiveBuffId { get; set; }
+		[ProtoMember(6, IsRequired  = true)]
+		public int[] CompleteBuffId { get; set; }
+
+
 		[ProtoAfterDeserialization]
         public void AfterDeserialization()
         {

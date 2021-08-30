@@ -74,6 +74,10 @@ namespace ET
 		public int Id { get; set; }
 		[ProtoMember(2, IsRequired  = true)]
 		public int AssetIndex { get; set; }
+		[ProtoMember(3, IsRequired  = true)]
+		public int[] PickItemBuffId { get; set; }
+		[ProtoMember(4, IsRequired  = true)]
+		public int[] UseItemBuffId { get; set; }
 
 
 		[ProtoAfterDeserialization]

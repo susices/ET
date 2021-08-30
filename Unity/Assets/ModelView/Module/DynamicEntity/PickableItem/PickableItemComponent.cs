@@ -5,6 +5,6 @@
     /// </summary>
     public class PickableItemComponent:Entity
     {
-        
+        public int PickableConfigId;
     }
 }

@@ -28,9 +28,7 @@ namespace ET
 
         [ProtoMember(102)]
         public float[] Rotation;
-
-
-
+        
         public Vector3 GetPosition()
         {
             return new Vector3(this.Position[0], this.Position[1], this.Position[2]);

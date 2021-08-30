@@ -74,6 +74,8 @@ namespace ET
 		public int Id { get; set; }
 		[ProtoMember(2, IsRequired  = true)]
 		public int AssetIndex { get; set; }
+		[ProtoMember(3, IsRequired  = true)]
+		public int[] TriggerBuffId { get; set; }
 
 
 		[ProtoAfterDeserialization]

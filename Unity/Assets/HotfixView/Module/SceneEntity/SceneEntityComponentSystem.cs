@@ -21,6 +21,9 @@ namespace ET
 
     public static class SceneEntityComponentSystem
     {
+        /// <summary>
+        /// 加载指定场景实体
+        /// </summary>
         public static async ETTask LoadSceneEntities(this SceneEntityComponent self, int sceneId)
         {
             using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.SceneEntityDic, 0))
@@ -47,6 +50,9 @@ namespace ET
             }
         }
 
+        /// <summary>
+        /// 卸载指定场景实体
+        /// </summary>
         public static async ETTask UnLoadSceneEntities(this SceneEntityComponent self, int sceneId)
         {
             using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.SceneEntityDic, 0))
@@ -74,6 +80,17 @@ namespace ET
                 
                 self.LoadedSceneIds.Remove(sceneId);
             }
+        }
+
+        /// <summary>
+        /// 根据gameObject InstanceId
+        /// 获取对应 SceneEntity类
+        /// </summary>
+        public static SceneEntity GetSceneEntity(this SceneEntityComponent self, int instanceId)
+        {
+            SceneEntity sceneEntity = null;
+            self.SceneEntities.TryGetValue(instanceId, out sceneEntity);
+            return sceneEntity;
         }
     }
 }

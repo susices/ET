@@ -216,20 +216,5 @@ namespace ET
             DependenciesCache.Add(assetBundleName, dependencies);
             return dependencies;
         }
-
-        public static void TestEntity()
-        {
-            SceneEntityManifest manifest = new SceneEntityManifest();
-            manifest.list.Add(new SceneEntityBuildInfo(){SceneEntityInfo = new CharacterInfo(){Name = "Test"}, Position = new float[]{1,2,3}});
-            var bytes =  ProtobufHelper.ToBytes(manifest);
-            manifest = ProtobufHelper.FromBytes(typeof(SceneEntityManifest), bytes,0,bytes.Length) as SceneEntityManifest;
-            var test = manifest.list;
-        }
-        
-        public static void TestEntityRead()
-        {
-            
-        }
-        
     }
 }
