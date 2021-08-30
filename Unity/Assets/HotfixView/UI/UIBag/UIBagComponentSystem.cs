@@ -55,7 +55,6 @@ namespace ET
         public static void OnCloseBagPanel(this UIBagComponent self)
         {
             self.DomainScene().RemoveUIPanel(UIPanelType.UIBag).Coroutine();
-            
         }
         
         public static void OnUseBagItem(this UIBagComponent self, int bagItemId)
@@ -64,12 +63,14 @@ namespace ET
             if (bagItemId==1)
             {
                 SceneEntityComponent.Instance.LoadSceneEntities(1001).Coroutine();
+            }else if (bagItemId == 2)
+            {
+                SceneEntityComponent.Instance.LoadSceneEntities(1002).Coroutine();
             }
             else
             {
                 SceneEntityComponent.Instance.UnLoadSceneEntities(1001).Coroutine();
             }
-            
         }
 
         public static void OnDataUpdate(this UIBagComponent self)

@@ -11,6 +11,11 @@ namespace ET
         /// </summary>
         public static GameObject FetchGameObject(this AssetEntityPool self, Transform parent = null)
         {
+            if (self.RefCount==0)
+            {
+                self.RemoveComponent<AssetEntityPoolCountDownComponent>();
+            }
+            self.LastUseObjectTime = TimeHelper.ServerNow();
             self.RefCount++;
             if (self.Pool.Count==0)
             {
@@ -35,6 +40,7 @@ namespace ET
             {
                 return;
             }
+            self.LastUseObjectTime = TimeHelper.ServerNow();
             self.RefCount--;
             gameObject.transform.SetParent(PoolingAssetComponent.Instance.AssetPoolTransform);
             gameObject.SetActive(false);
@@ -46,7 +52,20 @@ namespace ET
                 {
                     assetPoolRecycleMillsoconds = FrameworkConfigVar.AssetPoolRecycleMillSeconds.IntVar();
                 }
-                self.DisposeTime = TimeHelper.ClientNow() + assetPoolRecycleMillsoconds;
+                long DisposeTime = TimeHelper.ClientNow() + assetPoolRecycleMillsoconds;
+                self.AddComponent<AssetEntityPoolCountDownComponent, long>(DisposeTime);
+            }
+        }
+
+        /// <summary>
+        /// 释放未使用的缓存GameObject
+        /// 保留至指定的个数
+        /// </summary>
+        public static void ReleaseUnUseObject(this AssetEntityPool self, int maxObjectCount = 0)
+        {
+            while (self.Pool.Count>maxObjectCount)
+            {
+                UnityEngine.Object.Destroy(self.Pool.Dequeue());
             }
         }
     }
@@ -60,6 +79,7 @@ namespace ET
             self.BundleName = bundleName;
             self.AssetPath = assetPath;
             self.CachePoolMillSeconds = cachePoolMillSeconds;
+            self.LastUseObjectTime = TimeHelper.ServerNow();
         }
     }
     
@@ -67,13 +87,13 @@ namespace ET
     {
         public override void Update(AssetEntityPool self)
         {
-            if (self.RefCount==0 && TimeHelper.ClientNow() > self.DisposeTime)
+            if (TimeHelper.ServerNow()-self.LastUseObjectTime> 5000 && self.Pool.Count>0)
             {
-                self.Dispose();
+                self.ReleaseUnUseObject();
             }
         }
     }
-    
+
     public class AssetEntityPoolDestroySystem : DestroySystem<AssetEntityPool>
     {
         public override void Destroy(AssetEntityPool self)
@@ -84,7 +104,7 @@ namespace ET
             }
             self.GameObjectRes = null;
             self.RefCount = 0;
-            self.DisposeTime = 0;
+            self.LastUseObjectTime = 0;
             if (ResourcesComponent.Instance==null)
             {
                 return;

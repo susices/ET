@@ -30,6 +30,7 @@ namespace ET
         }
 
         /// <summary>
+        /// 通过多语言资源序号
         /// 异步获取资源实体
         /// </summary>
         public static async ETTask<AssetEntity> GetAssetEntityAsync(this PoolingAssetComponent self, int AssetPathIndex, Transform parent = null)
@@ -55,6 +56,7 @@ namespace ET
         }
         
         /// <summary>
+        /// 通过资源路径
         /// 异步获取资源实体
         /// </summary>
         public static async ETTask<AssetEntity> GetAssetEntityAsync(this PoolingAssetComponent self, string AssetPath, Transform parent = null)
@@ -78,8 +80,18 @@ namespace ET
             self.PathAssetEntityPools.Add(path, newPool);
             return PoolingAssetHelper.GetAssetEntity(newPool, path, parent);
         }
-        
-        
+
+        /// <summary>
+        /// 释放所有未使用的缓存资源
+        /// 保留至指定的个数
+        /// </summary>   
+        public static void ReleaseAllUnUseCacheAsset(this PoolingAssetComponent self, int maxObjectCount = 0)
+        {
+            foreach (var assetEntityPool in self.PathAssetEntityPools.Values)
+            {
+                assetEntityPool.ReleaseUnUseObject(maxObjectCount);
+            }
+        }
     }
     
     public class PoolingAssetComponentAwakeSystem: AwakeSystem<PoolingAssetComponent>
@@ -91,7 +103,6 @@ namespace ET
             obj.name = "AssetPool";
             obj.transform.parent = GameObject.Find("/Global").transform;
             self.AssetPoolTransform = obj.transform;
-
         }
     }
 }

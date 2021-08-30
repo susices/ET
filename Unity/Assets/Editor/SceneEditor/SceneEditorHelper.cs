@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using ET;
@@ -12,8 +13,6 @@ namespace ETEditor
 {
     public static class SceneEditorHelper
     {
-        
-
         public static Vector3 GetSceneViewCenterPos ()
         {
             SceneView sceneView = SceneView.lastActiveSceneView;

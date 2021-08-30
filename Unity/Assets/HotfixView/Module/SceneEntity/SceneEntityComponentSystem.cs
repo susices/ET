@@ -58,7 +58,6 @@ namespace ET
 
                 using var list = ListComponent<int>.Create();
                 
-                
                 foreach (SceneEntity sceneEntity in self.SceneEntities.Values)
                 {
                     if (sceneEntity.SceneId == sceneId)

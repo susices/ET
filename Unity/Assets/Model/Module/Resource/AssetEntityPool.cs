@@ -20,7 +20,7 @@ namespace ET
 
         public int RefCount { get; set; }
 
-        public long DisposeTime;
+        public long LastUseObjectTime;
     }
     
 }
