@@ -61,7 +61,15 @@ namespace ET
         public static void OnUseBagItem(this UIBagComponent self, int bagItemId)
         {
             self.PlayerBagComponent.UseItem(bagItemId,1).Coroutine();
-            SceneEntityComponent.Instance.LoadSceneEntities(1001).Coroutine();
+            if (bagItemId==1)
+            {
+                SceneEntityComponent.Instance.LoadSceneEntities(1001).Coroutine();
+            }
+            else
+            {
+                SceneEntityComponent.Instance.UnLoadSceneEntities(1001).Coroutine();
+            }
+            
         }
 
         public static void OnDataUpdate(this UIBagComponent self)

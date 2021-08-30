@@ -14,5 +14,7 @@
         /// 所属场景id
         /// </summary>
         public int SceneId;
+        
+        public int GameObjectInstanceId;
     }
 }

@@ -47,23 +47,15 @@ namespace ET
         }
         
         
-        public static void AddSceneEntiyToDic( SceneEntity sceneEntity)
+        public static void AddSceneEntiyToDic(SceneEntity sceneEntity)
         {
-            AssetEntity assetEntity = sceneEntity.GetComponent<AssetEntity>();
-
-            if (assetEntity == null)
+            if (!SceneEntityComponent.Instance.SceneEntities.ContainsKey(sceneEntity.GameObjectInstanceId))
             {
-                Log.Error($"场景实体 缺少 AssetEntity组件 entityId:{sceneEntity.Id.ToString()}");
-                return;
-            }
-
-            if (!SceneEntityComponent.Instance.SceneEntities.ContainsKey(assetEntity.Object.GetInstanceID()))
-            {
-                SceneEntityComponent.Instance.SceneEntities.Add(assetEntity.Object.GetInstanceID(), sceneEntity);
+                SceneEntityComponent.Instance.SceneEntities.Add(sceneEntity.GameObjectInstanceId, sceneEntity);
             }
             else
             {
-                Log.Error($"重复添加GameObject EntityId:{sceneEntity.Id.ToString()} GobjInstanceId:{assetEntity.Object.GetInstanceID().ToString()} ");
+                Log.Error($"重复添加GameObject EntityId:{sceneEntity.Id.ToString()} GobjInstanceId:{sceneEntity.GameObjectInstanceId.ToString()} ");
             }
         }
     }

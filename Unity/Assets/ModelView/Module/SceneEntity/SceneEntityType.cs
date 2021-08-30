@@ -5,6 +5,7 @@ namespace ET
     [Serializable]
     public enum SceneEntityType
     {
+        None,
         Character,
         Interaction,
         Pickable,

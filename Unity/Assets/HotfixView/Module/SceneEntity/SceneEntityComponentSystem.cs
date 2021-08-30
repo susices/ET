@@ -56,15 +56,24 @@ namespace ET
                     return;
                 }
 
+                using var list = ListComponent<int>.Create();
+                
+                
                 foreach (SceneEntity sceneEntity in self.SceneEntities.Values)
                 {
                     if (sceneEntity.SceneId == sceneId)
                     {
-                        //卸载流程
+                        list.List.Add(sceneEntity.GameObjectInstanceId);
+                        sceneEntity.Dispose();
                     }
                 }
+
+                foreach (var id in list.List)
+                {
+                    self.SceneEntities.Remove(id);
+                }
+                
                 self.LoadedSceneIds.Remove(sceneId);
-                await ETTask.CompletedTask;
             }
         }
     }

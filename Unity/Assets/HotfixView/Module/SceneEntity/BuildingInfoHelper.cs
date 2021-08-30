@@ -20,11 +20,11 @@
             }
             if (sceneEntityBuildInfo.SceneEntityInfo is BuildingInfo buildingInfo)
             {
-                var sceneEntity = EntityFactory.Create<SceneEntity>(domain, isFromPool:true);
                 var assetEntity = await PoolingAssetComponent.Instance.GetAssetEntityAsync(buildingInfo.path, GlobalComponent.Instance.SceneEntity);
                 assetEntity.Object.transform.position = sceneEntityBuildInfo.GetPosition();
                 assetEntity.Object.transform.localScale = sceneEntityBuildInfo.GetScale();
                 assetEntity.Object.transform.rotation = sceneEntityBuildInfo.GetRotation();
+                var sceneEntity = EntityFactory.Create<SceneEntity,int,int,SceneEntityType>(domain, sceneId, assetEntity.Object.GetInstanceID(),SceneEntityType.Building,true);
                 sceneEntity.AddComponent(assetEntity);
                 SceneEntityHelper.AddSceneEntiyToDic(sceneEntity);
             }
