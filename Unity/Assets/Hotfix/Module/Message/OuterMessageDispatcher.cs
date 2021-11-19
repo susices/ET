@@ -22,7 +22,7 @@ namespace ET
 
             this.lastMessageTime = TimeHelper.ClientFrameTime();
             this.LastMessage = message;
-            
+
             if (message is IResponse response)
             {
                 session.OnRead(opcode, response);

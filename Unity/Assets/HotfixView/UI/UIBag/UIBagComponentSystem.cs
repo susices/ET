@@ -59,18 +59,28 @@ namespace ET
         
         public static void OnUseBagItem(this UIBagComponent self, int bagItemId)
         {
-            self.PlayerBagComponent.UseItem(bagItemId,1).Coroutine();
-            if (bagItemId==1)
-            {
-                SceneEntityComponent.Instance.LoadSceneEntities(1001).Coroutine();
-            }else if (bagItemId == 2)
-            {
-                SceneEntityComponent.Instance.LoadSceneEntities(1002).Coroutine();
-            }
-            else
-            {
-                SceneEntityComponent.Instance.UnLoadSceneEntities(1001).Coroutine();
-            }
+            // self.PlayerBagComponent.UseItem(bagItemId,1).Coroutine();
+            // if (bagItemId==1)
+            // {
+            //     SceneEntityComponent.Instance.LoadSceneEntities(1001).Coroutine();
+            //     
+            // }else if (bagItemId == 2)
+            // {
+            //     SceneEntityComponent.Instance.LoadSceneEntities(1002).Coroutine();
+            // }
+            // else
+            // {
+            //     SceneEntityComponent.Instance.UnLoadSceneEntities(1001).Coroutine();
+            // }
+            self.test().Coroutine();
+        }
+
+
+        private static async ETTask test(this UIBagComponent self)
+        {
+            D2C_Test test = (D2C_Test) await self.DomainScene().GetComponent<SessionComponent>().Session.Call(new C2D_Test() { TestMsg = "测试数据缓存服" });
+            Log.Debug("123123");
+            await ETTask.CompletedTask;
         }
 
         public static void OnDataUpdate(this UIBagComponent self)

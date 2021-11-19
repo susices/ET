@@ -55,6 +55,7 @@ namespace ET
 				case IActorRequest actorRequest:  // 分发IActorRequest消息，目前没有用到，需要的自己添加
 				{
 					IResponse response = null;
+					int rpcId = actorRequest.RpcId;
 					if (actorRequest is IDBCacheActorRequest cacheActorRequest)
 					{
 						long dbCacheId = session.GetComponent<SessionPlayerComponent>().Player.DBCacheId;
@@ -65,7 +66,7 @@ namespace ET
 						break;
 					}
 					long instanceId = session.InstanceId;
-					response.RpcId = actorRequest.RpcId;
+					response.RpcId = rpcId;
 					if (session.InstanceId == instanceId)
 					{
 						session.Reply(response);

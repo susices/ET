@@ -180,7 +180,7 @@
      <HintPath>D:/Software/UnityEditor/2021.1.14f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.UIModule.dll</HintPath>
      </Reference>
      <Reference Include="UnityEngine.UIElementsModule">
-     <HintPath>D:/Software/UnityEditor/2021.1.14f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.UIElementsModule.dll</HintPath>
+     <HintPath>D:/GitProject/SJProject/Unity/Library/ScriptAssemblies/UnityEngine.UIElementsModule.dll</HintPath>
      </Reference>
      <Reference Include="UnityEngine.UIElementsNativeModule">
      <HintPath>D:/Software/UnityEditor/2021.1.14f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.UIElementsNativeModule.dll</HintPath>
@@ -264,7 +264,7 @@
      <HintPath>D:/Software/UnityEditor/2021.1.14f1c1/Editor/Data/Managed/UnityEngine/UnityEditor.UIBuilderModule.dll</HintPath>
      </Reference>
      <Reference Include="UnityEditor.UIElementsModule">
-     <HintPath>D:/Software/UnityEditor/2021.1.14f1c1/Editor/Data/Managed/UnityEngine/UnityEditor.UIElementsModule.dll</HintPath>
+     <HintPath>D:/GitProject/SJProject/Unity/Library/ScriptAssemblies/UnityEditor.UIElementsModule.dll</HintPath>
      </Reference>
      <Reference Include="UnityEditor.UIElementsSamplesModule">
      <HintPath>D:/Software/UnityEditor/2021.1.14f1c1/Editor/Data/Managed/UnityEngine/UnityEditor.UIElementsSamplesModule.dll</HintPath>
