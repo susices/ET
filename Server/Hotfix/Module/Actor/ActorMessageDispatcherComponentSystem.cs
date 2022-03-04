@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ET
 {
@@ -45,7 +46,7 @@ namespace ET
         {
             self.ActorMessageHandlers.Clear();
 
-            var types = Game.EventSystem.GetTypes(typeof (ActorMessageHandlerAttribute));
+            HashSet<Type> types = Game.EventSystem.GetTypes(typeof (ActorMessageHandlerAttribute));
             foreach (Type type in types)
             {
                 object obj = Activator.CreateInstance(type);

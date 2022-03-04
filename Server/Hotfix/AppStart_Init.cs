@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 
 namespace ET
@@ -37,7 +38,7 @@ namespace ET
                 {
                     Game.Scene.AddComponent<NetInnerComponent, IPEndPoint, int>(processConfig.InnerIPPort, SessionStreamDispatcherType.SessionStreamDispatcherServerInner);
 
-                    var processScenes = StartSceneConfigCategory.Instance.GetByProcess(Game.Options.Process);
+                    List<StartSceneConfig> processScenes = StartSceneConfigCategory.Instance.GetByProcess(Game.Options.Process);
                     foreach (StartSceneConfig startConfig in processScenes)
                     {
                         await SceneFactory.Create(Game.Scene, startConfig.Id, startConfig.InstanceId, startConfig.Zone, startConfig.Name,

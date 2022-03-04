@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ET
@@ -26,6 +27,17 @@ namespace ET
         {
             self.AIConfigId = aiConfigId;
             self.Timer = TimerComponent.Instance.NewRepeatedTimer(1000, TimerType.AITimer, self);
+            self.Timer.ToString();
+        }
+    }
+
+    public class A
+    {
+        public A a;
+
+        public void Test()
+        {
+            a.a.Test();
         }
     }
 
@@ -51,7 +63,7 @@ namespace ET
                 return;
             }
 
-            var oneAI = AIConfigCategory.Instance.AIConfigs[self.AIConfigId];
+            SortedDictionary<int, AIConfig> oneAI = AIConfigCategory.Instance.AIConfigs[self.AIConfigId];
 
             foreach (AIConfig aiConfig in oneAI.Values)
             {

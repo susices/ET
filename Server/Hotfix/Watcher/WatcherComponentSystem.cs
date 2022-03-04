@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace ET
@@ -21,10 +22,11 @@ namespace ET
     
     public static class WatcherComponentSystem
     {
+        
         public static void Start(this WatcherComponent self, int createScenes = 0)
         {
             string[] localIP = NetworkHelper.GetAddressIPs();
-            var processConfigs = StartProcessConfigCategory.Instance.GetAll();
+            Dictionary<int, StartProcessConfig> processConfigs = StartProcessConfigCategory.Instance.GetAll();
             foreach (StartProcessConfig startProcessConfig in processConfigs.Values)
             {
                 if (!WatcherHelper.IsThisMachine(startProcessConfig.InnerIP, localIP))

@@ -155,7 +155,7 @@ namespace ET
                 throw new Exception($"actor id is 0: {memoryStream.ToActorMessage()}");
             }
 
-            var tcs = ETTask<IActorResponse>.Create(true);
+            ETTask<IActorResponse> tcs = ETTask<IActorResponse>.Create(true);
             
             self.requestCallback.Add(rpcId, new ActorMessageSender(actorId, memoryStream, tcs, needException));
             

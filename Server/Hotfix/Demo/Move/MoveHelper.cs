@@ -15,7 +15,7 @@ namespace ET
                 return;
             }
 
-            using var list = ListComponent<Vector3>.Create();
+            using ListComponent<Vector3> list = ListComponent<Vector3>.Create();
             
             unit.GetComponent<PathfindingComponent>().Find(unit.Position, target, list);
 

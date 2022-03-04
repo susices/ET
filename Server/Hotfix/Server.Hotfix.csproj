@@ -45,6 +45,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Analyzer Include="..\..\Tools\Analyzer\dll\net6.0\Analyzer.dll" ReferenceOutputAssembly="false" OutputItemType="Analyzer"/>
     <ProjectReference Include="..\Model\Server.Model.csproj" />
   </ItemGroup>
 </Project>
