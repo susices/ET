@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using UnityEngine;
 using System.Linq;
+using BM;
 
 namespace ET
 {
@@ -31,6 +32,22 @@ namespace ET
 		{
 			this.appDomain?.Dispose();
 		}
+
+		public async ETTask Initialize()
+		{
+			await ETTask.CompletedTask;
+			AssetComponentConfig.DefaultBundlePackageName = "AllBundles";
+			var updatePackageBundles = new Dictionary<string, bool>();
+			updatePackageBundles.Add(AssetComponentConfig.DefaultBundlePackageName, true);
+			UpdateBundleDataInfo updateBundleDataInfo = await AssetComponent.CheckAllBundlePackageUpdate(updatePackageBundles);
+			if (updateBundleDataInfo.NeedUpdate)
+			{
+				Debug.Log($"需要更新, 大小： {updateBundleDataInfo.NeedUpdateSize.ToString()}");
+				await AssetComponent.DownLoadUpdate(updateBundleDataInfo);
+			}
+			await AssetComponent.Initialize(AssetComponentConfig.DefaultBundlePackageName);
+			Start();
+		}
 		
 		public void Start()
 		{
@@ -38,9 +55,8 @@ namespace ET
 			{
 				case CodeMode.Mono:
 				{
-					Dictionary<string, UnityEngine.Object> dictionary = AssetsBundleHelper.LoadBundle("code.unity3d");
-					byte[] assBytes = ((TextAsset)dictionary["Code.dll"]).bytes;
-					byte[] pdbBytes = ((TextAsset)dictionary["Code.pdb"]).bytes;
+					byte[] assBytes = AssetComponent.Load<TextAsset>("Assets/Bundles/Code/Code.dll.bytes").bytes;
+					byte[] pdbBytes = AssetComponent.Load<TextAsset>("Assets/Bundles/Code/Code.pdb.bytes").bytes;
 					
 					assembly = Assembly.Load(assBytes, pdbBytes);
 					this.allTypes = assembly.GetTypes();
@@ -50,9 +66,8 @@ namespace ET
 				}
 				case CodeMode.ILRuntime:
 				{
-					Dictionary<string, UnityEngine.Object> dictionary = AssetsBundleHelper.LoadBundle("code.unity3d");
-					byte[] assBytes = ((TextAsset)dictionary["Code.dll"]).bytes;
-					byte[] pdbBytes = ((TextAsset)dictionary["Code.pdb"]).bytes;
+					byte[] assBytes = AssetComponent.Load<TextAsset>("Assets/Bundles/Code/Code.dll.bytes").bytes;
+					byte[] pdbBytes = AssetComponent.Load<TextAsset>("Assets/Bundles/Code/Code.pdb.bytes").bytes;
 					
 					//byte[] assBytes = File.ReadAllBytes(Path.Combine("../Unity/", Define.BuildOutputDir, "Code.dll"));
 					//byte[] pdbBytes = File.ReadAllBytes(Path.Combine("../Unity/", Define.BuildOutputDir, "Code.pdb"));

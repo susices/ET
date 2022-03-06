@@ -1,0 +1,44 @@
+ManifestFileVersion: 0
+CRC: 1338918162
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: shader_allbundles
+      Dependencies: {}
+    Info_1:
+      Name: allbundles_assets_bundles_code_code_dll_bytes.unity3d
+      Dependencies: {}
+    Info_2:
+      Name: allbundles_assets_bundles_code_code_pdb_bytes.unity3d
+      Dependencies: {}
+    Info_3:
+      Name: allbundles_assets_bundles_config_aiconfigcategory_bytes.unity3d
+      Dependencies: {}
+    Info_4:
+      Name: allbundles_assets_bundles_config_unitconfigcategory_bytes.unity3d
+      Dependencies: {}
+    Info_5:
+      Name: allbundles_assets_bundles_ui_uihelp_prefab.unity3d
+      Dependencies: {}
+    Info_6:
+      Name: allbundles_assets_bundles_ui_uilobby_prefab.unity3d
+      Dependencies: {}
+    Info_7:
+      Name: allbundles_assets_bundles_ui_uilogin_prefab.unity3d
+      Dependencies: {}
+    Info_8:
+      Name: allbundles_assets_bundles_unit_unit_prefab.unity3d
+      Dependencies:
+        Dependency_0: shader_allbundles
+    Info_9:
+      Name: allbundles_assets_scenes_map1_unity.unity3d
+      Dependencies:
+        Dependency_0: allbundles_assets_res_mat_urp_mat.unity3d
+    Info_10:
+      Name: allbundles_assets_scenes_map2_unity.unity3d
+      Dependencies:
+        Dependency_0: allbundles_assets_res_mat_urp_mat.unity3d
+    Info_11:
+      Name: allbundles_assets_res_mat_urp_mat.unity3d
+      Dependencies:
+        Dependency_0: shader_allbundles

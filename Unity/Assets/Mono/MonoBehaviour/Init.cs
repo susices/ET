@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using BM;
 using UnityEngine;
 
 namespace ET
@@ -41,22 +42,23 @@ namespace ET
 
 		private void Start()
 		{
-			CodeLoader.Instance.Start();
+			CodeLoader.Instance.Initialize().Coroutine();
 		}
 
 		private void Update()
 		{
-			CodeLoader.Instance.Update();
+			CodeLoader.Instance.Update?.Invoke();
+			AssetComponent.Update();
 		}
 
 		private void LateUpdate()
 		{
-			CodeLoader.Instance.LateUpdate();
+			CodeLoader.Instance.LateUpdate?.Invoke();
 		}
 
 		private void OnApplicationQuit()
 		{
-			CodeLoader.Instance.OnApplicationQuit();
+			CodeLoader.Instance.OnApplicationQuit?.Invoke();
 			CodeLoader.Instance.Dispose();
 		}
 	}

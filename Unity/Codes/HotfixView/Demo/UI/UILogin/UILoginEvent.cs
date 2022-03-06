@@ -1,4 +1,5 @@
 ﻿using System;
+using BM;
 using UnityEngine;
 
 namespace ET
@@ -8,8 +9,8 @@ namespace ET
     {
         public override async ETTask<UI> OnCreate(UIComponent uiComponent, UILayer uiLayer)
         {
-            await uiComponent.Domain.GetComponent<ResourcesLoaderComponent>().LoadAsync(UIType.UILogin.StringToAB());
-            GameObject bundleGameObject = (GameObject) ResourcesComponent.Instance.GetAsset(UIType.UILogin.StringToAB(), UIType.UILogin);
+            
+            GameObject bundleGameObject = await AssetComponent.LoadAsync<GameObject>("Assets/Bundles/UI/UILogin.prefab");
             GameObject gameObject = UnityEngine.Object.Instantiate(bundleGameObject, UIEventComponent.Instance.UILayers[(int)uiLayer]);
             UI ui = uiComponent.AddChild<UI, string, GameObject>(UIType.UILogin, gameObject);
             ui.AddComponent<UILoginComponent>();
@@ -18,7 +19,7 @@ namespace ET
 
         public override void OnRemove(UIComponent uiComponent)
         {
-            ResourcesComponent.Instance.UnloadBundle(UIType.UILogin.StringToAB());
+            AssetComponent.UnLoadByPath("Assets/Bundles/UI/UILogin.prefab");
         }
     }
 }
