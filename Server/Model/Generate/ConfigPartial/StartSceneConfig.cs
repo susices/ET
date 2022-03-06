@@ -25,10 +25,10 @@ namespace ET
         {
             return this.ZoneScenesByName[zone][name];
         }
-        
-        public override void AfterEndInit()
+
+        partial void PostResolve()
         {
-            foreach (StartSceneConfig startSceneConfig in this.GetAll().Values)
+            foreach (StartSceneConfig startSceneConfig in this.DataList)
             {
                 this.ProcessScenes.Add(startSceneConfig.Process, startSceneConfig);
                 
@@ -52,9 +52,10 @@ namespace ET
                 }
             }
         }
+        
     }
     
-    public partial class StartSceneConfig: ISupportInitialize
+    public partial class StartSceneConfig
     {
         public long InstanceId;
         
@@ -64,7 +65,7 @@ namespace ET
         {
             get
             {
-                return StartProcessConfigCategory.Instance.Get(this.Process);
+                return ConfigComponent.Instance.Tables.StartProcessConfigCategory.Get(this.Process);
             }
         }
         
@@ -72,7 +73,7 @@ namespace ET
         {
             get
             {
-                return StartZoneConfigCategory.Instance.Get(this.Zone);
+                return ConfigComponent.Instance.Tables.StartZoneConfigCategory.Get(this.Zone);
             }
         }
 
@@ -108,15 +109,12 @@ namespace ET
             }
         }
 
-        public override void BeginInit()
-        {
-        }
-
-        public override void EndInit()
+        partial void PostResolve()
         {
             this.Type = EnumHelper.FromString<SceneType>(this.SceneType);
             InstanceIdStruct instanceIdStruct = new InstanceIdStruct(this.Process, (uint) this.Id);
             this.InstanceId = instanceIdStruct.ToLong();
         }
+
     }
 }

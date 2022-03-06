@@ -20,7 +20,7 @@ set Export_Server_Data_ROOT=%WORKSPACE%\Config\Excel
 @ECHO =======================CLIENT========================== 
 
 set Export_Client_Code_ROOT=%WORKSPACE%\Unity\Codes\Model\Generate\Config
-set Export_Client_Data_ROOT=%WORKSPACE%\Unity\Assets\Res\DataTables
+set Export_Client_Data_ROOT=%WORKSPACE%\Unity\Assets\Bundles\Config
 
 %GEN_CLIENT% -h %LUBAN_SERVER_IP% -j cfg --^
  -d %Excel_ROOT%\__root__.xml ^

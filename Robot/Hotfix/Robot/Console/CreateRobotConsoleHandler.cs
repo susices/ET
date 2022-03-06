@@ -24,7 +24,7 @@ namespace ET
                     // 获取当前进程的RobotScene
                     using (ListComponent<StartSceneConfig> thisProcessRobotScenes = ListComponent<StartSceneConfig>.Create())
                     {
-                        List<StartSceneConfig> robotSceneConfigs = StartSceneConfigCategory.Instance.Robots;
+                        List<StartSceneConfig> robotSceneConfigs = ConfigComponent.Instance.Tables.StartSceneConfigCategory.Robots;
                         foreach (StartSceneConfig robotSceneConfig in robotSceneConfigs)
                         {
                             if (robotSceneConfig.Process != Game.Options.Process)

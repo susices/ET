@@ -8,9 +8,9 @@ namespace ET
         protected override async ETTask Run(EventType.AppStart args)
         {
             Game.Scene.AddComponent<ConfigComponent>();
-            await ConfigComponent.Instance.LoadAsync();
+            ConfigComponent.Instance.Load();
 
-            StartProcessConfig processConfig = StartProcessConfigCategory.Instance.Get(Game.Options.Process);
+            StartProcessConfig processConfig = ConfigComponent.Instance.Tables.StartProcessConfigCategory.Get(Game.Options.Process);
 
             Game.Scene.AddComponent<TimerComponent>();
             Game.Scene.AddComponent<OpcodeTypeComponent>();
@@ -37,7 +37,7 @@ namespace ET
                 {
                     Game.Scene.AddComponent<NetInnerComponent, IPEndPoint, int>(processConfig.InnerIPPort, SessionStreamDispatcherType.SessionStreamDispatcherServerInner);
 
-                    var processScenes = StartSceneConfigCategory.Instance.GetByProcess(Game.Options.Process);
+                    var processScenes = ConfigComponent.Instance.Tables.StartSceneConfigCategory.GetByProcess(Game.Options.Process);
                     foreach (StartSceneConfig startConfig in processScenes)
                     {
                         await SceneFactory.Create(Game.Scene, startConfig.Id, startConfig.InstanceId, startConfig.Zone, startConfig.Name,

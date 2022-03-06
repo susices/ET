@@ -109,6 +109,7 @@ namespace ET
         {
             //注册自己写的适配器
             appdomain.RegisterCrossBindingAdaptor(new IAsyncStateMachineClassInheritanceAdaptor());
+            appdomain.RegisterCrossBindingAdaptor(new BeanBaseAdapter());
         }
     }
 }

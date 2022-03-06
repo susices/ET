@@ -12,7 +12,7 @@ namespace ET
         public UnitType Type => (UnitType)this.Config.Type;
 
         [BsonIgnore]
-        public UnitConfig Config => UnitConfigCategory.Instance.Get(this.ConfigId);
+        public UnitConfig Config => ConfigComponent.Instance.Tables.UnitConfigCategory.Get(this.ConfigId);
 
         private Vector3 position; //坐标
 

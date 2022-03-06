@@ -11,7 +11,7 @@ namespace ET
         public IConfigLoader ConfigLoader;
         
         public static ConfigComponent Instance;
-		
-        public Dictionary<Type, object> AllConfig = new Dictionary<Type, object>();
+
+        public Tables Tables;
     }
 }

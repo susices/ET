@@ -117,6 +117,7 @@
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\..\ThirdParty\ETTask\ETTask.csproj" />
+      <ProjectReference Include="..\..\ThirdParty\LubanLib\LubanLib.csproj" />
       <ProjectReference Include="..\..\ThirdParty\ShareLib\ShareLib.csproj" />
       <ProjectReference Include="..\..\ThirdParty\UnityEngine\UnityEngine.csproj" />
     </ItemGroup>

@@ -7,7 +7,7 @@ namespace ET
 	{
 		public static StartSceneConfig GetGate(int zone)
 		{
-			List<StartSceneConfig> zoneGates = StartSceneConfigCategory.Instance.Gates[zone];
+			List<StartSceneConfig> zoneGates =ConfigComponent.Instance.Tables.StartSceneConfigCategory.Gates[zone];
 			
 			int n = RandomHelper.RandomNumber(0, zoneGates.Count);
 
