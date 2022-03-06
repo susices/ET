@@ -1,2 +1,0 @@
-<Assets/Res/Mat/Urp.mat|allbundles_assets_res_mat_urp_mat.unity3d>
-
