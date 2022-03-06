@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+﻿using System.IO;
+using UnityEditor;
+using UnityEngine;
 
 namespace ET
 {
@@ -24,6 +26,12 @@ namespace ET
             const string tools = ".\\Tools.exe";
 #endif
             ShellHelper.Run($"{tools} --AppType=Proto2CS --Console=1", "../Bin/");
+        }
+
+        [MenuItem("Tools/PersistentDataPath")]
+        public static void OpenpersistentDataPath()
+        {
+            Application.OpenURL(Application.persistentDataPath);
         }
     }
 }
