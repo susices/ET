@@ -59,3 +59,4 @@ Server/.DS_Store
 /Excel/~$*.xlsx
 /.vscode
 .cache.meta
+/Unity/BuildBundles
