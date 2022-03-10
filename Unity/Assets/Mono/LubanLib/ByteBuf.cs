@@ -126,6 +126,7 @@ namespace Bright.Serialization
             if (n > 0)
             {
                 var arr = new byte[n];
+                Buffer.SetByte(this.Bytes,1,1);
                 Buffer.BlockCopy(Bytes, ReaderIndex, arr, 0, n);
                 return arr;
             }
@@ -1039,6 +1040,11 @@ namespace Bright.Serialization
 
         // byte[], [start, end)
         public static Func<byte[], int, int, string> StringCacheFinder { get; set; }
+
+        private string GetString(byte[] bytes, int readerIndex, int count)
+        {
+            return string.Empty;
+        }
 
         public string ReadString()
         {
