@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Build.Pipeline;
 using Directory = UnityEngine.Windows.Directory;
 
 namespace BM
@@ -48,7 +49,7 @@ namespace BM
         /// <summary>
         /// 创建加密的AssetBundle
         /// </summary>
-        public static void CreateEncryptAssets(string bundlePackagePath, string encryptAssetPath, AssetBundleManifest manifest, string secretKey)
+        public static void CreateEncryptAssets(string bundlePackagePath, string encryptAssetPath, CompatibilityAssetBundleManifest manifest, string secretKey)
         {
             string[] assetBundles = manifest.GetAllAssetBundles();
             foreach (string assetBundle in assetBundles)

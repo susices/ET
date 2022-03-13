@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.Build.Pipeline;
+using UnityEngine.Build.Pipeline;
 
 namespace BM
 {
@@ -271,7 +273,8 @@ namespace BM
             SaveLoadLog(assetLoadTable, assetsLoadSetting, loadFileDic, loadDependDic);
             //开始打包
             string bundlePackagePath = Path.Combine(assetLoadTable.BuildBundlePath, assetsLoadSetting.BuildName);
-            AssetBundleManifest manifest = BuildPipeline.BuildAssetBundles(bundlePackagePath, allAssetBundleBuild.ToArray(), 
+            
+            CompatibilityAssetBundleManifest manifest = CompatibilityBuildPipeline.BuildAssetBundles(bundlePackagePath, allAssetBundleBuild.ToArray(), 
                 assetsLoadSetting.BuildAssetBundleOptions, EditorUserBuildSettings.activeBuildTarget);
             //保存未加密的版本号文件
             SaveBundleVersionFile(bundlePackagePath, manifest, assetsLoadSetting, false);
@@ -305,9 +308,9 @@ namespace BM
             foreach (string filePath in filePaths)
             {
                 AssetBundleBuild abb = new AssetBundleBuild();
-                abb.assetBundleName = GetBundleName(assetsLoadSetting, filePath);
+                abb.assetBundleName = $"{GetBundleName(assetsLoadSetting, filePath)}.{assetsLoadSetting.BundleVariant}";
                 abb.assetNames = new string[] { filePath };
-                abb.assetBundleVariant = assetsLoadSetting.BundleVariant;
+                //abb.assetBundleVariant = assetsLoadSetting.BundleVariant;
                 assetBundleBuild.Add(abb);
             }
         }
@@ -352,7 +355,7 @@ namespace BM
         /// <summary>
         /// 保存Bundle的版本号文件
         /// </summary>
-        private static void SaveBundleVersionFile(string bundlePackagePath, AssetBundleManifest manifest, AssetsLoadSetting assetsLoadSetting, bool encrypt)
+        private static void SaveBundleVersionFile(string bundlePackagePath, CompatibilityAssetBundleManifest manifest, AssetsLoadSetting assetsLoadSetting, bool encrypt)
         {
             string[] assetBundles = manifest.GetAllAssetBundles();
             using (StreamWriter sw = new StreamWriter(Path.Combine(bundlePackagePath, "VersionLogs.txt")))

@@ -1,8 +1,11 @@
 {
     "name": "Unity.Editor",
+    "rootNamespace": "",
     "references": [
         "Unity.Mono",
-        "Unity.ThirdParty"
+        "Unity.ThirdParty",
+        "Unity.ScriptableBuildPipeline",
+        "Unity.ScriptableBuildPipeline.Editor"
     ],
     "includePlatforms": [
         "Editor"
