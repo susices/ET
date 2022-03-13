@@ -6,7 +6,10 @@ using UnityEngine;
 
 namespace Bright.Serialization
 {
-    public class StringCacheFinder
+    /// <summary>
+    /// 反序列化字符串缓存类
+    /// </summary>
+    public static class StringCacheFinder
     {
         [RuntimeInitializeOnLoadMethod]
         private static void RegisterFunc()
@@ -14,11 +17,11 @@ namespace Bright.Serialization
             ByteBuf.StringCacheFinder = GetString;
         }
 
-        public static Dictionary<ByteArrayKey, string> BytesStringMap = new Dictionary<ByteArrayKey, string>();
+        private static readonly Dictionary<ByteArrayKey, string> BytesStringMap = new Dictionary<ByteArrayKey, string>();
 
-        public const int MaxCacheBytesLength = 1024;
+        private const int MaxCacheBytesLength = 128;
 
-        public static string GetString(byte[] bytes, int readIndex, int count)
+        private static string GetString(byte[] bytes, int readIndex, int count)
         {
             if (count > MaxCacheBytesLength)
             {
@@ -37,6 +40,11 @@ namespace Bright.Serialization
             ByteArrayKey bufferByteArrayKey = new ByteArrayKey(buffer, 0, count, byteArray.GetHashCode());
             BytesStringMap.Add(bufferByteArrayKey, strValue);
             return strValue;
+        }
+
+        public static void ClearCache()
+        {
+            BytesStringMap.Clear();
         }
     }
 }
