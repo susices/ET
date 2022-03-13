@@ -603,4 +603,21 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  
+  
+  
+  <ItemGroup>
+    <MySourceFiles Include="./Temp/bin/Debug/Unity.Mono/*.*"/>
+  </ItemGroup>
+  <Target Name="BeforeBuild">
+    <CallTarget Targets="CopyDll"/>
+  </Target>
+  <Target Name="CopyDll">
+    <Message Text="Copy Unity.Mono dll"/>
+    <Copy
+            SourceFiles="@(MySourceFiles)"
+            DestinationFolder="./Temp/bin/Debug/"
+    />
+  </Target>
+  
 </Project>
