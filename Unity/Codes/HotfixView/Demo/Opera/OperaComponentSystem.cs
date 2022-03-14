@@ -39,14 +39,6 @@ namespace ET
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                CodeLoader.Instance.LoadLogic();
-                Game.EventSystem.Add(CodeLoader.Instance.GetTypes());
-                Game.EventSystem.Load();
-                Log.Debug("hot reload success!");
-            }
-            
             if (Input.GetKeyDown(KeyCode.T))
             {
                 C2M_TransferMap c2MTransferMap = new C2M_TransferMap();

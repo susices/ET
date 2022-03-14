@@ -7,6 +7,7 @@ namespace ET
     public enum MonoEventType
     {
         HotReloadCode,
+        HotReloadConfig,
     }
 }
 

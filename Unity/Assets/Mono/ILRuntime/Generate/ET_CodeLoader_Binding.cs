@@ -46,6 +46,10 @@ namespace ILRuntime.Runtime.Generated
             app.RegisterCLRFieldGetter(field, get_OnApplicationQuit_3);
             app.RegisterCLRFieldSetter(field, set_OnApplicationQuit_3);
             app.RegisterCLRFieldBinding(field, CopyToStack_OnApplicationQuit_3, AssignFromStack_OnApplicationQuit_3);
+            field = type.GetField("OnMonoEvent", flag);
+            app.RegisterCLRFieldGetter(field, get_OnMonoEvent_4);
+            app.RegisterCLRFieldSetter(field, set_OnMonoEvent_4);
+            app.RegisterCLRFieldBinding(field, CopyToStack_OnMonoEvent_4, AssignFromStack_OnMonoEvent_4);
 
 
         }
@@ -175,6 +179,30 @@ namespace ILRuntime.Runtime.Generated
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             System.Action @OnApplicationQuit = (System.Action)typeof(System.Action).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)8);
             ((ET.CodeLoader)o).OnApplicationQuit = @OnApplicationQuit;
+            return ptr_of_this_method;
+        }
+
+        static object get_OnMonoEvent_4(ref object o)
+        {
+            return ((ET.CodeLoader)o).OnMonoEvent;
+        }
+
+        static StackObject* CopyToStack_OnMonoEvent_4(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = ((ET.CodeLoader)o).OnMonoEvent;
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static void set_OnMonoEvent_4(ref object o, object v)
+        {
+            ((ET.CodeLoader)o).OnMonoEvent = (System.Action<ET.MonoEvent>)v;
+        }
+
+        static StackObject* AssignFromStack_OnMonoEvent_4(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            System.Action<ET.MonoEvent> @OnMonoEvent = (System.Action<ET.MonoEvent>)typeof(System.Action<ET.MonoEvent>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)8);
+            ((ET.CodeLoader)o).OnMonoEvent = @OnMonoEvent;
             return ptr_of_this_method;
         }
 

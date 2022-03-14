@@ -4,9 +4,14 @@
     {
         protected  override async ETTask Run(MonoEvent monoEvent)
         {
-            if (monoEvent.EventType == MonoEventType.HotReloadCode)
+            switch (monoEvent.EventType)
             {
-                HotReloadHelper.ReloadCode();
+                case MonoEventType.HotReloadCode:
+                    HotReloadHelper.ReloadCode();
+                    break;
+                case MonoEventType.HotReloadConfig:
+                    ConfigComponent.Instance.Load();
+                    break;
             }
             await ETTask.CompletedTask;
         }

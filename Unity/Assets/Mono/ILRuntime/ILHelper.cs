@@ -84,7 +84,8 @@ namespace ET
                     return ((Func<KeyValuePair<int, int>, KeyValuePair<int, int>, int>)act)(x, y);
                 });
             });
-            
+            appdomain.DelegateManager.RegisterMethodDelegate<ET.MonoEvent>();
+
             // 注册适配器
             RegisterAdaptor(appdomain);
             
