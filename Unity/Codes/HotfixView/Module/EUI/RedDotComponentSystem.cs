@@ -9,7 +9,7 @@ namespace ET
     {
         public override void Awake(RedDotComponent self)
         {
-           
+            AssetComponent.LoadAsync<GameObject>("Assets/Bundles/UI/Common/RedDot.prefab");
         }
     }
 
