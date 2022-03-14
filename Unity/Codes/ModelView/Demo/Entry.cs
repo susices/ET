@@ -11,7 +11,7 @@ namespace ET
 				CodeLoader.Instance.Update += Game.Update;
 				CodeLoader.Instance.LateUpdate += Game.LateUpdate;
 				CodeLoader.Instance.OnApplicationQuit += Game.Close;
-				
+				CodeLoader.Instance.OnMonoEvent += MonoEvent => {Game.EventSystem.Publish(MonoEvent); }; 
 				
 				Game.EventSystem.Add(CodeLoader.Instance.GetTypes());
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using ILRuntime.Mono.Cecil;
 using UnityEngine;
 using UnityEditor;
@@ -74,6 +75,22 @@ namespace ET
                 "Codes/Hotfix/",
                 "Codes/HotfixView/",
             }, new[]{Path.Combine(Define.BuildOutputDir, "Data.dll")}, CodeOptimization.Debug);
+
+            if (Application.isPlaying)
+            {
+                HotReloadCode().Coroutine();
+            }
+        }
+
+        private static async ETTask HotReloadCode()
+        {
+            while (EditorApplication.isCompiling)
+            {
+                await Task.Delay(500);
+                await ETTask.CompletedTask;
+            }
+            CodeLoader.Instance.OnMonoEvent?.Invoke(new MonoEvent() { EventType = MonoEventType.HotReloadCode });
+            await ETTask.CompletedTask;
         }
 
         private static void BuildMuteAssembly(string assemblyName, string[] CodeDirectorys, string[] additionalReferences, CodeOptimization codeOptimization)

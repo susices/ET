@@ -15,6 +15,7 @@ namespace ET
 		public Action Update;
 		public Action LateUpdate;
 		public Action OnApplicationQuit;
+		public Action<MonoEvent> OnMonoEvent;
 
 		private Assembly assembly;
 
