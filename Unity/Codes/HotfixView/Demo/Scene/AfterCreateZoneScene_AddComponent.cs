@@ -5,8 +5,12 @@ namespace ET
         protected override async ETTask Run(EventType.AfterCreateZoneScene args)
         {
             Scene zoneScene = args.ZoneScene;
-            zoneScene.AddComponent<UIEventComponent>();
             zoneScene.AddComponent<UIComponent>();
+            zoneScene.AddComponent<UIPathComponent>();
+            zoneScene.AddComponent<UIEventComponent>();
+            zoneScene.AddComponent<RedDotComponent>();
+
+            zoneScene.GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Login);
             await ETTask.CompletedTask;
         }
     }
