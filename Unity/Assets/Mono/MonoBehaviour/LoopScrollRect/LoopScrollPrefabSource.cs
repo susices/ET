@@ -9,7 +9,7 @@ namespace UnityEngine.UI
     [System.Serializable]
     public class LoopScrollPrefabSource 
     {
-        public string prefabName;
+        public string prefabPath;
         public int poolSize = 5;
 
         private bool inited = false;
@@ -19,10 +19,10 @@ namespace UnityEngine.UI
             {
                 if(!inited)
                 {
-                     GameObjectPoolHelper.InitPool(prefabName, poolSize);
+                     GameObjectPoolHelper.InitPool(this.prefabPath, poolSize);
                     inited = true;
                 }
-                return GameObjectPoolHelper.GetObjectFromPool(prefabName);
+                return GameObjectPoolHelper.GetObjectFromPool(this.prefabPath);
             }
             catch (Exception e)
             {

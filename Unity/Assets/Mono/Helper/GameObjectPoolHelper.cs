@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BM;
 using UnityEngine;
 
 namespace ET
@@ -145,11 +146,10 @@ namespace ET
             ReturnObjectToPool(t.gameObject);
         }
 
-        public static GameObject GetGameObjectByResType( string poolName)
+        public static GameObject GetGameObjectByResType( string poolAssetPath)
         {
             GameObject pb = null;
-            Dictionary<string, UnityEngine.Object>  assetDict = AssetsBundleHelper.LoadBundle(poolName + ".unity3d");
-            pb = assetDict[poolName] as GameObject;
+            pb = AssetComponent.Load<GameObject>(poolAssetPath);
             return pb;
         }
     }

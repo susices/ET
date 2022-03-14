@@ -9,7 +9,7 @@ namespace ET
     {
         public override void Awake(RedDotComponent self)
         {
-           AssetComponent.LoadAsync<GameObject>("Assets/Bundles/UI/Common/RedDot.prefab").Coroutine();
+           
         }
     }
 
@@ -303,7 +303,7 @@ namespace ET
         
         public static GameObject GetORedDotGameObjectFromPool(this RedDotComponent self)
         {
-            return GameObjectPoolHelper.GetObjectFromPool("RedDot",true,5);
+            return GameObjectPoolHelper.GetObjectFromPool("Assets/Bundles/UI/Common/RedDot.prefab",true,5);
         }
 
         public static void RecycleRedDotGameObject(this RedDotComponent self, GameObject go)
