@@ -89,6 +89,8 @@ namespace ET
                 await Task.Delay(500);
                 await ETTask.CompletedTask;
             }
+            if(!Application.isPlaying)
+                return;
             CodeLoader.Instance.OnMonoEvent?.Invoke(new MonoEvent() { EventType = MonoEventType.HotReloadCode });
             await ETTask.CompletedTask;
         }

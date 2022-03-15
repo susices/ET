@@ -2,6 +2,8 @@
 
 	<topmodule name="ET"/>
 
+	<option name="editor.topmodule" value="ET.ConfigEditor"/>
+
 	<group name="c" default="1"/> client
 	<group name="s" default="1"/> server
 	<group name="e" default="1"/> editor
@@ -13,5 +15,6 @@
 
 	<service name="server" manager="Tables" group="s"/>
 	<service name="client" manager="Tables" group="c"/>
+	<service name="editor" manager="Tables" group="e"/>
 	<service name="all" manager="Tables" group="c,s,e"/>
 </root>
