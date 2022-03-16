@@ -9,6 +9,9 @@ namespace ET
         public int ConfigId; //配置表id
 
         [BsonIgnore]
+        public UnitType Type => (UnitType)this.Config.Type;
+
+        [BsonIgnore]
         public UnitConfig Config => ConfigComponent.Instance.Tables.UnitConfigCategory.Get(this.ConfigId);
 
         private Vector3 position; //坐标

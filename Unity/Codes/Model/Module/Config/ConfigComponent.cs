@@ -13,5 +13,6 @@ namespace ET
         public static ConfigComponent Instance;
 
         public Tables Tables;
+        
     }
 }

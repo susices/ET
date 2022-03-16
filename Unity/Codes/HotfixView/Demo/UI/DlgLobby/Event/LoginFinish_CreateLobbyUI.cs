@@ -1,4 +1,6 @@
-﻿namespace ET
+﻿using ET.EventType;
+
+namespace ET
 {
     public class LoginFinish_CreateLobbyUI: AEvent<EventType.LoginFinish>
     {
@@ -6,6 +8,10 @@
         {
             args.ZoneScene.GetComponent<UIComponent>().HideWindow(WindowID.WindowID_Login);
             await args.ZoneScene.GetComponent<UIComponent>().ShowWindowAsync(WindowID.WindowID_Lobby);
+            Computer computer = args.ZoneScene.AddChild<Computer>();
+            Game.EventSystem.Publish(new InstallComputer(){Computer = computer});
+            
+            computer.Start();
         }
     }
 }

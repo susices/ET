@@ -27,7 +27,7 @@ namespace ET
 				ConstValue.LoginAddress, 
 				self.View.E_AccountInputField.GetComponent<InputField>().text, 
 				self.View.E_PasswordInputField.GetComponent<InputField>().text).Coroutine();
-		}
+		}  
 		
 		public static void HideWindow(this DlgLogin self)
 		{
