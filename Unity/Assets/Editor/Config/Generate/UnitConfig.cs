@@ -20,6 +20,7 @@ public sealed partial class UnitConfig :  Bright.Config.EditorBeanBase
     {
             Name = "";
             Desc = "";
+            NumericValues = System.Array.Empty<long>();
     }
 
     public override void LoadJson(SimpleJSON.JSONObject _json)
@@ -65,18 +66,10 @@ public sealed partial class UnitConfig :  Bright.Config.EditorBeanBase
         }
         
         { 
-            var _fieldJson = _json["Height"];
+            var _fieldJson = _json["NumericValues"];
             if (_fieldJson != null)
             {
-                if(!_fieldJson.IsNumber) { throw new SerializationException(); }  Height = _fieldJson;
-            }
-        }
-        
-        { 
-            var _fieldJson = _json["Weight"];
-            if (_fieldJson != null)
-            {
-                if(!_fieldJson.IsNumber) { throw new SerializationException(); }  Weight = _fieldJson;
+                if(!_fieldJson.IsArray) { throw new SerializationException(); } int _n = _fieldJson.Count; NumericValues = new long[_n]; int _index=0; foreach(SimpleJSON.JSONNode __e in _fieldJson.Children) { long __v;  if(!__e.IsNumber) { throw new SerializationException(); }  __v = __e;  NumericValues[_index++] = __v; }  
             }
         }
         
@@ -104,10 +97,9 @@ public sealed partial class UnitConfig :  Bright.Config.EditorBeanBase
             _json["Position"] = new JSONNumber(Position);
         }
         {
-            _json["Height"] = new JSONNumber(Height);
-        }
-        {
-            _json["Weight"] = new JSONNumber(Weight);
+
+            if (NumericValues == null) { throw new System.ArgumentNullException(); }
+            { var __cjson = new JSONArray(); foreach(var _e in NumericValues) { __cjson["null"] = new JSONNumber(_e); } _json["NumericValues"] = __cjson; }
         }
     }
 
@@ -149,14 +141,9 @@ public sealed partial class UnitConfig :  Bright.Config.EditorBeanBase
     public int Position { get; set; }
 
     /// <summary>
-    /// 身高
+    /// 数值Values
     /// </summary>
-    public int Height { get; set; }
-
-    /// <summary>
-    /// 体重
-    /// </summary>
-    public int Weight { get; set; }
+    public long[] NumericValues { get; set; }
 
 }
 }
