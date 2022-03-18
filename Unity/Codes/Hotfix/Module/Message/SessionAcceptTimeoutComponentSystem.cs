@@ -16,7 +16,7 @@ namespace ET
                 Log.Error($"move timer error: {self.Id}\n{e}");
             }
         }
-    }
+    } 
     
     [ObjectSystem]
     public class SessionAcceptTimeoutComponentAwakeSystem: AwakeSystem<SessionAcceptTimeoutComponent>

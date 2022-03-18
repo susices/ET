@@ -202,6 +202,7 @@ namespace ILRuntime.Runtime.Generated
             System_Collections_Generic_KeyValuePair_2_Int32_ET_BeanBaseAdapter_Binding_Adapter_Binding.Register(app);
             System_Collections_Generic_Dictionary_2_String_Object_Binding.Register(app);
             System_Func_2_String_ByteBuf_Binding.Register(app);
+            System_Int64_Binding.Register(app);
             System_Collections_Generic_Queue_1_ValueTuple_3_Int32_Int64_Int32_Binding.Register(app);
             System_Collections_Generic_SortedDictionary_2_Int64_List_1_ILTypeInstance_Binding.Register(app);
             System_ValueTuple_3_Int32_Int64_Int32_Binding.Register(app);
@@ -226,7 +227,6 @@ namespace ILRuntime.Runtime.Generated
             System_Collections_Generic_List_1_UnityWebRequest_Binding.Register(app);
             System_Collections_Generic_List_1_UnityWebRequest_Binding_Enumerator_Binding.Register(app);
             UnityEngine_PlayerPrefs_Binding.Register(app);
-            System_Int64_Binding.Register(app);
             UnityEngine_Networking_DownloadHandler_Binding.Register(app);
             System_IO_FileStream_Binding.Register(app);
         }

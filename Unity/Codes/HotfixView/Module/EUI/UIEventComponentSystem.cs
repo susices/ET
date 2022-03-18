@@ -18,6 +18,7 @@ namespace ET
         public override void Destroy(UIEventComponent self)
         {
             self.UIEventHandlers.Clear();
+            self.IsClicked = false;
             UIEventComponent.Instance = null;
         }
     }
@@ -33,6 +34,7 @@ namespace ET
                 AUIEventAttribute attr = v.GetCustomAttributes(typeof (AUIEventAttribute), false)[0] as AUIEventAttribute;
                 self.UIEventHandlers.Add(attr.WindowID, Activator.CreateInstance(v) as IAUIEventHandler);
             }
+            self.IsClicked = false;
         }
         
         public static IAUIEventHandler GetUIEventHandler(this UIEventComponent self,WindowID windowID)
@@ -43,6 +45,11 @@ namespace ET
             }
             Log.Error($"windowId : {windowID} is not have any uiEvent");
             return null;
+        }
+
+        public static void SetUIClicked(this UIEventComponent self, bool isClicked)
+        {
+            self.IsClicked = isClicked;
         }
     }
 }

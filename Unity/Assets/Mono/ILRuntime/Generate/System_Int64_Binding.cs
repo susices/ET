@@ -29,6 +29,8 @@ namespace ILRuntime.Runtime.Generated
             method = type.GetMethod("Parse", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Parse_1);
 
+            app.RegisterCLRCreateArrayInstance(type, s => new System.Int64[s]);
+
 
         }
 
