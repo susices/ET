@@ -49,6 +49,14 @@ public sealed partial class StartSceneConfig :  Bright.Config.EditorBeanBase
         }
         
         { 
+            var _fieldJson = _json["Index"];
+            if (_fieldJson != null)
+            {
+                if(!_fieldJson.IsNumber) { throw new SerializationException(); }  Index = _fieldJson;
+            }
+        }
+        
+        { 
             var _fieldJson = _json["SceneType"];
             if (_fieldJson != null)
             {
@@ -84,6 +92,9 @@ public sealed partial class StartSceneConfig :  Bright.Config.EditorBeanBase
         }
         {
             _json["Zone"] = new JSONNumber(Zone);
+        }
+        {
+            _json["Index"] = new JSONNumber(Index);
         }
         {
 
@@ -126,6 +137,11 @@ public sealed partial class StartSceneConfig :  Bright.Config.EditorBeanBase
     /// 所属区
     /// </summary>
     public int Zone { get; set; }
+
+    /// <summary>
+    /// 起服顺序
+    /// </summary>
+    public int Index { get; set; }
 
     /// <summary>
     /// 类型

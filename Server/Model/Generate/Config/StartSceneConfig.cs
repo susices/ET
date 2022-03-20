@@ -20,6 +20,7 @@ public sealed partial class StartSceneConfig :  Bright.Config.BeanBase
         Id = _buf.ReadInt();
         Process = _buf.ReadInt();
         Zone = _buf.ReadInt();
+        Index = _buf.ReadInt();
         SceneType = _buf.ReadString();
         Name = _buf.ReadString();
         OuterPort = _buf.ReadInt();
@@ -43,6 +44,10 @@ public sealed partial class StartSceneConfig :  Bright.Config.BeanBase
     /// 所属区
     /// </summary>
     public int Zone { get; private set; }
+    /// <summary>
+    /// 起服顺序
+    /// </summary>
+    public int Index { get; private set; }
     /// <summary>
     /// 类型
     /// </summary>
@@ -74,6 +79,7 @@ public sealed partial class StartSceneConfig :  Bright.Config.BeanBase
         + "Id:" + Id + ","
         + "Process:" + Process + ","
         + "Zone:" + Zone + ","
+        + "Index:" + Index + ","
         + "SceneType:" + SceneType + ","
         + "Name:" + Name + ","
         + "OuterPort:" + OuterPort + ","

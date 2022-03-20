@@ -12,6 +12,7 @@ namespace ET
             {
                 Log.Error($"请求的Scene错误, 当前SceneType{session.DomainScene().SceneType}");
                 session.Dispose();
+                return;
             }
 
             session.RemoveComponent<SessionAcceptTimeoutComponent>();

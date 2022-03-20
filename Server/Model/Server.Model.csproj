@@ -46,6 +46,10 @@
       <Link>Demo\Computer\PCCaseComponent.cs</Link>
     </Compile>
 
+    <Compile Include="..\..\Unity\Codes\Model\Demo\Role\RoleInfo.cs">
+      <Link>Demo\Role\RoleInfo.cs</Link>
+    </Compile>
+
     <Compile Include="..\..\Unity\Codes\Model\Demo\ServerInfo\ServerInfo.cs">
       <Link>Demo\ServerInfo\ServerInfo.cs</Link>
     </Compile>

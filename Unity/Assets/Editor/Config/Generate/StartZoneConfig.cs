@@ -18,8 +18,8 @@ public sealed partial class StartZoneConfig :  Bright.Config.EditorBeanBase
 {
     public StartZoneConfig()
     {
-            DBConnection = "";
             DBName = "";
+            DBConnection = "";
     }
 
     public override void LoadJson(SimpleJSON.JSONObject _json)
@@ -33,10 +33,10 @@ public sealed partial class StartZoneConfig :  Bright.Config.EditorBeanBase
         }
         
         { 
-            var _fieldJson = _json["DBConnection"];
+            var _fieldJson = _json["ZoneType"];
             if (_fieldJson != null)
             {
-                if(!_fieldJson.IsString) { throw new SerializationException(); }  DBConnection = _fieldJson;
+                if(!_fieldJson.IsNumber) { throw new SerializationException(); }  ZoneType = _fieldJson;
             }
         }
         
@@ -48,6 +48,14 @@ public sealed partial class StartZoneConfig :  Bright.Config.EditorBeanBase
             }
         }
         
+        { 
+            var _fieldJson = _json["DBConnection"];
+            if (_fieldJson != null)
+            {
+                if(!_fieldJson.IsString) { throw new SerializationException(); }  DBConnection = _fieldJson;
+            }
+        }
+        
     }
 
     public override void SaveJson(SimpleJSON.JSONObject _json)
@@ -56,14 +64,17 @@ public sealed partial class StartZoneConfig :  Bright.Config.EditorBeanBase
             _json["Id"] = new JSONNumber(Id);
         }
         {
-
-            if (DBConnection == null) { throw new System.ArgumentNullException(); }
-            _json["DBConnection"] = new JSONString(DBConnection);
+            _json["ZoneType"] = new JSONNumber(ZoneType);
         }
         {
 
             if (DBName == null) { throw new System.ArgumentNullException(); }
             _json["DBName"] = new JSONString(DBName);
+        }
+        {
+
+            if (DBConnection == null) { throw new System.ArgumentNullException(); }
+            _json["DBConnection"] = new JSONString(DBConnection);
         }
     }
 
@@ -80,19 +91,24 @@ public sealed partial class StartZoneConfig :  Bright.Config.EditorBeanBase
     }
 
     /// <summary>
-    /// Id
+    /// 区服Id 最大1024个
     /// </summary>
     public int Id { get; set; }
 
     /// <summary>
-    /// 数据库地址
+    /// 区服类型
     /// </summary>
-    public string DBConnection { get; set; }
+    public int ZoneType { get; set; }
 
     /// <summary>
     /// 数据库名
     /// </summary>
     public string DBName { get; set; }
+
+    /// <summary>
+    /// 数据库地址
+    /// </summary>
+    public string DBConnection { get; set; }
 
 }
 }

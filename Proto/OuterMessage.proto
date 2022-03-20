@@ -284,4 +284,68 @@ message A2C_GetServerInfos  //  IResponse
 	repeated ServerInfoProto ServerInfoProtoList = 1;
 }
 
+message RoleInfoProto
+{
+	int64 Id = 1;
+	string Name = 2;
+	int32 State = 3;
+	int64 AccountId = 4;
+	int64 LastLoginTime = 5;
+	int64 CreateTime = 6;
+	int32 ServerId = 7;
+}
+
+//ResponseType A2C_CreateRole
+message C2A_CreateRole  //  IRequest
+{
+	int32 RpcId = 90;
+	string Token = 1;
+	int64 AccountId = 2;
+	string Name = 3;
+	int32 ServerId = 4;
+}
+
+message A2C_CreateRole  //  IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	RoleInfoProto RoleInfo = 1;
+}
+
+//ResponseType A2C_GetRoles
+message C2A_GetRoles  //  IRequest
+{
+	int32 RpcId = 90;
+	string Token = 1;
+	int64 AccountId = 2;
+	int32 ServerId = 3;
+}
+
+message A2C_GetRoles  //  IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated RoleInfoProto RoleInfos = 1;
+}
+
+//ResponseType A2C_DeleteRole
+message C2A_DeleteRole  // IRequest
+{
+	int32 RpcId = 90;
+	string Token = 1;
+	int64 AccountId = 2;
+	int64 RoleInfoId = 3;
+	int32 ServerId = 4;
+}
+
+message A2C_DeleteRole  //  IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int64 DeleteRoleInfoId = 1;
+}
+
  

@@ -18,18 +18,28 @@ namespace ET
         {
             try
             {
-                int errorCode = await LoginHelper.Login(self.DomainScene(),
-                    ConstValue.LoginAddress,
-                    self.View.E_AccountInputField.GetComponent<InputField>().text,
-                    self.View.E_PasswordInputField.GetComponent<InputField>().text);
-                if (errorCode!=ErrorCode.ERR_Success)
                 {
-                    Log.Error(errorCode.ToString());
-                    return;
+                    int errorCode = await LoginHelper.Login(self.DomainScene(),
+                        ConstValue.LoginAddress,
+                        self.View.E_AccountInputField.GetComponent<InputField>().text,
+                        self.View.E_PasswordInputField.GetComponent<InputField>().text);
+                    if (errorCode!=ErrorCode.ERR_Success)
+                    {
+                        Log.Error(errorCode.ToString());
+                        return;
+                    }
                 }
-                
+
+                {
+                    int errorCode = await LoginHelper.GetServerInfos(self.ZoneScene());
+                    if (errorCode!=ErrorCode.ERR_Success)
+                    {
+                        Log.Error(errorCode.ToString());
+                        return;
+                    }
+                }
+                await self.DomainScene().GetComponent<UIComponent>().ShowWindowAsync(WindowID.WindowID_ServerList);
                 self.DomainScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_Login);
-                await self.DomainScene().GetComponent<UIComponent>().ShowWindowAsync(WindowID.WindowID_Lobby);
             }
             catch (Exception e)
             {
@@ -39,6 +49,7 @@ namespace ET
 
         public static void HideWindow(this DlgLogin self)
         {
+            
         }
     }
 }

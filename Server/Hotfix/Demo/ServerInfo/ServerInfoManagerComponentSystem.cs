@@ -36,6 +36,16 @@
             if (serverInfos==null || serverInfos.Count==0)
             {
                 Log.Error("ServerInfo count is zero!");
+                self.ServerInfos.Clear();
+                var serverInfoConfigs = ConfigComponent.Instance.Tables.ServerInfoConfigCategory.DataList;
+                foreach (var serverInfoConfig in serverInfoConfigs)
+                {
+                    ServerInfo serverInfo = self.AddChildWithId<ServerInfo>(serverInfoConfig.Id);
+                    serverInfo.ServerName = serverInfoConfig.ServerName;
+                    serverInfo.Status = (int)ServerStatus.Normal;
+                    self.ServerInfos.Add(serverInfo);
+                    await DBManagerComponent.Instance.GetZoneDB(self.DomainZone()).Save(serverInfo);
+                }
                 return;
             }
 

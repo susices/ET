@@ -18,8 +18,9 @@ public sealed partial class StartZoneConfig :  Bright.Config.BeanBase
     public StartZoneConfig(ByteBuf _buf) 
     {
         Id = _buf.ReadInt();
-        DBConnection = _buf.ReadString();
+        ZoneType = _buf.ReadInt();
         DBName = _buf.ReadString();
+        DBConnection = _buf.ReadString();
         PostInit();
     }
 
@@ -29,17 +30,21 @@ public sealed partial class StartZoneConfig :  Bright.Config.BeanBase
     }
 
     /// <summary>
-    /// Id
+    /// 区服Id 最大1024个
     /// </summary>
     public int Id { get; private set; }
     /// <summary>
-    /// 数据库地址
+    /// 区服类型
     /// </summary>
-    public string DBConnection { get; private set; }
+    public int ZoneType { get; private set; }
     /// <summary>
     /// 数据库名
     /// </summary>
     public string DBName { get; private set; }
+    /// <summary>
+    /// 数据库地址
+    /// </summary>
+    public string DBConnection { get; private set; }
 
     public const int __ID__ = -457316368;
     public override int GetTypeId() => __ID__;
@@ -57,8 +62,9 @@ public sealed partial class StartZoneConfig :  Bright.Config.BeanBase
     {
         return "{ "
         + "Id:" + Id + ","
-        + "DBConnection:" + DBConnection + ","
+        + "ZoneType:" + ZoneType + ","
         + "DBName:" + DBName + ","
+        + "DBConnection:" + DBConnection + ","
         + "}";
     }
     
