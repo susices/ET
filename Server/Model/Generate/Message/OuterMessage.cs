@@ -732,4 +732,118 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(A2C_GetRealmKey))]
+	[Message(OuterOpcode.C2A_GetRealmKey)]
+	[ProtoContract]
+	public partial class C2A_GetRealmKey: Object, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public string Token { get; set; }
+
+		[ProtoMember(2)]
+		public int ServerId { get; set; }
+
+		[ProtoMember(3)]
+		public long AccountId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.A2C_GetRealmKey)]
+	[ProtoContract]
+	public partial class A2C_GetRealmKey: Object, IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public string RealmKey { get; set; }
+
+		[ProtoMember(2)]
+		public string RealmAddress { get; set; }
+
+	}
+
+	[ResponseType(nameof(R2C_LoginRealm))]
+	[Message(OuterOpcode.C2R_LoginRealm)]
+	[ProtoContract]
+	public partial class C2R_LoginRealm: Object, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long AccountId { get; set; }
+
+		[ProtoMember(2)]
+		public string RealmTokenKey { get; set; }
+
+	}
+
+	[Message(OuterOpcode.R2C_LoginRealm)]
+	[ProtoContract]
+	public partial class R2C_LoginRealm: Object, IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public string GateSessionKey { get; set; }
+
+		[ProtoMember(2)]
+		public string GateAddress { get; set; }
+
+	}
+
+	[ResponseType(nameof(G2C_LoginGameGate))]
+	[Message(OuterOpcode.C2G_LoginGameGate)]
+	[ProtoContract]
+	public partial class C2G_LoginGameGate: Object, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public string Key { get; set; }
+
+		[ProtoMember(2)]
+		public long RoleId { get; set; }
+
+		[ProtoMember(3)]
+		public long Account { get; set; }
+
+	}
+
+	[Message(OuterOpcode.G2C_LoginGameGate)]
+	[ProtoContract]
+	public partial class G2C_LoginGameGate: Object, IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public long PlayerId { get; set; }
+
+	}
+
 }

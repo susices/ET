@@ -27,5 +27,11 @@ namespace ET
 		 public const ushort L2A_LoginAccountResponse = 20024;
 		 public const ushort L2G_DisconnectGateUnit = 20025;
 		 public const ushort G2L_DisconnectGateUnit = 20026;
+		 public const ushort A2R_GetRealmKey = 20027;
+		 public const ushort R2A_GetRealmKey = 20028;
+		 public const ushort R2G_GetLoginGateKey = 20029;
+		 public const ushort G2R_GetLoginGateKey = 20030;
+		 public const ushort G2L_AddLoginRecord = 20031;
+		 public const ushort L2G_AddLoginRecord = 20032;
 	}
 }

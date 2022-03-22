@@ -1,23 +1,31 @@
 ﻿namespace ET
 {
-	[ObjectSystem]
-	public class PlayerSystem : AwakeSystem<Player, string>
+	public enum PlayerState
 	{
-		public override void Awake(Player self, string a)
+		Disconnect,
+		Gate,
+		Game,
+	}
+	
+	[ObjectSystem]
+	public class PlayerSystem : AwakeSystem<Player, long,long>
+	{
+		public override void Awake(Player self, long accountId, long roleId)
 		{
-			self.Awake(a);
+			self.Account = accountId;
+			self.UnitId = roleId;
 		}
 	}
 
-	public sealed class Player : Entity, IAwake<string>
+	public sealed class Player : Entity, IAwake<string>,IAwake<long,long>
 	{
-		public string Account { get; private set; }
+		public long Account { get; set; }
 		
 		public long UnitId { get; set; }
-
-		public void Awake(string account)
-		{
-			this.Account = account;
-		}
+		
+		public long SessionInstanceId { get; set; }
+		
+		public PlayerState PlayerState { get; set; }
+		
 	}
 }

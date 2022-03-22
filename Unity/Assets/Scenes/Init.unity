@@ -896,13 +896,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-  - key: Hidden
+  - key: NormalRoot
     gameObject: {fileID: 872594939}
-  - key: Low
+  - key: FixedRoot
     gameObject: {fileID: 251107983}
-  - key: Mid
+  - key: PopUpRoot
     gameObject: {fileID: 493985069}
-  - key: High
+  - key: OtherRoot
     gameObject: {fileID: 1439952248}
 --- !u!850595691 &1972482029
 LightingSettings:

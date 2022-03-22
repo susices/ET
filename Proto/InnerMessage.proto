@@ -183,3 +183,49 @@ message G2L_DisconnectGateUnit  //  IActorResponse
 	int32 Error = 91;
 	string Message = 92;
 }
+
+//ResponseType R2A_GetRealmKey
+message A2R_GetRealmKey  //  IActorRequest
+{
+	int32 RpcId = 90;
+	int64 AccountId = 1;
+}
+
+message R2A_GetRealmKey  //  IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string RealmKey = 1;
+}
+
+//ResponseType G2R_GetLoginGateKey
+message R2G_GetLoginGateKey  //  IActorRequest
+{
+	int32 RpcId = 90;
+	int64 AccountId = 1;
+}
+
+message G2R_GetLoginGateKey  //  IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string GateSessionKey = 1;
+}
+
+//ResponseType L2G_AddLoginRecord
+message G2L_AddLoginRecord  //  IActorRequest
+{
+	int32 RpcId = 90;
+	int64 AccountId = 1;
+	int32 ServerId = 2;
+}
+
+message L2G_AddLoginRecord  //  IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+

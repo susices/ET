@@ -25,6 +25,9 @@ namespace ET
         public const int ERR_RoleNameIsNull = 200010;  // 角色名为空错误
         public const int ERR_RoleNameSame = 200011;  //  角色名重复
         public const int ERR_RoleNotExist = 200012;  //  角色不存在
+        public const int ERR_RequestSceneTypeError = 200013; //  请求的服务器类型错误
+        public const int ERR_ConnectGateKeyError = 200014;  // 连接Gate Key错误
+        public const int ERR_OtherAccountLogin = 200015;  //  其他账户登录
 
     }
 }

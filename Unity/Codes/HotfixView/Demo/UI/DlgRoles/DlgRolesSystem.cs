@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-
 namespace ET
 {
 	public static  class DlgRolesSystem
@@ -112,8 +111,39 @@ namespace ET
 
 		public static async ETTask OnEnterGameClickHandler(this DlgRoles self)
 		{
-			
+			if (self.ZoneScene().GetComponent<RoleInfosComponent>().CurrentRoleId == 0)
+			{
+				Log.Error("没有选择角色");
+				return;
+			}
+
+			try
+			{
+				{
+					int errorCode = await LoginHelper.GetRealmKey(self.ZoneScene());
+					if (errorCode!=ErrorCode.ERR_Success)
+					{
+						Log.Error(errorCode.ToString());
+						return;
+					}
+				}
+
+				{
+					int errorCode = await LoginHelper.EnterGame(self.ZoneScene());
+					if (errorCode!=ErrorCode.ERR_Success)
+					{
+						Log.Error(errorCode.ToString());
+						return;
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				Log.Error(e.ToString());
+				return;
+			}
 			await ETTask.CompletedTask;
+			
 		}
 	}
 }

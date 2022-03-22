@@ -13,9 +13,11 @@ namespace ET
 
         public const int LoginAccount = 8;  // 登录账号
         public const int LoginCenterLock = 9;  //账号中心
-        public const int GateLoginLock = 10;  //Gate登录
+        //public const int GateLoginLock = 10;  //Gate登录
 
         public const int CreateRole = 11;  //创建角色
+        public const int LoginRealm = 12;  //登录Realm
+        public const int LoginGate = 13;
 
         public const int Max = 100; // 这个必须最大
     }

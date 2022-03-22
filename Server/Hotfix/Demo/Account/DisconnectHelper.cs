@@ -18,5 +18,38 @@
             
             self.Dispose();
         }
+
+        public static async ETTask KickPlayer(Player player)
+        {
+            if (player==null || player.IsDisposed)
+            {
+                return;
+            }
+
+            long instanceId = player.InstanceId;
+            using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.LoginGate, player.Account.GetHashCode()))
+            {
+                if (player.IsDisposed || instanceId!=player.InstanceId)
+                {
+                    return;
+                }
+
+                switch (player.PlayerState)
+                {
+                    case PlayerState.Disconnect:
+                        break;
+                    case PlayerState.Game:
+                        break;
+                    case PlayerState.Gate:
+                        break;
+                }
+
+                player.PlayerState = PlayerState.Disconnect;
+                player.DomainScene().GetComponent<PlayerComponent>().Remove(player.Account);
+                player?.Dispose();
+                await TimerComponent.Instance.WaitAsync(300);
+                
+            }
+        }
     }
 }

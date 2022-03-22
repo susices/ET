@@ -21,7 +21,7 @@ namespace ET
                 var g2LDisconnectGateUnit  =  (G2L_DisconnectGateUnit) await MessageHelper.CallActor(gateConfig.InstanceId, new L2G_DisconnectGateUnit() { AccountId = accountId });
                 response.Error = g2LDisconnectGateUnit.Error;
                 reply();
-            } 
+            }
         }
     }
 }
