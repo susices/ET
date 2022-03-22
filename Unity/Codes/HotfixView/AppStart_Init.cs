@@ -20,7 +20,7 @@ namespace ET
             Game.Scene.AddComponent<ZoneSceneManagerComponent>();
             
             Game.Scene.AddComponent<GlobalComponent>();
-
+            Game.Scene.AddComponent<NumericWatcherComponent>();
             Game.Scene.AddComponent<AIDispatcherComponent>();
 
             Scene zoneScene = SceneFactory.CreateZoneScene(1, "Game", Game.Scene);
