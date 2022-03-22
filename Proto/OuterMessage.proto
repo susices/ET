@@ -372,7 +372,8 @@ message C2R_LoginRealm  //  IRequest
 {
 	int32 RpcId = 90;
 	int64 AccountId = 1;
-	string RealmTokenKey = 2;
+	int32 ServerId = 2;
+	string RealmTokenKey = 3;
 }
 
 message R2C_LoginRealm  //  IResponse
@@ -401,3 +402,29 @@ message G2C_LoginGameGate  //  IResponse
 	int64 PlayerId = 1;
 }
 
+//ResponseType G2C_EnterGame
+message C2G_EnterGame  //  IRequest
+{
+	int32 RpcId = 1;
+}
+
+message G2C_EnterGame  //  IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int64 MyId = 4;
+}
+
+//ResponseType M2G_RequestEnterGameState
+message G2M_RequestEnterGameState  //  IActorLocationRequest
+{
+	int32 RpcId = 90;
+}
+
+message M2G_RequestEnterGameState  //  IActorLocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}

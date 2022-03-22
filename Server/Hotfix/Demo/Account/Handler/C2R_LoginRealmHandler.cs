@@ -38,7 +38,8 @@ namespace ET
             {
                 using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.LoginRealm, request.AccountId.GetHashCode()))
                 {
-                    StartSceneConfig gateConfig = RealmGateAddressHelper.GetGate(session.DomainZone(), request.AccountId);
+                    Log.Debug($"zone {session.DomainZone()} ");
+                    StartSceneConfig gateConfig = RealmGateAddressHelper.GetGate(request.ServerId, request.AccountId);
 
                     var g2RGetLoginGateKey = (G2R_GetLoginGateKey) await MessageHelper.CallActor(gateConfig.InstanceId, new R2G_GetLoginGateKey()
                     {

@@ -47,17 +47,30 @@ namespace ET
                     L2G_AddLoginRecord l2GAddLoginRecord = (L2G_AddLoginRecord)await MessageHelper.CallActor(loginCenterConfig.InstanceId,
                         new G2L_AddLoginRecord() { AccountId = request.Account,ServerId = session.DomainZone()});
 
+                    Log.Debug("After l2GAddLoginRecord");
                     if (l2GAddLoginRecord.Error!=ErrorCode.ERR_Success)
                     {
                         response.Error = l2GAddLoginRecord.Error;
                         reply();
                         session?.Disconnect().Coroutine();
+                        Log.Debug("l2GAddLoginRecord.Error!=ErrorCode.ERR_Success");
                         return;
                     }
 
+                    SessionStateComponent sessionStateComponent = session.GetComponent<SessionStateComponent>();
+                    if (sessionStateComponent==null)
+                    {
+                        sessionStateComponent = session.AddComponent<SessionStateComponent>();
+                    }
+
+                    sessionStateComponent.State = SessionState.Normal;
+                    
+                    
                     Player player = session.DomainScene().GetComponent<PlayerComponent>().Get(request.Account);
+                    
                     if (player==null)
                     {
+                        Log.Debug("player==null");
                         player = session.DomainScene().GetComponent<PlayerComponent>()
                                 .AddChildWithId<Player, long, long>(request.RoleId, request.Account, request.RoleId);
                         player.PlayerState = PlayerState.Gate;
@@ -66,6 +79,7 @@ namespace ET
                     }
                     else
                     {
+                        Log.Debug("player!=null");
                         session.RemoveComponent<PlayerOfflineOutTimeComponent>();
                     }
 
@@ -74,6 +88,7 @@ namespace ET
                     sessionPLayerComponent.PlayerInstanceId = player.InstanceId;
                     sessionPLayerComponent.AccountId = request.Account;
                     player.SessionInstanceId = session.InstanceId;
+                    reply();
                 }
             }
             await ETTask.CompletedTask;

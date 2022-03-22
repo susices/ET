@@ -28,6 +28,13 @@ namespace ET
         public const int ERR_RequestSceneTypeError = 200013; //  请求的服务器类型错误
         public const int ERR_ConnectGateKeyError = 200014;  // 连接Gate Key错误
         public const int ERR_OtherAccountLogin = 200015;  //  其他账户登录
+        public const int ERR_SessionPlayerComponentError = 200016;  // sessionPlayer组件为空
+        public const int ERR_NonePlayerError = 200017;  //  player不存在错误
+        public const int ERR_PlayerSessionDisposeError = 200018;  //  player的session已被DIspose
+        public const int ERR_SessionStateError = 200019;  //  session状态错误
+        public const int ERR_EnterGameError = 200020;  //  进入逻辑服错误
+        public const int ERR_ReEnterGameError = 200021;  //  二次登录错误
+        public const int ERR_ReEnterGameError2 = 200022;  //  二次登录错误2
 
     }
 }
