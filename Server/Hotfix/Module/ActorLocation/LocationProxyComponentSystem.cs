@@ -22,9 +22,16 @@ namespace ET
 
     public static class LocationProxyComponentSystem
     {
-        private static long GetLocationSceneId(long key)
+        private static long GetLocationSceneId(long unitId)
         {
-            return ConfigComponent.Instance.Tables.StartSceneConfigCategory.LocationConfig.InstanceId;
+            UnitIdStruct unitIdStruct = new UnitIdStruct(unitId);
+            int zone = (int)unitIdStruct.Zone;
+            if (ConfigComponent.Instance.Tables.StartSceneConfigCategory.LocationConfigs.TryGetValue(zone, out var startSceneConfig))
+            {
+                return startSceneConfig.InstanceId;
+            }
+            Log.Error("无法找到unitId 所属Location配置！ unitId格式错误或Location配置错误");
+            return 0;
         }
 
         public static async ETTask Add(this LocationProxyComponent self, long key, long instanceId)
@@ -64,7 +71,7 @@ namespace ET
 
             // location server配置到共享区，一个大战区可以配置N多个location server,这里暂时为1
             ObjectGetResponse response =
-                    (ObjectGetResponse) await MessageHelper.CallActor(GetLocationSceneId(key),
+                    (ObjectGetResponse) await MessageHelper.CallActor(GetLocationSceneId(key), 
                         new ObjectGetRequest() { Key = key });
             return response.InstanceId;
         }

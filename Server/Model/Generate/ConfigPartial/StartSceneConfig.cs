@@ -12,7 +12,7 @@ namespace ET
         
         public Dictionary<long, Dictionary<string, StartSceneConfig>> ZoneScenesByName = new Dictionary<long, Dictionary<string, StartSceneConfig>>();
 
-        public StartSceneConfig LocationConfig;
+        public Dictionary<int, StartSceneConfig> LocationConfigs = new Dictionary<int, StartSceneConfig>();
 
         public StartSceneConfig LoginCenterConfig;
         
@@ -48,7 +48,7 @@ namespace ET
                         this.Gates.Add(startSceneConfig.Zone, startSceneConfig);
                         break;
                     case SceneType.Location:
-                        this.LocationConfig = startSceneConfig;
+                        this.LocationConfigs.Add(startSceneConfig.Zone,startSceneConfig);
                         break;
                     case SceneType.Robot:
                         this.Robots.Add(startSceneConfig);
