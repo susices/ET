@@ -26,7 +26,7 @@ namespace ET
                     {
                         Error = ErrorCode.ERR_OtherAccountLogin,
                     });
-                    gateSession.GetComponent<SessionPlayerComponent>().IsNeedKickPlayer = true;
+                    gateSession.GetComponent<SessionPlayerComponent>().IsNeedKickPlayer = false;
                     gateSession?.Disconnect().Coroutine();
                 }
                 

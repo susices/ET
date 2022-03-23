@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabSource:
-    prefabPath: Assets/Bundles/UI/Item/item_ServerInfo.prefab
+    prefabPath: Assets/Bundles/UI/Item/Item_ServerInfo.prefab
     poolSize: 5
   totalCount: 0
   reverseDirection: 0

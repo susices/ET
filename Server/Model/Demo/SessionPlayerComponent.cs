@@ -8,6 +8,6 @@
 
 		public long AccountId;
 
-		public bool IsNeedKickPlayer = false;
+		public bool IsNeedKickPlayer = true;
 	}
 }
