@@ -26,9 +26,10 @@ namespace ET
                     {
                         Error = ErrorCode.ERR_OtherAccountLogin,
                     });
+                    gateSession.GetComponent<SessionPlayerComponent>().IsNeedKickPlayer = true;
                     gateSession?.Disconnect().Coroutine();
                 }
-
+                
                 player.SessionInstanceId = 0;
                 player.AddComponent<PlayerOfflineOutTimeComponent>();
                 reply();

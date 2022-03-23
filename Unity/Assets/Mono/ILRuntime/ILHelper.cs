@@ -85,6 +85,8 @@ namespace ET
                 });
             });
             appdomain.DelegateManager.RegisterMethodDelegate<ET.MonoEvent>();
+            
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Transform, System.Int32>();
 
             // 注册适配器
             RegisterAdaptor(appdomain);

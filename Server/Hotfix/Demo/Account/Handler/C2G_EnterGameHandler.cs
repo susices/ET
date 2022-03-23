@@ -26,7 +26,7 @@ namespace ET
             {
                 response.Error = ErrorCode.ERR_SessionPlayerComponentError;
                 reply();
-                return;
+                return;   
             }
             
             Player player = Game.EventSystem.Get(sessionPlayerComponent.PlayerInstanceId) as Player;
@@ -82,6 +82,7 @@ namespace ET
                             session?.Disconnect().Coroutine();
                             throw;
                         }
+                        return;
                     }
 
                     try
@@ -117,7 +118,6 @@ namespace ET
                         reply();
                         await DisconnectHelper.KickPlayer(player, true);
                         session?.Disconnect().Coroutine();
-                        ;
                     }
                 }
             }

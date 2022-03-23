@@ -8,9 +8,16 @@ namespace ET
 		{
 			public override void Destroy(SessionPlayerComponent self)
 			{
-				// 发送断线消息
-				ActorLocationSenderComponent.Instance.Send(self.PlayerId, new G2M_SessionDisconnect());
-				self.Domain.GetComponent<PlayerComponent>()?.Remove(self.AccountId);
+				if (self.IsNeedKickPlayer)
+				{
+					Log.Debug("sessionPlayer释放 KickPlayer");
+					Player player = self.Domain.GetComponent<PlayerComponent>().Get(self.AccountId);
+					DisconnectHelper.KickPlayer(player).Coroutine();
+				}
+				else
+				{
+					Log.Debug("sessionPlayer释放 保留player");
+				}
 			}
 		}
 

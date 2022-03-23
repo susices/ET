@@ -7,5 +7,7 @@
 		public long PlayerInstanceId;
 
 		public long AccountId;
+
+		public bool IsNeedKickPlayer = false;
 	}
 }

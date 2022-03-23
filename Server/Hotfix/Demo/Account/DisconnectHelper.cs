@@ -40,9 +40,13 @@
                     {
                         case PlayerState.Disconnect:
                             break;
-                        case PlayerState.Game:
-                            break;
                         case PlayerState.Gate:
+                            break;
+                        case PlayerState.Game:
+                            var m2GRequestExitGame = (M2G_RequestExitGame)await MessageHelper.CallLocationActor(player.UnitId, new G2M_RequestExitGame());
+                            long loginCenterConfig = ConfigComponent.Instance.Tables.StartSceneConfigCategory.LoginCenterConfig.InstanceId;
+                            var l2GRemoveLoginRecord  = (L2G_RemoveLoginRecord)await MessageHelper.CallActor(loginCenterConfig,
+                                new G2L_RemoveLoginRecord() { AccountId = player.Account, ServerId = player.DomainZone()});
                             break;
                     }
                 }

@@ -103,7 +103,7 @@ namespace ET
                     
                     long accountSessionInstanceId = session.DomainScene().GetComponent<AccountSessionsComponent>().Get(account.Id);
                     Session otherSession = EventSystem.Instance.Get(accountSessionInstanceId) as Session;
-                    otherSession?.Send(new A2C_Disconnect(){Error = 0});
+                    otherSession?.Send(new A2C_Disconnect(){Error = ErrorCode.ERR_OtherAccountLogin});
                     otherSession?.Disconnect().Coroutine();
                     
                     session.DomainScene().GetComponent<AccountSessionsComponent>().Add(account.Id, session.InstanceId);
