@@ -2,7 +2,7 @@
 
 namespace ET
 {
-	public  class DlgRoles :Entity,IAwake,IUILogic
+	public  class DlgRoles :Entity,IAwake,IUILogic, ILoad
 	{
 
 		public DlgRolesViewComponent View { get => this.Parent.GetComponent<DlgRolesViewComponent>();}

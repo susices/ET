@@ -6,6 +6,18 @@ using UnityEngine.UI;
 
 namespace ET
 {
+	public class DlgServerListLoadSystem : LoadSystem<DlgServerList>
+	{
+		public override void Load(DlgServerList self)
+		{
+			self.RegisterUIEvent();
+			if (self.GetParent<UIBaseWindow>().IsVisible())
+			{
+				self.ShowWindow();				
+			}
+		}
+	}
+
 	public static  class DlgServerListSystem
 	{
 

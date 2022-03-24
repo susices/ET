@@ -29,5 +29,17 @@ namespace ET
             self.uiTransform.SetParent(rootTransform, false);
             self.uiTransform.transform.localScale = Vector3.one;
         }
+
+        public static bool IsVisible(this UIBaseWindow self)
+        {
+            UIComponent uiComponent = self.GetParent<UIComponent>();
+            if (uiComponent==null)
+            {
+                Log.Error("无法获取父级UIComponent");
+                return false;
+            }
+
+            return uiComponent.VisibleWindowsDic.ContainsKey((int)self.WindowID);
+        }
     }
 }

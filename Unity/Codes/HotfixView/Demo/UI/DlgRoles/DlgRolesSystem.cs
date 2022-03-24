@@ -5,6 +5,19 @@ using UnityEngine;
 using UnityEngine.UI;
 namespace ET
 {
+	
+	public class DlgRolesLoadSystem : LoadSystem<DlgRoles>
+	{
+		public override void Load(DlgRoles self)
+		{
+			self.RegisterUIEvent();
+			if (self.GetParent<UIBaseWindow>().IsVisible())
+			{
+				self.RefreshRoleItems();
+			}
+		}
+	}
+
 	public static  class DlgRolesSystem
 	{
 
@@ -54,7 +67,7 @@ namespace ET
 		public static void OnClickRoleHandler(this DlgRoles self, long selectRoleId)
 		{
 			self.ZoneScene().GetComponent<RoleInfosComponent>().CurrentRoleId = selectRoleId;
-			Log.Debug($"当前选择的角色Id是 {selectRoleId.ToString()}");
+			Log.Debug($"当前选择的角色Id是 {selectRoleId.ToString()} xxxxx");
 			self.View.ELoopScrollList_RolesLoopHorizontalScrollRect.RefillCells();
 		}
 
@@ -94,7 +107,7 @@ namespace ET
 					return;
 				}
 
-				int result = await DlgTipsHelper.ShowTips(self.ZoneScene(),"确定要删除角色吗？");
+				int result = await DlgTipsHelper.ShowTips(self.ZoneScene(),"确定要删除角色吗？？？？");
 				if (result!=TipsResultType.Confirm)
 				{
 					return;

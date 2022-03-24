@@ -1,6 +1,6 @@
 ﻿namespace ET
 {
-	public  class DlgTips :Entity,IAwake,IUILogic
+	public  class DlgTips :Entity,IAwake,IUILogic, ILoad
 	{
 
 		public DlgTipsViewComponent View { get => this.Parent.GetComponent<DlgTipsViewComponent>();}

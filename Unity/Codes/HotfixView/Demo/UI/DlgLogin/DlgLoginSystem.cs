@@ -3,6 +3,14 @@ using UnityEngine.UI;
 
 namespace ET
 {
+    public class DlgLoginLoadSystem : LoadSystem<DlgLogin>
+    {
+        public override void Load(DlgLogin self)
+        {
+            self.RegisterUIEvent();
+        }
+    }
+
     public static class DlgLoginSystem
     {
         public static void RegisterUIEvent(this DlgLogin self)

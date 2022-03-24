@@ -2,7 +2,7 @@
 
 namespace ET
 {
-	public  class DlgServerList :Entity,IAwake,IUILogic
+	public  class DlgServerList :Entity,IAwake,IUILogic, ILoad
 	{
 
 		public DlgServerListViewComponent View { get => this.Parent.GetComponent<DlgServerListViewComponent>();}

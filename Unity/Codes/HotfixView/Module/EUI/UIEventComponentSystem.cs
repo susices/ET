@@ -2,6 +2,14 @@
 
 namespace ET
 {
+    public class UIEventComponentLoadSystem : LoadSystem<UIEventComponent>
+    {
+        public override void Load(UIEventComponent self)
+        {
+            self.Awake();
+        }
+    }
+
     [ObjectSystem]
     public class UIEventComponentAwakeSystem : AwakeSystem<UIEventComponent>
     {

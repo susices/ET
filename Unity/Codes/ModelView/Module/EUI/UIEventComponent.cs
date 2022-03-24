@@ -2,7 +2,7 @@
 
 namespace ET
 {
-    public class UIEventComponent : Entity,IAwake,IDestroy
+    public class UIEventComponent : Entity,IAwake,IDestroy, ILoad
     {
         
         public static UIEventComponent Instance { get; set; }

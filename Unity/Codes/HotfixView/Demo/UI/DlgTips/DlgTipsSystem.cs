@@ -6,6 +6,15 @@ using UnityEngine.UI;
 
 namespace ET
 {
+	
+	public class DlgTipsLoadSystem : LoadSystem<DlgTips>
+	{
+		public override void Load(DlgTips self)
+		{
+			self.RegisterUIEvent();
+		}
+	}
+
 	public static class DlgTipsSystem
 	{
 
