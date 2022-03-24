@@ -24,9 +24,7 @@ namespace ET
     {
         private static long GetLocationSceneId(long unitId)
         {
-            UnitIdStruct unitIdStruct = new UnitIdStruct(unitId);
-            int zone = (int)unitIdStruct.Zone;
-            if (ConfigComponent.Instance.Tables.StartSceneConfigCategory.LocationConfigs.TryGetValue(zone, out var startSceneConfig))
+            if (ConfigComponent.Instance.Tables.StartSceneConfigCategory.LocationConfigs.TryGetValue(UnitIdStruct.GetUnitZone(unitId), out var startSceneConfig))
             {
                 return startSceneConfig.InstanceId;
             }

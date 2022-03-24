@@ -256,5 +256,50 @@ message L2G_RemoveLoginRecord  //  IActorResponse
 	string Message = 92;
 }
 
+//缓存相关
+
+//增加或更新Unit缓存
+//ResponseType UnitCache2Other_AddOrUpdateUnit
+message Other2UnitCache_AddOrUpdateUnit  //  IActorRequest
+{
+	int32 RpcId = 90;
+	int64 UnitId = 1;
+	repeated string EntityTypes = 2;
+	repeated bytes EntityBytes = 3;
+}
+
+message UnitCache2Other_AddOrUpdateUnit  //  IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//获取Unit缓存
+//ResponseType UnitCache2Other_GetUnit
+message Other2UnitCache_GetUnit  //  IActorRequest
+{
+	int32 RpcId = 90;
+	int64 UnitId = 1;
+	repeated string ComponentNameList = 2;
+}
+
+//删除Unit缓存
+//ResponseType UnitCache2Other_DeleteUnit
+message Other2UnitCache_DeleteUnit  //  IActorRequest   
+{
+	int32 RpcId = 90;
+	int64 UnitId = 1;
+}
+
+message UnitCache2Other_DeleteUnit  //  IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+
 
 

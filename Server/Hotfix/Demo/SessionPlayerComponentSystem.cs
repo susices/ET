@@ -8,16 +8,21 @@ namespace ET
 		{
 			public override void Destroy(SessionPlayerComponent self)
 			{
-				if (self.IsNeedKickPlayer)
+				if (self.IsNeedKickPlayer &&self.PlayerInstanceId!=0)
 				{
 					Log.Debug("sessionPlayer释放 KickPlayer");
-					Player player = self.Domain.GetComponent<PlayerComponent>().Get(self.AccountId);
+					Player player = Game.EventSystem.Get(self.PlayerInstanceId) as Player;
 					DisconnectHelper.KickPlayer(player).Coroutine();
 				}
 				else
 				{
 					Log.Debug("sessionPlayer释放 保留player");
 				}
+
+				self.AccountId = 0;
+				self.PlayerId = 0;
+				self.PlayerInstanceId = 0;
+				self.IsNeedKickPlayer = true;
 			}
 		}
 

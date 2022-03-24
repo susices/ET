@@ -55,7 +55,7 @@
                 player.DomainScene().GetComponent<PlayerComponent>().Remove(player.Account);
                 player?.Dispose();
                 await TimerComponent.Instance.WaitAsync(300);
-
+    
             }
         }
     }

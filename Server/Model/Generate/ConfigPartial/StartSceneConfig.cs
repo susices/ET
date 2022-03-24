@@ -14,11 +14,14 @@ namespace ET
 
         public Dictionary<int, StartSceneConfig> LocationConfigs = new Dictionary<int, StartSceneConfig>();
 
+        public Dictionary<int, StartSceneConfig> UnitCaches = new Dictionary<int, StartSceneConfig>();
+
         public StartSceneConfig LoginCenterConfig;
         
         public List<StartSceneConfig> Robots = new List<StartSceneConfig>();
 
         public List<StartSceneConfig> Realms = new List<StartSceneConfig>();
+        
 
         public List<StartSceneConfig> GetByProcess(int process)
         {
@@ -28,6 +31,11 @@ namespace ET
         public StartSceneConfig GetBySceneName(int zone, string name)
         {
             return this.ZoneScenesByName[zone][name];
+        }
+
+        public StartSceneConfig GetUnitCacheConfig(long unitId)
+        {
+            return this.UnitCaches[UnitIdStruct.GetUnitZone(unitId)];
         }
 
         partial void PostResolve()
@@ -58,6 +66,9 @@ namespace ET
                         break;
                     case SceneType.LoginCenter:
                         this.LoginCenterConfig = startSceneConfig;
+                        break;
+                    case SceneType.UnitCahce:
+                        this.UnitCaches.Add(startSceneConfig.Zone,startSceneConfig);
                         break;
                 }
             }
