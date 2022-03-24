@@ -10,5 +10,6 @@
         WindowID_Helper,   //提示界面
         WindowID_ServerList,  //服务器列表界面
         WindowID_Roles,  //角色列表界面
+        WindowID_Tips,  //信息弹窗界面
     }
 }

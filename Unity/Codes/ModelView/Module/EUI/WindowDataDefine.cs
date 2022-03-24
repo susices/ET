@@ -19,7 +19,7 @@ namespace ET
     }
     
     
-    public class ShowWindowData : Entity
+    public class ShowWindowData : Entity,IAwake, IDestroy
     {
         public Entity contextData;
     }

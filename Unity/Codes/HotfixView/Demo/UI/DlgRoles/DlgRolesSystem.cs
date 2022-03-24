@@ -94,6 +94,12 @@ namespace ET
 					return;
 				}
 
+				int result = await DlgTipsHelper.ShowTips(self.ZoneScene(),"确定要删除角色吗？");
+				if (result!=TipsResultType.Confirm)
+				{
+					return;
+				}
+
 				int errorCode = await LoginHelper.DeleteRole(self.ZoneScene());
 				if (errorCode!=ErrorCode.ERR_Success)
 				{
