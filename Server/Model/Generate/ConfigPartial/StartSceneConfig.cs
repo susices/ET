@@ -67,7 +67,7 @@ namespace ET
                     case SceneType.LoginCenter:
                         this.LoginCenterConfig = startSceneConfig;
                         break;
-                    case SceneType.UnitCahce:
+                    case SceneType.UnitCache:
                         this.UnitCaches.Add(startSceneConfig.Zone,startSceneConfig);
                         break;
                 }

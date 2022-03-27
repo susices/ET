@@ -34,7 +34,7 @@ namespace ET
             }
             self.CacheComponentDic.Add(entity.Id,entity);
         }
-
+ 
         public static async ETTask<Entity> Get(this UnitCache self, long unitId)
         {
             Entity entity = null;

@@ -9,8 +9,9 @@ namespace ET
             zoneScene.AddComponent<UIPathComponent>();
             zoneScene.AddComponent<UIEventComponent>();
             zoneScene.AddComponent<RedDotComponent>();
+            zoneScene.AddComponent<SceneAssetComponent>();
 
-            zoneScene.GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Login);
+            await zoneScene.GetComponent<UIComponent>().ShowWindowAsync(WindowID.WindowID_Login);
             await ETTask.CompletedTask;
         }
     }

@@ -12,12 +12,11 @@ namespace ET
             {
                 case UnitType.Player:
                 {
-                    GameObject bundleGameObject = await AssetComponent.LoadAsync<GameObject>("Assets/Bundles/Unit/Unit.prefab");
-                    GameObject prefab = bundleGameObject.Get<GameObject>("Skeleton");
-                    GameObject go = UnityEngine.Object.Instantiate(prefab, GlobalComponent.Instance.Unit, true);
-                    go.transform.position = args.Unit.Position;
+                    GameObject bundleGameObject = await AssetComponent.LoadAsync<GameObject>("Assets/Bundles/Unit/Player.prefab");
+                    GameObject go = UnityEngine.Object.Instantiate(bundleGameObject, GlobalComponent.Instance.Unit, true);
                     args.Unit.AddComponent<GameObjectComponent>().GameObject = go;
                     args.Unit.AddComponent<AnimatorComponent>();
+                    args.Unit.Position = Vector3.zero;
                 }
                     break;
                 case UnitType.NPC:

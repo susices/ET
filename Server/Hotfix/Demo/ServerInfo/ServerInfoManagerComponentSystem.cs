@@ -49,6 +49,10 @@
                 return;
             }
 
+            foreach (var serverInfo in self.ServerInfos)
+            {
+                serverInfo.Dispose();
+            }
             self.ServerInfos.Clear();
             foreach (var serverInfo in serverInfos)
             {

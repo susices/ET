@@ -154,6 +154,8 @@ namespace ET
 						Log.Error(errorCode.ToString());
 						return;
 					}
+					await self.ZoneScene().GetComponent<UIComponent>().ShowWindowAsync(WindowID.WindowID_Main);
+					self.ZoneScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_Roles);
 				}
 			}
 			catch (Exception e)

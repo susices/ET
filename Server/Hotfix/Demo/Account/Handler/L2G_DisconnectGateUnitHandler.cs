@@ -18,7 +18,7 @@ namespace ET
                     return;
                 }
                 scene.GetComponent<GateSessionKeyComponent>().Remove(accountId);
-                Session gateSession = Game.EventSystem.Get(player.SessionInstanceId) as Session;
+                Session gateSession = player.ClientSession;
 
                 if (gateSession!=null  && !gateSession.IsDisposed)
                 {
@@ -29,8 +29,8 @@ namespace ET
                     gateSession.GetComponent<SessionPlayerComponent>().IsNeedKickPlayer = false;
                     gateSession?.Disconnect().Coroutine();
                 }
-                
-                player.SessionInstanceId = 0;
+
+                player.ClientSession = null;
                 player.AddComponent<PlayerOfflineOutTimeComponent>();
                 reply();
             }

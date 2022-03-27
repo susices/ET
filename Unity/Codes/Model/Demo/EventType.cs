@@ -18,6 +18,7 @@ namespace ET
         {
             public Scene ZoneScene;
             public Scene CurrentScene;
+            public string oldCurrentScene;
         }
 
         public struct ChangePosition

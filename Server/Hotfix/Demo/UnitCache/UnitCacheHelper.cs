@@ -84,5 +84,57 @@ namespace ET
                 return;
             }
         }
+
+        public static async ETTask<Unit> GetUnitCache(Scene scene, long unitId)
+        {
+            long unitCacheInstanceID = ConfigComponent.Instance.Tables.StartSceneConfigCategory.GetUnitCacheConfig(unitId).InstanceId;
+            Other2UnitCache_GetUnit message = new Other2UnitCache_GetUnit() { UnitId = unitId };
+            UnitCache2Other_GetUnit unitCache2OtherGetUnit = (UnitCache2Other_GetUnit)await MessageHelper.CallActor(unitCacheInstanceID, message);
+            if (unitCache2OtherGetUnit.Error!=ErrorCode.ERR_Success)
+            {
+                Log.Error(unitCache2OtherGetUnit.Error.ToString());
+                return null;
+            }
+
+            if (unitCache2OtherGetUnit.EntityList.Count==0)
+            {
+                return null;
+            }
+            
+            Unit unit = unitCache2OtherGetUnit.EntityList[0] as Unit;
+            if (unit==null)
+            {
+                return null;
+            }
+
+            scene.AddChild(unit);
+
+            foreach (var entity in unitCache2OtherGetUnit.EntityList)
+            {
+                if (entity==null ||entity is Unit)
+                {
+                    continue;
+                }
+                unit.AddComponent(entity);
+            }
+            return unit;
+        }
+
+        public static void AddOrUpdateUnitAllCache(Unit unit)
+        {
+            Other2UnitCache_AddOrUpdateUnit message = new Other2UnitCache_AddOrUpdateUnit() { UnitId = unit.Id };
+            message.EntityTypes.Add(unit.GetType().FullName);
+            message.EntityBytes.Add(MongoHelper.ToBson(unit));
+            foreach ((Type type, Entity entity) in unit.Components)
+            {
+                if (!typeof(IUnitCache).IsAssignableFrom(type))
+                {
+                    continue;
+                }
+                message.EntityTypes.Add(type.FullName);
+                message.EntityBytes.Add(MongoHelper.ToBson(entity));
+            }
+            MessageHelper.CallActor(ConfigComponent.Instance.Tables.StartSceneConfigCategory.GetUnitCacheConfig(unit.Id).InstanceId, message).Coroutine();
+        }
     }
 }
