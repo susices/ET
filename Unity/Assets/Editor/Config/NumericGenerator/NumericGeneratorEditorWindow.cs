@@ -83,7 +83,15 @@ namespace ET.ConfigEditor
             {
                 scrollListComponent.SelectedItemIndex = scrollListComponent.list.Count;
             }
-            scrollListComponent.list.Insert(scrollListComponent.SelectedItemIndex, new NumericInfo());
+
+            if (scrollListComponent.list.Count==0)
+            {
+                scrollListComponent.list.Insert(0, new NumericInfo());
+            }
+            else
+            {
+                scrollListComponent.list.Insert(scrollListComponent.SelectedItemIndex+1, new NumericInfo());
+            }
         }
 
         private void Refresh(ScrollListComponent scrollListComponent)
@@ -98,6 +106,10 @@ namespace ET.ConfigEditor
 
         private void CodeGenerate()
         {
+            var text = File.ReadAllText("Assets/Editor/Config/NumericGenerator/NumericGenerator.tpl");
+            Template template = Template.Parse(text);
+            string result = template.Render( numericInfoList);
+            
             Debug.Log("CodeGenerate");
         }
     }
