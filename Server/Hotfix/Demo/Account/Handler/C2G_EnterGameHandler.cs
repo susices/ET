@@ -28,7 +28,7 @@ namespace ET
                 reply();
                 return;   
             }
-            
+
             Player player = Game.EventSystem.Get(sessionPlayerComponent.PlayerInstanceId) as Player;
             if (player==null || player.IsDisposed)
             {

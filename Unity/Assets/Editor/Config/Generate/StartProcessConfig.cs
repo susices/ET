@@ -8,12 +8,13 @@
 using Bright.Serialization;
 using System.Collections.Generic;
 using SimpleJSON;
-
+using System;
 
 
 namespace ET.ConfigEditor
 {
 
+[Serializable]
 public sealed partial class StartProcessConfig :  Bright.Config.EditorBeanBase 
 {
     public StartProcessConfig()
@@ -90,22 +91,22 @@ public sealed partial class StartProcessConfig :  Bright.Config.EditorBeanBase
     /// <summary>
     /// Id
     /// </summary>
-    public int Id { get; set; }
+    public int Id;
 
     /// <summary>
     /// 所属机器
     /// </summary>
-    public int MachineId { get; set; }
+    public int MachineId;
 
     /// <summary>
     /// 内网端口
     /// </summary>
-    public int InnerPort { get; set; }
+    public int InnerPort;
 
     /// <summary>
     /// 程序名
     /// </summary>
-    public string AppName { get; set; }
+    public string AppName;
 
 }
 }

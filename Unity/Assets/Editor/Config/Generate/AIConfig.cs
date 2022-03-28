@@ -8,12 +8,13 @@
 using Bright.Serialization;
 using System.Collections.Generic;
 using SimpleJSON;
-
+using System;
 
 
 namespace ET.ConfigEditor
 {
 
+[Serializable]
 public sealed partial class AIConfig :  Bright.Config.EditorBeanBase 
 {
     public AIConfig()
@@ -118,32 +119,32 @@ public sealed partial class AIConfig :  Bright.Config.EditorBeanBase
     /// <summary>
     /// Id
     /// </summary>
-    public int Id { get; set; }
+    public int Id;
 
     /// <summary>
     /// 所属ai
     /// </summary>
-    public int AIConfigId { get; set; }
+    public int AIConfigId;
 
     /// <summary>
     /// 此ai中的顺序
     /// </summary>
-    public int Order { get; set; }
+    public int Order;
 
     /// <summary>
     /// 节点名字
     /// </summary>
-    public string Name { get; set; }
+    public string Name;
 
     /// <summary>
     /// 描述
     /// </summary>
-    public string Desc { get; set; }
+    public string Desc;
 
     /// <summary>
     /// 节点参数
     /// </summary>
-    public int[] NodeParams { get; set; }
+    public int[] NodeParams;
 
 }
 }

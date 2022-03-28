@@ -8,12 +8,13 @@
 using Bright.Serialization;
 using System.Collections.Generic;
 using SimpleJSON;
-
+using System;
 
 
 namespace ET.ConfigEditor
 {
 
+[Serializable]
 public sealed partial class StartSceneConfig :  Bright.Config.EditorBeanBase 
 {
     public StartSceneConfig()
@@ -126,37 +127,37 @@ public sealed partial class StartSceneConfig :  Bright.Config.EditorBeanBase
     /// <summary>
     /// Id
     /// </summary>
-    public int Id { get; set; }
+    public int Id;
 
     /// <summary>
     /// 所属进程
     /// </summary>
-    public int Process { get; set; }
+    public int Process;
 
     /// <summary>
     /// 所属区
     /// </summary>
-    public int Zone { get; set; }
+    public int Zone;
 
     /// <summary>
     /// 起服顺序
     /// </summary>
-    public int Index { get; set; }
+    public int Index;
 
     /// <summary>
     /// 类型
     /// </summary>
-    public string SceneType { get; set; }
+    public string SceneType;
 
     /// <summary>
     /// 名字
     /// </summary>
-    public string Name { get; set; }
+    public string Name;
 
     /// <summary>
     /// 外网端口
     /// </summary>
-    public int OuterPort { get; set; }
+    public int OuterPort;
 
 }
 }

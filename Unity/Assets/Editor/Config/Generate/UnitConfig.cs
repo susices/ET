@@ -8,12 +8,13 @@
 using Bright.Serialization;
 using System.Collections.Generic;
 using SimpleJSON;
-
+using System;
 
 
 namespace ET.ConfigEditor
 {
 
+[Serializable]
 public sealed partial class UnitConfig :  Bright.Config.EditorBeanBase 
 {
     public UnitConfig()
@@ -118,32 +119,32 @@ public sealed partial class UnitConfig :  Bright.Config.EditorBeanBase
     /// <summary>
     /// Id
     /// </summary>
-    public int Id { get; set; }
+    public int Id;
 
     /// <summary>
     /// Type
     /// </summary>
-    public int Type { get; set; }
+    public int Type;
 
     /// <summary>
     /// 名字
     /// </summary>
-    public string Name { get; set; }
+    public string Name;
 
     /// <summary>
     /// 描述
     /// </summary>
-    public string Desc { get; set; }
+    public string Desc;
 
     /// <summary>
     /// 位置
     /// </summary>
-    public int Position { get; set; }
+    public int Position;
 
     /// <summary>
     /// 数值Values
     /// </summary>
-    public long[] NumericValues { get; set; }
+    public long[] NumericValues;
 
 }
 }

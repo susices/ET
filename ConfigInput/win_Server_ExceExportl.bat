@@ -29,16 +29,4 @@ set Export_Client_Data_ROOT=%WORKSPACE%\Unity\Assets\Bundles\Config
  --output_data_dir %Export_Client_Data_ROOT% ^
  --gen_types code_cs_bin,data_bin ^
  -s client 
-
-
-@ECHO =======================Editor========================== 
-
-set Export_Server_Code_ROOT=%WORKSPACE%\Unity\Assets\Editor\Config\Generate
-
-%GEN_CLIENT% -h %LUBAN_SERVER_IP% -j cfg --^
- -d %Excel_ROOT%\__root__.xml ^
- --input_data_dir %Excel_ROOT% ^
- --output_code_dir %Export_Server_Code_ROOT% ^
- --gen_types code_cs_unity_editor_json ^
- -s editor
 pause

@@ -8,12 +8,13 @@
 using Bright.Serialization;
 using System.Collections.Generic;
 using SimpleJSON;
-
+using System;
 
 
 namespace ET.ConfigEditor
 {
 
+[Serializable]
 public sealed partial class StartMachineConfig :  Bright.Config.EditorBeanBase 
 {
     public StartMachineConfig()
@@ -96,22 +97,22 @@ public sealed partial class StartMachineConfig :  Bright.Config.EditorBeanBase
     /// <summary>
     /// Id
     /// </summary>
-    public int Id { get; set; }
+    public int Id;
 
     /// <summary>
     /// 内网地址
     /// </summary>
-    public string InnerIP { get; set; }
+    public string InnerIP;
 
     /// <summary>
     /// 外网地址
     /// </summary>
-    public string OuterIP { get; set; }
+    public string OuterIP;
 
     /// <summary>
     /// 守护进程端口
     /// </summary>
-    public string WatcherPort { get; set; }
+    public string WatcherPort;
 
 }
 }

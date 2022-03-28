@@ -1,0 +1,14 @@
+<module name="">
+    <bean name="NumericInfo">
+        <var name = "name" type="string"/>
+        <var name = "Base" type="bool"/>
+        <var name = "Add" type="bool"/>
+        <var name = "Pct" type="bool"/>
+        <var name = "FinalAdd" type="bool"/>
+        <var name = "FinalPct" type="bool"/>
+    </bean>
+
+    <bean name="NumericInfoList">
+        <var name="list" type="(list#sep=;),NumericInfo#sep=,"/>
+    </bean>
+</module>

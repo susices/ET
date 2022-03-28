@@ -8,12 +8,13 @@
 using Bright.Serialization;
 using System.Collections.Generic;
 using SimpleJSON;
-
+using System;
 
 
 namespace ET.ConfigEditor
 {
 
+[Serializable]
 public sealed partial class StartZoneConfig :  Bright.Config.EditorBeanBase 
 {
     public StartZoneConfig()
@@ -93,22 +94,22 @@ public sealed partial class StartZoneConfig :  Bright.Config.EditorBeanBase
     /// <summary>
     /// 区服Id 最大1024个
     /// </summary>
-    public int Id { get; set; }
+    public int Id;
 
     /// <summary>
     /// 区服类型
     /// </summary>
-    public int ZoneType { get; set; }
+    public int ZoneType;
 
     /// <summary>
     /// 数据库名
     /// </summary>
-    public string DBName { get; set; }
+    public string DBName;
 
     /// <summary>
     /// 数据库地址
     /// </summary>
-    public string DBConnection { get; set; }
+    public string DBConnection;
 
 }
 }
