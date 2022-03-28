@@ -110,7 +110,7 @@ namespace ET.ConfigEditor
             Template template = Template.Parse(text);
             string result = template.Render( numericInfoList);
             File.WriteAllText(Application.dataPath + "/../../Unity/Codes/Model/Module/Numeric/NumericType.cs", result);
-            Debug.Log("CodeGenerate");
+            Debug.Log("数值代码生成成功");
         }
     }
 }
