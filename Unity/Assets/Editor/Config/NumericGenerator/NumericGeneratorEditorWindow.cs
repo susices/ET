@@ -109,7 +109,7 @@ namespace ET.ConfigEditor
             var text = File.ReadAllText("Assets/Editor/Config/NumericGenerator/NumericGenerator.tpl");
             Template template = Template.Parse(text);
             string result = template.Render( numericInfoList);
-            
+            File.WriteAllText(Application.dataPath + "/../../Unity/Codes/Model/Module/Numeric/NumericType.cs", result);
             Debug.Log("CodeGenerate");
         }
     }
