@@ -53,6 +53,18 @@ namespace ETEditor
             drawRect.x += drawRect.width;
             drawRect.width = 30;
             obj.FinalPct = EditorGUI.Toggle(drawRect, obj.FinalPct);
+            drawRect.x += drawRect.width;
+            drawRect.width = 50;
+            if (GUI.Button(drawRect, "All"))
+            {
+                obj.Base = obj.Add = obj.Pct = obj.FinalAdd = obj.FinalPct = true;
+            }
+            drawRect.x += drawRect.width;
+            drawRect.width = 50;
+            if (GUI.Button(drawRect, "Clear"))
+            {
+                obj.Base = obj.Add = obj.Pct = obj.FinalAdd = obj.FinalPct = false;
+            }
         }
     }
 }

@@ -19,7 +19,10 @@ namespace ET
                     NumericComponent numericComponent = unit.AddComponent<NumericComponent>();
                     // numericComponent.Set(NumericType.Speed, 6f); // 速度是6米每秒
                     // numericComponent.Set(NumericType.AOI, 15000); // 视野15米
-                    
+                    var unitConfig = ConfigComponent.Instance.Tables.UnitConfigCategory.Get(1001);
+                    numericComponent.SetNoEvent(NumericType.Position, unitConfig.Position);
+                    numericComponent.SetNoEvent(NumericType.Height, 178);
+                    numericComponent.SetNoEvent(NumericType.Weight, 68); 
                     unitComponent.Add(unit);
                     // 加入aoi
                     // unit.AddComponent<AOIEntity, int, Vector3>(9 * 1000, unit.Position);
