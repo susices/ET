@@ -12,16 +12,15 @@ namespace ET
     {
 	    public const int Max = 10000;
 
-        public const int Speed = 1000;
+        
+        public const int Speed = 1001;
         public const int SpeedBase = Speed * 10 + 1;
         public const int SpeedAdd = Speed * 10 + 2;
         public const int SpeedPct = Speed * 10 + 3;
         public const int SpeedFinalAdd = Speed * 10 + 4;
         public const int SpeedFinalPct = Speed * 10 + 5;
 
-        public const int Hp = 1001;
-        public const int HpBase = Hp * 10 + 1;
-
+        
         public const int MaxHp = 1002;
         public const int MaxHpBase = MaxHp * 10 + 1;
         public const int MaxHpAdd = MaxHp * 10 + 2;
@@ -29,6 +28,7 @@ namespace ET
         public const int MaxHpFinalAdd = MaxHp * 10 + 4;
         public const int MaxHpFinalPct = MaxHp * 10 + 5;
 
+        
         public const int AOI = 1003;
         public const int AOIBase = AOI * 10 + 1;
         public const int AOIAdd = AOI * 10 + 2;
@@ -36,18 +36,82 @@ namespace ET
         public const int AOIFinalAdd = AOI * 10 + 4;
         public const int AOIFinalPct = AOI * 10 + 5;
 
-        public const int Level = 1004;
+        
+        public const int DamageValue = 1011;
+        public const int DamageValueBase = DamageValue * 10 + 1;
+        public const int DamageValueAdd = DamageValue * 10 + 2;
+        public const int DamageValuePct = DamageValue * 10 + 3;
+        public const int DamageValueFinalAdd = DamageValue * 10 + 4;
+        public const int DamageValueFinalPct = DamageValue * 10 + 5;
 
-        public const int Gold = 1005;
+        
+        public const int DamageAddValue = 1012;
+        public const int DamageAddValueBase = DamageAddValue * 10 + 1;
+        public const int DamageAddValueAdd = DamageAddValue * 10 + 2;
+        public const int DamageAddValuePct = DamageAddValue * 10 + 3;
+        public const int DamageAddValueFinalAdd = DamageAddValue * 10 + 4;
+        public const int DamageAddValueFinalPct = DamageAddValue * 10 + 5;
 
-        public const int Exp = 1006;
+        
+        public const int Hp = 1013;
+        public const int HpBase = Hp * 10 + 1;
+        public const int HpAdd = Hp * 10 + 2;
+        public const int HpPct = Hp * 10 + 3;
+        public const int HpFinalAdd = Hp * 10 + 4;
+        public const int HpFinalPct = Hp * 10 + 5;
 
-        public const int Position = 1007;
+        
+        public const int Mp = 1014;
+        public const int MpBase = Mp * 10 + 1;
+        public const int MpAdd = Mp * 10 + 2;
+        public const int MpPct = Mp * 10 + 3;
+        public const int MpFinalAdd = Mp * 10 + 4;
+        public const int MpFinalPct = Mp * 10 + 5;
 
-        public const int Height = 1008;
+        
+        public const int DefenseValue = 1015;
+        public const int DefenseValueBase = DefenseValue * 10 + 1;
+        public const int DefenseValueAdd = DefenseValue * 10 + 2;
+        public const int DefenseValuePct = DefenseValue * 10 + 3;
+        public const int DefenseValueFinalAdd = DefenseValue * 10 + 4;
+        public const int DefenseValueFinalPct = DefenseValue * 10 + 5;
 
-        public const int Weight = 1009;
+        
+        public const int DefenseAddValue = 1016;
+        public const int DefenseAddValueBase = DefenseAddValue * 10 + 1;
+        public const int DefenseAddValueAdd = DefenseAddValue * 10 + 2;
+        public const int DefenseAddValuePct = DefenseAddValue * 10 + 3;
+        public const int DefenseAddValueFinalAdd = DefenseAddValue * 10 + 4;
+        public const int DefenseAddValueFinalPct = DefenseAddValue * 10 + 5;
 
+        
+        public const int Strength = 3001;
+
+        
+        public const int Vitality = 3002;
+
+        
+        public const int Dexterity = 3003;
+
+        
+        public const int Spirit = 3004;
+
+        
+        public const int AttributePoint = 3005;
+
+        
+        public const int FightValue = 3006;
+
+        
+        public const int Level = 3007;
+
+        
+        public const int Gold = 3008;
+
+        
+        public const int Exp = 3009;
+
+        
 
     }
 }

@@ -395,7 +395,8 @@ public partial class UICodeSpawner
 				
 				if (pair.Key.StartsWith(CommonUIPrefix))
 				{
-					GetSubUIBaseWindowCode(ref strBuilder, pair.Key,strPath);
+					var gameobject = PrefabUtility.GetCorrespondingObjectFromOriginalSource(widget);
+					GetSubUIBaseWindowCode(ref strBuilder, pair.Key,strPath,gameobject.name);
 					continue;
 				}
 				string widgetName = widget.name + strClassType.Split('.').ToList().Last();
@@ -453,7 +454,7 @@ public partial class UICodeSpawner
 
 			    if ( pair.Key.StartsWith(CommonUIPrefix))
 			    {
-				    string subUIClassType = Regex.Replace(pair.Key, @"\d", "");  
+				    string subUIClassType = PrefabUtility.GetCorrespondingObjectFromOriginalSource(widget).name;  
 				    strBuilder.AppendFormat("\t\tprivate {0} m_{1} = null;\r\n", subUIClassType, pair.Key.ToLower());
 				    continue;
 			    }
@@ -528,10 +529,10 @@ public partial class UICodeSpawner
     }
 
 
-    static void GetSubUIBaseWindowCode(ref StringBuilder strBuilder,string widget,string strPath)
+    static void GetSubUIBaseWindowCode(ref StringBuilder strBuilder,string widget,string strPath, string subUIClassType = null)
     {
 	    
-	    string subUIClassType = Regex.Replace(widget, @"\d", "");
+	    //subUIClassType = Regex.Replace(widget, @"\d", "");
 	    
 	    strBuilder.AppendFormat("		public {0} {1}\r\n", subUIClassType, widget );
 	    strBuilder.AppendLine("     	{");

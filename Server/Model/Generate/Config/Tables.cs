@@ -20,6 +20,7 @@ public partial class Tables
     public StartZoneConfigCategory StartZoneConfigCategory {get; }
     public UnitConfigCategory UnitConfigCategory {get; }
     public ServerInfoConfigCategory ServerInfoConfigCategory {get; }
+    public PlayerNumericConfigCatrgory PlayerNumericConfigCatrgory {get; }
 
     public Tables(System.Func<string, ByteBuf> loader)
     {
@@ -38,6 +39,8 @@ public partial class Tables
         tables.Add("UnitConfigCategory", UnitConfigCategory);
         ServerInfoConfigCategory = new ServerInfoConfigCategory(loader("serverinfoconfigcategory")); 
         tables.Add("ServerInfoConfigCategory", ServerInfoConfigCategory);
+        PlayerNumericConfigCatrgory = new PlayerNumericConfigCatrgory(loader("playernumericconfigcatrgory")); 
+        tables.Add("PlayerNumericConfigCatrgory", PlayerNumericConfigCatrgory);
 
         PostInit();
         AIConfigCategory.Resolve(tables); 
@@ -47,6 +50,7 @@ public partial class Tables
         StartZoneConfigCategory.Resolve(tables); 
         UnitConfigCategory.Resolve(tables); 
         ServerInfoConfigCategory.Resolve(tables); 
+        PlayerNumericConfigCatrgory.Resolve(tables); 
         PostResolve();
     }
 
@@ -59,6 +63,7 @@ public partial class Tables
         StartZoneConfigCategory.TranslateText(translator); 
         UnitConfigCategory.TranslateText(translator); 
         ServerInfoConfigCategory.TranslateText(translator); 
+        PlayerNumericConfigCatrgory.TranslateText(translator); 
     }
     
     partial void PostInit();

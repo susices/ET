@@ -12,9 +12,9 @@ namespace ET
     {
 	    public const int Max = 10000;
 
-        {{~index=1000~}}
+        
         {{~for numericInfo in list~}}
-        public const int {{numericInfo.name}} = {{index}};
+        public const int {{numericInfo.name}} = {{numericInfo.id}};
         {{~if numericInfo.base~}}
         public const int {{numericInfo.name}}Base = {{numericInfo.name}} * 10 + 1;
         {{~end~}}
@@ -31,7 +31,7 @@ namespace ET
         public const int {{numericInfo.name}}FinalPct = {{numericInfo.name}} * 10 + 5;
         {{~end~}}
 
-        {{~index = index+1~}}
+        
         {{~end~}}
 
     }

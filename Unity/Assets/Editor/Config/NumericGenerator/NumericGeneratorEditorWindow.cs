@@ -104,8 +104,33 @@ namespace ET.ConfigEditor
             this.numericInfoList.SaveJsonFile(this.dataPath);
         }
 
+        private bool PreCheck()
+        {
+            HashSet<int> ids = new HashSet<int>();
+            HashSet<string> names = new HashSet<string>();
+            foreach (var numericInfo in this.numericInfoList.List)
+            {
+                if (!ids.Add(numericInfo.Id) )
+                {
+                    Debug.LogError($"存在重复Id: {numericInfo.Id.ToString()}");
+                    return false;
+                }
+                if (!names.Add(numericInfo.Name))
+                {
+                    Debug.LogError($"存在重复Name: {numericInfo.Name}");
+                    return false;
+                }
+            }
+            return true;
+        }
+
         private void CodeGenerate()
         {
+            if (!this.PreCheck())
+            {
+                Debug.LogError("代码生成退出 请检查配置");
+                return;
+            }
             var text = File.ReadAllText("Assets/Editor/Config/NumericGenerator/NumericGenerator.tpl");
             Template template = Template.Parse(text);
             string result = template.Render( numericInfoList);

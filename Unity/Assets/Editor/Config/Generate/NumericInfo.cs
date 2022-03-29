@@ -25,6 +25,14 @@ public sealed partial class NumericInfo :  Bright.Config.EditorBeanBase
     public override void LoadJson(SimpleJSON.JSONObject _json)
     {
         { 
+            var _fieldJson = _json["Id"];
+            if (_fieldJson != null)
+            {
+                if(!_fieldJson.IsNumber) { throw new SerializationException(); }  Id = _fieldJson;
+            }
+        }
+        
+        { 
             var _fieldJson = _json["name"];
             if (_fieldJson != null)
             {
@@ -78,6 +86,9 @@ public sealed partial class NumericInfo :  Bright.Config.EditorBeanBase
     {
         _json["$type"] = "NumericInfo";
         {
+            _json["Id"] = new JSONNumber(Id);
+        }
+        {
 
             if (Name == null) { throw new System.ArgumentNullException(); }
             _json["name"] = new JSONString(Name);
@@ -110,6 +121,8 @@ public sealed partial class NumericInfo :  Bright.Config.EditorBeanBase
     {
         _obj.SaveJson((SimpleJSON.JSONObject)_json);
     }
+
+    public int Id;
 
     public string Name;
 

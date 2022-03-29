@@ -1,5 +1,6 @@
 <module name="">
     <bean name="NumericInfo">
+        <var name = "Id" type = "int"/>
         <var name = "name" type="string"/>
         <var name = "Base" type="bool"/>
         <var name = "Add" type="bool"/>

@@ -16,6 +16,12 @@ namespace ETEditor
                 return;
             }
             var drawRect = rect;
+            drawRect.width = 40;
+            EditorGUI.LabelField(drawRect,"Id");
+            drawRect.x += drawRect.width;
+            drawRect.width = 60;
+            obj.Id = EditorGUI.IntField(drawRect, obj.Id);
+            drawRect.x += drawRect.width;
             drawRect.width = 60;
             EditorGUI.LabelField(drawRect, "Name");
             drawRect.x += drawRect.width;

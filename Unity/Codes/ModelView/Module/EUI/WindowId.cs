@@ -11,5 +11,6 @@
         WindowID_Roles,  //角色列表界面
         WindowID_Tips,  //信息弹窗界面
         WindowID_Main,  //游戏内主界面
+        WindowID_RoleInfo, //角色信息界面
     }
 }
