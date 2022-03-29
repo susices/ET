@@ -189,7 +189,6 @@ namespace ILRuntime.Runtime.Generated
             System_Collections_Generic_KeyValuePair_2_Type_Int32_Binding.Register(app);
             System_Collections_Generic_Dictionary_2_Type_UnOrderMultiMap_2_Type_Object_Binding.Register(app);
             System_DateTime_Binding.Register(app);
-            ET_JsonHelper_Binding.Register(app);
             System_Collections_Generic_Dictionary_2_Type_Queue_1_ILTypeInstance_Binding.Register(app);
             System_Collections_Generic_Queue_1_ILTypeInstance_Binding.Register(app);
             System_Collections_Generic_Dictionary_2_Type_Object_Binding.Register(app);
