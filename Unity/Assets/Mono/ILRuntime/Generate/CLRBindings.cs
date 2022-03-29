@@ -35,10 +35,10 @@ namespace ILRuntime.Runtime.Generated
             ET_Log_Binding.Register(app);
             ET_ETTask_1_Boolean_Binding.Register(app);
             ET_ETTask_1_Int32_Binding.Register(app);
-            ET_ETTask_1_ILTypeInstance_Binding.Register(app);
             ET_ETAsyncTaskMethodBuilder_1_Int32_Binding.Register(app);
             ET_NetworkHelper_Binding.Register(app);
             ET_MD5Helper_Binding.Register(app);
+            ET_ETTask_1_ILTypeInstance_Binding.Register(app);
             System_Object_Binding.Register(app);
             System_Collections_Generic_List_1_ILTypeInstance_Binding.Register(app);
             System_Collections_Generic_List_1_ILTypeInstance_Binding_Enumerator_Binding.Register(app);
@@ -95,6 +95,8 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine_Camera_Binding.Register(app);
             UnityEngine_Physics_Binding.Register(app);
             UnityEngine_RaycastHit_Binding.Register(app);
+            System_Collections_Generic_Dictionary_2_String_LoadSceneHandler_Binding.Register(app);
+            BM_LoadHandlerBase_Binding.Register(app);
             UnityEngine_AsyncOperation_Binding.Register(app);
             UnityEngine_SceneManagement_SceneManager_Binding.Register(app);
             ET_ETTask_1_LoadSceneHandler_Binding.Register(app);
@@ -154,6 +156,7 @@ namespace ILRuntime.Runtime.Generated
             System_Action_Binding.Register(app);
             ET_MonoPool_Binding.Register(app);
             System_Collections_Generic_Dictionary_2_Int64_ILTypeInstance_Binding.Register(app);
+            LitJson_JsonMapper_Binding.Register(app);
             System_Collections_Generic_HashSet_1_ILTypeInstance_Binding.Register(app);
             System_Collections_Generic_HashSet_1_ILTypeInstance_Binding_Enumerator_Binding.Register(app);
             System_Collections_Generic_Dictionary_2_Type_ILTypeInstance_Binding.Register(app);

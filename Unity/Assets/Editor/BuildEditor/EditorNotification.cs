@@ -24,28 +24,28 @@ namespace ET
             OnEditorFocus(isFocused);
         }
         /// <summary>
-        /// Unity´°¿Ú¾Û½¹×´Ì¬¸Ä±ä»Øµ÷
+        /// Unityçª—å£èšç„¦çŠ¶æ€æ”¹å˜å›è°ƒ
         /// </summary>
         /// <param name="focus"></param>
         private static void OnEditorFocus(bool focus)
         {
             if (focus)
             {
-                //Ã¿´ÎÇĞ»ØÀ´Unity£¬×Ô¶¯Ö´ĞĞ½Å±¾±àÒë
-                // Debug.Log($"±à¼­Æ÷¼¤»î×´Ì¬:{focus}");
+                //æ¯æ¬¡åˆ‡å›æ¥Unityï¼Œè‡ªåŠ¨æ‰§è¡Œè„šæœ¬ç¼–è¯‘
+                // Debug.Log($"ç¼–è¾‘å™¨æ¿€æ´»çŠ¶æ€:{focus}");
                 bool autoBuild = PlayerPrefs.HasKey("AutoBuild");
                 if (!autoBuild)
                     return;
                 BuildAssemblieEditor.BuildCodeDebug();
-            }
+            } 
         }
 
         /// <summary>
-        /// AssetÏÂÎÄ¼ş¸Ä±äÊ±»Øµ÷
+        /// Assetä¸‹æ–‡ä»¶æ”¹å˜æ—¶å›è°ƒ
         /// </summary>
         private void OnPreprocessAsset()
         {
-            //Debug.Log("AssetÏÂÎÄ¼ş¸Ä±äÊ±»Øµ÷");
+            //Debug.Log("Assetä¸‹æ–‡ä»¶æ”¹å˜æ—¶å›è°ƒ");
         }
     }
 }
