@@ -7,6 +7,8 @@ namespace ET
     {
         protected override async ETTask Run(Unit unit, G2M_RequestExitGame request, M2G_RequestExitGame response, Action reply)
         {
+            Log.Debug("开始下线保存数据");
+            unit.GetComponent<UnitDBSaveComponent>()?.SaveChange();
             reply();
             await unit.RemoveLocation();
             unit.DomainScene().GetComponent<UnitComponent>().Remove(unit.Id);

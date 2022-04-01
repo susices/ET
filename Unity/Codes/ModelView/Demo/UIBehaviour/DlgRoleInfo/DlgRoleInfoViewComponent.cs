@@ -22,6 +22,23 @@ namespace ET
      		}
      	}
 
+		public UnityEngine.UI.Text E_AttributePointValueText
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_AttributePointValueText == null )
+     			{
+		    		this.m_E_AttributePointValueText = UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"BackGround/Panel/AttributePoint/E_AttributePointValue");
+     			}
+     			return this.m_E_AttributePointValueText;
+     		}
+     	}
+
 		public ES_AttributeItem ES_AttributeItemStrength
      	{
      		get
@@ -40,7 +57,7 @@ namespace ET
      		}
      	}
 
-		public ES_AttributeItem ES_AttributeItem1
+		public ES_AttributeItem ES_AttributeItemVitality
      	{
      		get
      		{
@@ -49,16 +66,16 @@ namespace ET
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-     			if( this.m_es_attributeitem1 == null )
+     			if( this.m_es_attributeitemvitality == null )
      			{
-		    	   Transform subTrans = UIFindHelper.FindDeepChild<Transform>(this.uiTransform.gameObject,"BackGround/Panel/ES_AttributeItem1");
-		    	   this.m_es_attributeitem1 = this.AddChild<ES_AttributeItem,Transform>(subTrans);
+		    	   Transform subTrans = UIFindHelper.FindDeepChild<Transform>(this.uiTransform.gameObject,"BackGround/Panel/ES_AttributeItemVitality");
+		    	   this.m_es_attributeitemvitality = this.AddChild<ES_AttributeItem,Transform>(subTrans);
      			}
-     			return this.m_es_attributeitem1;
+     			return this.m_es_attributeitemvitality;
      		}
      	}
 
-		public ES_AttributeItem ES_AttributeItem2
+		public ES_AttributeItem ES_AttributeItemDexterity
      	{
      		get
      		{
@@ -67,16 +84,16 @@ namespace ET
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-     			if( this.m_es_attributeitem2 == null )
+     			if( this.m_es_attributeitemdexterity == null )
      			{
-		    	   Transform subTrans = UIFindHelper.FindDeepChild<Transform>(this.uiTransform.gameObject,"BackGround/Panel/ES_AttributeItem2");
-		    	   this.m_es_attributeitem2 = this.AddChild<ES_AttributeItem,Transform>(subTrans);
+		    	   Transform subTrans = UIFindHelper.FindDeepChild<Transform>(this.uiTransform.gameObject,"BackGround/Panel/ES_AttributeItemDexterity");
+		    	   this.m_es_attributeitemdexterity = this.AddChild<ES_AttributeItem,Transform>(subTrans);
      			}
-     			return this.m_es_attributeitem2;
+     			return this.m_es_attributeitemdexterity;
      		}
      	}
 
-		public ES_AttributeItem ES_AttributeItem3
+		public ES_AttributeItem ES_AttributeItemSpirit
      	{
      		get
      		{
@@ -85,12 +102,12 @@ namespace ET
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-     			if( this.m_es_attributeitem3 == null )
+     			if( this.m_es_attributeitemspirit == null )
      			{
-		    	   Transform subTrans = UIFindHelper.FindDeepChild<Transform>(this.uiTransform.gameObject,"BackGround/Panel/ES_AttributeItem3");
-		    	   this.m_es_attributeitem3 = this.AddChild<ES_AttributeItem,Transform>(subTrans);
+		    	   Transform subTrans = UIFindHelper.FindDeepChild<Transform>(this.uiTransform.gameObject,"BackGround/Panel/ES_AttributeItemSpirit");
+		    	   this.m_es_attributeitemspirit = this.AddChild<ES_AttributeItem,Transform>(subTrans);
      			}
-     			return this.m_es_attributeitem3;
+     			return this.m_es_attributeitemspirit;
      		}
      	}
 
@@ -213,17 +230,52 @@ namespace ET
      		}
      	}
 
+		public UnityEngine.UI.Button E_CloseBtnButton
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_CloseBtnButton == null )
+     			{
+		    		this.m_E_CloseBtnButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"BackGround/Panel/E_CloseBtn");
+     			}
+     			return this.m_E_CloseBtnButton;
+     		}
+     	}
+
+		public UnityEngine.UI.Image E_CloseBtnImage
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_CloseBtnImage == null )
+     			{
+		    		this.m_E_CloseBtnImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"BackGround/Panel/E_CloseBtn");
+     			}
+     			return this.m_E_CloseBtnImage;
+     		}
+     	}
+
 		public void DestroyWidget()
 		{
 			this.m_E_FightValueText = null;
+			this.m_E_AttributePointValueText = null;
 			this.m_es_attributeitemstrength?.Dispose();
 			this.m_es_attributeitemstrength = null;
-			this.m_es_attributeitem1?.Dispose();
-			this.m_es_attributeitem1 = null;
-			this.m_es_attributeitem2?.Dispose();
-			this.m_es_attributeitem2 = null;
-			this.m_es_attributeitem3?.Dispose();
-			this.m_es_attributeitem3 = null;
+			this.m_es_attributeitemvitality?.Dispose();
+			this.m_es_attributeitemvitality = null;
+			this.m_es_attributeitemdexterity?.Dispose();
+			this.m_es_attributeitemdexterity = null;
+			this.m_es_attributeitemspirit?.Dispose();
+			this.m_es_attributeitemspirit = null;
 			this.m_E_DamageValueText = null;
 			this.m_E_DamageAddValueText = null;
 			this.m_E_HPValueText = null;
@@ -231,14 +283,17 @@ namespace ET
 			this.m_E_EnergyValueText = null;
 			this.m_E_DefenseValueText = null;
 			this.m_E_DefenseAddValueText = null;
+			this.m_E_CloseBtnButton = null;
+			this.m_E_CloseBtnImage = null;
 			this.uiTransform = null;
 		}
 
 		private UnityEngine.UI.Text m_E_FightValueText = null;
+		private UnityEngine.UI.Text m_E_AttributePointValueText = null;
 		private ES_AttributeItem m_es_attributeitemstrength = null;
-		private ES_AttributeItem m_es_attributeitem1 = null;
-		private ES_AttributeItem m_es_attributeitem2 = null;
-		private ES_AttributeItem m_es_attributeitem3 = null;
+		private ES_AttributeItem m_es_attributeitemvitality = null;
+		private ES_AttributeItem m_es_attributeitemdexterity = null;
+		private ES_AttributeItem m_es_attributeitemspirit = null;
 		private UnityEngine.UI.Text m_E_DamageValueText = null;
 		private UnityEngine.UI.Text m_E_DamageAddValueText = null;
 		private UnityEngine.UI.Text m_E_HPValueText = null;
@@ -246,6 +301,8 @@ namespace ET
 		private UnityEngine.UI.Text m_E_EnergyValueText = null;
 		private UnityEngine.UI.Text m_E_DefenseValueText = null;
 		private UnityEngine.UI.Text m_E_DefenseAddValueText = null;
+		private UnityEngine.UI.Button m_E_CloseBtnButton = null;
+		private UnityEngine.UI.Image m_E_CloseBtnImage = null;
 		public Transform uiTransform = null;
 	}
 }

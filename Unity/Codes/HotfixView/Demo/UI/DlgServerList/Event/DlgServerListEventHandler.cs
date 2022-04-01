@@ -32,6 +32,7 @@
 
 		public void BeforeUnload(UIBaseWindow uiBaseWindow)
 		{
+			uiBaseWindow.GetComponent<DlgServerList>().UnLoadWindow();
 		}
 	}
 }

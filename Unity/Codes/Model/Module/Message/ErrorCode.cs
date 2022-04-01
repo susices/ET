@@ -35,6 +35,9 @@ namespace ET
         public const int ERR_EnterGameError = 200020;  //  进入逻辑服错误
         public const int ERR_ReEnterGameError = 200021;  //  二次登录错误
         public const int ERR_ReEnterGameError2 = 200022;  //  二次登录错误2
+        public const int ERR_NumericTypeNotExist = 200023;  // 数值类型不存在
+        public const int ERR_NumericTypeNotAddPoint = 200024;  //  数值类型不是可加点类型
+        public const int ERR_AddPointNotEnough = 200025;  //  加点数量不足
 
     }
 }

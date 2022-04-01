@@ -37,6 +37,11 @@ namespace ET
 			self.RefreshRoleItems();
 		}
 
+		public static void UnLoadWindow(this DlgRoles self)
+		{
+			self.View.ELoopScrollList_RolesLoopHorizontalScrollRect.ReleaseLoopScrollObject();
+		}
+
 		public static void RefreshRoleItems(this DlgRoles self)
 		{
 			int count = self.ZoneScene().GetComponent<RoleInfosComponent>().RoleInfos.Count;

@@ -234,6 +234,15 @@ namespace ET
             });
         }
 
+        /// <summary>
+        /// 释放循环列表对象池
+        /// </summary>
+        /// <param name="self"></param>
+        public static void ReleaseLoopScrollObject(this LoopScrollRectBase self)
+        {
+            GameObjectPoolHelper.ReleasePool(self.prefabSource.prefabPath);
+        }
+
         #endregion
     }
 }

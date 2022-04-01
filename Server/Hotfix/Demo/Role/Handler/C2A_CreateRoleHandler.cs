@@ -42,7 +42,7 @@ namespace ET
             {
                 using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.CreateRole, request.AccountId.GetHashCode()))
                 {
-                    var roleInfos = await DBManagerComponent.Instance.GetZoneDB(request.ServerId).Query<RoleInfo>(d => d.Name == request.Name && d.ServerId==request.ServerId);
+                    var roleInfos = await DBManagerComponent.Instance.GetZoneDB(request.ServerId).Query<RoleInfo>(d => d.Name == request.Name && d.ServerId==request.ServerId && d.Status== (int)RoleInfoState.Normal);
                     if (roleInfos!=null && roleInfos.Count>0)
                     {
                         response.Error = ErrorCode.ERR_RoleNameSame;

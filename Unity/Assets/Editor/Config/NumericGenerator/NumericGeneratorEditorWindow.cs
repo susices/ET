@@ -48,7 +48,7 @@ namespace ET.ConfigEditor
             if (GUI.Button(GenerateBtnRect, "代码生成"))
             {
                 this.CodeGenerate();
-            }
+            }  
         }
         
         private void Init()

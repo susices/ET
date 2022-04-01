@@ -43,6 +43,11 @@ namespace ET
 			self.RemoveUIScrollItems(ref self.ScrollItemServerInfoDic);
 		}
 
+		public static void UnLoadWindow(this DlgServerList self)
+		{
+			self.View.ELoopScrollList_ServerListLoopVerticalScrollRect.ReleaseLoopScrollObject();
+		}
+
 		public static void OnSelectServerItemHandler(this DlgServerList self, long serverId)
 		{
 			self.ZoneScene().GetComponent<ServerInfosComponent>().CurrentServerId = int.Parse(serverId.ToString());

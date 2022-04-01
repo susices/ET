@@ -448,3 +448,17 @@ message M2C_NoticeUnitNumeric  //  IActorMessage
 	int32 NumericType = 2;
 	int64 NewValue = 3;
 }
+
+//ResponseType M2C_AddAttributePoint
+message C2M_AddAttributePoint  //  IActorLocationRequest
+{
+	int32 RpcId  = 1;
+	int32 NumericType = 2;
+}
+
+message M2C_AddAttributePoint  //  IActorLocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}

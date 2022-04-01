@@ -151,5 +151,15 @@ namespace ET
                 Debug.LogError(string.Format("Trying to add object to incorrect pool {0} {1}", po.poolName, poolName));
             }
         }
+
+        public void ReleaseUnusedObject()
+        {
+            while (availableObjStack.Count>0)
+            {
+                var poolObj = this.availableObjStack.Pop();
+                poolObj.isPooled = false;
+                Object.Destroy(poolObj.gameObject);
+            }
+        }
     }
 }

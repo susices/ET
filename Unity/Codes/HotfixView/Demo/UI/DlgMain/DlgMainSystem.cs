@@ -31,22 +31,7 @@ namespace ET
 
 		public static async ETTask OnRoleBtnClickHandler(this DlgMain self)
 		{
-			try
-			{
-				int error = await NumericHelper.TestUpdateNumeric(self.ZoneScene());
-				if (error!=ErrorCode.ERR_Success)
-				{
-					Log.Error(error.ToString());
-					return;
-				}
-				Log.Debug("测试数值消息发送成功");
-			}
-			catch (Exception e)
-			{
-				Log.Error(e.ToString());
-				return;
-			}
-			
+			await self.ZoneScene().GetComponent<UIComponent>().HideAndShowWindowStackAsync(WindowID.WindowID_Main, WindowID.WindowID_RoleInfo);
 		}
 
 	}

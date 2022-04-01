@@ -152,5 +152,20 @@ namespace ET
             pb = AssetComponent.Load<GameObject>(poolAssetPath);
             return pb;
         }
+
+        /// <summary>
+        /// 释放对象池中的未使用的对象
+        /// </summary>
+        /// <param name="poolName"></param>
+        public static void ReleasePool(string poolName)
+        {
+            if (!poolDict.ContainsKey(poolName))
+            {
+                Log.Error($"对象池不存在 {poolName}");
+                return;
+            }
+            poolDict[poolName].ReleaseUnusedObject();
+            AssetComponent.UnLoadByPath(poolName);
+        }
     }
 }

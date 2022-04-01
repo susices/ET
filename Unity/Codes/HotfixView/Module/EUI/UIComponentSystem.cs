@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using BM;
+using ET.EventType;
 
 namespace ET
 {
@@ -176,7 +177,12 @@ namespace ET
                 Log.Warning($"检测关闭 WindowsID: {id} 失败！");
                 return;
             }
-
+            
+            Game.EventSystem.Publish(new AfterHideUI()
+            {
+                UIBaseWindow = self.GetUIBaseWindow(id)
+            });
+            
             if ( isPushToStack )
             {
                 return;
@@ -405,6 +411,11 @@ namespace ET
             {
                 self.HideWindowsStack.Push(preWindowID);
             }
+            
+            Game.EventSystem.Publish(new AfterShowUI()
+            {
+                UIBaseWindow = baseWindow
+            });
          
             Debug.Log("<color=magenta>### current Navigation window </color>" + baseWindow.WindowID.ToString());
         }
