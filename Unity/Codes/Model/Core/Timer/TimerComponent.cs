@@ -109,9 +109,21 @@ namespace ET
 
         public void Awake()
         {
+            this.foreachFunc = (k, v) =>
+            {
+                if (k > this.timeNow)
+                {
+                    minTime = k;
+                    return false;
+                }
+
+                this.timeOutTime.Enqueue(k);
+                return true;
+            };
+            
             this.timerActions = new ITimer[TimeTypeMax];
 
-            HashSet<Type> types = Game.EventSystem.GetTypes(typeof (TimerAttribute));
+            List<Type> types = Game.EventSystem.GetTypes(typeof (TimerAttribute));
 
             foreach (Type type in types)
             {
@@ -136,6 +148,9 @@ namespace ET
             }
         }
 
+        private long timeNow;
+        private Func<long, List<long>, bool> foreachFunc;
+
         public void Update()
         {
             if (this.TimeId.Count == 0)
@@ -143,30 +158,22 @@ namespace ET
                 return;
             }
 
-            long timeNow = TimeHelper.ServerNow();
+            timeNow = TimeHelper.ServerNow();
 
             if (timeNow < this.minTime)
             {
                 return;
             }
 
-            foreach (KeyValuePair<long, List<long>> kv in this.TimeId)
-            {
-                long k = kv.Key;
-                if (k > timeNow)
-                {
-                    minTime = k;
-                    break;
-                }
-
-                this.timeOutTime.Enqueue(k);
-            }
+            this.TimeId.ForEachFunc(this.foreachFunc);
 
             while (this.timeOutTime.Count > 0)
             {
                 long time = this.timeOutTime.Dequeue();
-                foreach (long timerId in this.TimeId[time])
+                var list = this.TimeId[time];
+                for (int i = 0; i < list.Count; ++i)
                 {
+                    long timerId = list[i];
                     this.timeOutTimerIds.Enqueue(timerId);
                 }
 
@@ -295,7 +302,8 @@ namespace ET
 
         public async ETTask<bool> WaitFrameAsync(ETCancellationToken cancellationToken = null)
         {
-            return await WaitAsync(1, cancellationToken);
+            bool ret = await WaitAsync(1, cancellationToken);
+            return ret;
         }
 
         public async ETTask<bool> WaitAsync(long time, ETCancellationToken cancellationToken = null)
