@@ -23,7 +23,6 @@ namespace ET
 			StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "Map1");
 			response.MyId = player.Id;
 			reply();
-			
 			// 开始传送
 			await TransferHelper.Transfer(unit, startSceneConfig.InstanceId, startSceneConfig.Name);
 		}

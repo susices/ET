@@ -3,6 +3,8 @@ using System.Linq;
 
 namespace ET
 {
+	[ChildType(typeof(Player))]
+	[ChildType(typeof(Unit))]
 	public class PlayerComponent : Entity, IAwake, IDestroy
 	{
 		private readonly Dictionary<long, Player> idPlayers = new Dictionary<long, Player>();
@@ -10,6 +12,8 @@ namespace ET
 		public void Add(Player player)
 		{
 			this.idPlayers.Add(player.Id, player);
+			
+			
 		}
 
 		public Player Get(long id)

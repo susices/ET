@@ -14,6 +14,7 @@ namespace ET
 			
 			unitComponent.AddChild(unit);
 			unitComponent.Add(unit);
+			unitComponent.AddChild(scene);
 
 			foreach (Entity entity in request.Entitys)
 			{

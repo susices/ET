@@ -27,7 +27,10 @@ namespace ET
                 case SceneType.Gate:
                     scene.AddComponent<NetKcpComponent, IPEndPoint, int>(startSceneConfig.OuterIPPort, SessionStreamDispatcherType.SessionStreamDispatcherServerOuter);
                     scene.AddComponent<PlayerComponent>();
+                    
                     scene.AddComponent<GateSessionKeyComponent>();
+                    
+                    
                     break;
                 case SceneType.Map:
                     scene.AddComponent<UnitComponent>();

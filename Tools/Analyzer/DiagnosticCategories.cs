@@ -1,10 +1,10 @@
-﻿namespace Analyzer
+﻿namespace ET.Analyzer
 {
     public static class DiagnosticCategories
     {
-        public const string Stateless = "SampleStatelessAnalyzers";
-        public const string Stateful = "SampleStatefulAnalyzers";
-        public const string AdditionalFile = "SampleAdditionalFileAnalyzers";
+        public const string Stateless = "ETStatelessAnalyzers";
+        public const string Stateful = "ETStatefulAnalyzers";
+        public const string AdditionalFile = "ETAdditionalFileAnalyzers";
     }
 }
 

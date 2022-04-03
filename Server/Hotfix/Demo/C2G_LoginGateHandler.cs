@@ -22,6 +22,7 @@ namespace ET
 
 			PlayerComponent playerComponent = scene.GetComponent<PlayerComponent>();
 			Player player = playerComponent.AddChild<Player, string>(account);
+			playerComponent.AddChild<Unit, int>(1);
 			playerComponent.Add(player);
 			session.AddComponent<SessionPlayerComponent>().PlayerId = player.Id;
 			session.AddComponent<MailBoxComponent, MailboxType>(MailboxType.GateSession);
@@ -31,4 +32,17 @@ namespace ET
 			await ETTask.CompletedTask;
 		}
 	}
+
+	// public class TestAddChild
+	// {
+	// 	public void Test()
+	// 	{
+	// 		this.AddChild();
+	// 	}
+	//
+	// 	public void AddChild()
+	// 	{
+	// 		
+	// 	}
+	// }
 }
